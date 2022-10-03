@@ -17,17 +17,6 @@ VARIETIES = (
     ('E', 'Excelsa')
 )
 # Create your models here.
-Days = (
-    ('Mon', 'Monday'),
-    ('Tue', 'Tuesday'),
-    ('Wed', 'Wednesday'),
-    ('Thr', 'Thursday'),
-    ('Fri', 'Friday'),
-    ('Sat', 'Saturday'),
-    ('Sun', 'Sunday')
-)
-
-
 class Cafe(models.Model):
     cafe_name = models.CharField(max_length=250)
     cafe_bio = models.CharField(max_length=2500)
@@ -45,7 +34,7 @@ class Cafe(models.Model):
     
     
 class Event(models.Model):
-    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
+    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)   
     event_name = models.CharField(max_length=250)
     event_description = models.CharField(max_length=1000)
     event_weekday = models.CharField(max_length=20)
