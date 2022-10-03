@@ -5,13 +5,22 @@ from .models import Cafe, CoffeeBean, User
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView
 from .filters import CoffeeBeanFilter
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
 class CafeCreate(CreateView):
   model = Cafe
   fields = '__all__'
 
+class CafeUpdate(UpdateView):
+  model = Cafe
+  fields = '__all__'
   
+class CafeDelete(DeleteView):
+  model = Cafe
+  success_url = '/cafes/'
+
+
 # Define the home view
 def home(request):
   return render(request,'home.html')
