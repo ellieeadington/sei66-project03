@@ -6,7 +6,7 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
-    path('cafes/', views.cafes_index, name='index'),
+    path('/', views.cafes_index, name='index'),
 
     # ROB SECTION
     path('cafes/<int:cafe_id>', views.cafes_detail, name='detail'),
