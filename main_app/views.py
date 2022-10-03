@@ -4,6 +4,7 @@ from .models import Cafe, CoffeeBean, User
 # Create your views here.
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView
+from .filters import CoffeeBeanFilter
 
 
 class CafeCreate(CreateView):
@@ -29,6 +30,7 @@ def cafes_index(request):
 def cafes_detail(request, cafe_id):
 
   cafe = Cafe.objects.get(id = cafe_id)
+  
   return render(request, 'cafes/detail.html', {'cafe': cafe})
 
 
@@ -87,9 +89,11 @@ def signup(request):
 
 def coffee_beans_index(request):
   coffee_beans = CoffeeBean.objects.all()
-  return render(request, 'coffee_beans/index.html', { 'coffee_beans': coffee_beans })
+  coffee_bean_filter = CoffeeBeanFilter(request.GET, queryset=coffee_beans)
+  coffee_beans = coffee_bean_filter.qs
+  return render(request, 'coffee_beans/index.html', { 'coffee_beans': coffee_beans, 'coffee_bean_filter':coffee_bean_filter })
 
 
 def coffee_beans_detail(request, coffee_beans_id):
   coffee_bean = CoffeeBean.objects.get(id = coffee_beans_id)
-  return render(request, 'coffee_beans/detail.html',{ 'coffee_bean': coffee_bean })
+  return render(request, 'coffee_beans/detail.html',{ 'coffee_bean': coffee_bean})

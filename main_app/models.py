@@ -16,6 +16,16 @@ VARIETIES = (
     ('L', 'Liberica'),
     ('E', 'Excelsa')
 )
+
+class CoffeeBean(models.Model):
+    coffee_bean_name = models.CharField(max_length=250)
+    coffee_bean_variety =  models.CharField(max_length=1000, choices=VARIETIES, default=VARIETIES[0][0])
+    coffee_bean_description = models.CharField(max_length=2000)
+    roastery_name = models.CharField(max_length=250)
+    date_harvested = models.CharField(max_length=250)
+    coffee_bean_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
+    coffee_bean_location = models.CharField(max_length=250)
+    
 # Create your models here.
 class Cafe(models.Model):
     cafe_name = models.CharField(max_length=250)
@@ -31,6 +41,7 @@ class Cafe(models.Model):
     menu_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     cafe_website = models.CharField(max_length=1000)
     #user = models.ForeignKey(User, on_delete=models.CASCADE)
+    coffee_beans = models.ManyToManyField(CoffeeBean)
     
     
 class Event(models.Model):
@@ -48,15 +59,6 @@ class Review(models.Model):
     stars = models.CharField(max_length=2, choices=STARS, default=STARS[0][0])
     review_title = models.CharField(max_length=250)
     review_body = models.CharField(max_length=1000)
-
-class CoffeeBean(models.Model):
-    coffee_bean_name = models.CharField(max_length=250)
-    coffee_bean_variety =  models.CharField(max_length=1000, choices=VARIETIES, default=VARIETIES[0][0])
-    coffee_bean_description = models.CharField(max_length=2000)
-    roastery_name = models.CharField(max_length=250)
-    date_harvested = models.CharField(max_length=250)
-    coffee_bean_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
-    coffee_bean_location = models.CharField(max_length=250)
     
 class CafeOpening(models.Model):
     weekday_open = models.CharField(max_length=250)
