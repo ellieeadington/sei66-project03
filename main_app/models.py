@@ -1,6 +1,16 @@
 from django.db import models
 
 # Create your models here.
+Days = (
+    ('Chemex', 'Chemex')
+    ('Tue', '')
+    ('Wed', 'Wednesday')
+    ('Thr', 'Thursday')
+    ('Fri', 'Friday')
+    ('Sat', 'Saturday')
+    ('Sun', 'Sunday')
+)
+
 class Cafe:
     cafe_name = models.CharField(max_length=250),
     cafe_bio = models.CharField(max_length=2500),
