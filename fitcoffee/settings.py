@@ -14,7 +14,7 @@ from pathlib import Path
 
 import os 
 from dotenv import load_dotenv
-load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('DATABASENAME'),
         'USER': os.getenv('DATABASEUSER'),
-        'PASSWORD': os.getenv('DATABASEPASSWORD')
+        'PASSWORD': os.getenv('DATABASEPASSWORD'),
     }
 }
 

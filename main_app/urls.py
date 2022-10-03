@@ -17,6 +17,7 @@ urlpatterns = [
     
     
     # ASHISH SECTION
+    path('acounts/signup', views.signup, name="signup")
     
     
     
