@@ -43,3 +43,13 @@ body {
     padding-top: 0;
     text-align: right;
   }
+  
+  .coffee-beans {
+    display: flex;
+    flex-direction: row;
+
+  }
+
+  .coffee-bean-details {
+    width: 500px;
+  }

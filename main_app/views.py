@@ -1,7 +1,5 @@
-from django.shortcuts import render, redirect
-from .models import Cafe
-from django.contrib.auth.forms import UserCreationForm 
-from django.contrib.auth import login
+from django.shortcuts import render,redirect
+from .models import Cafe, CoffeeBean, User
 
 # Create your views here.
 from django.http import HttpResponse
@@ -86,3 +84,12 @@ def signup(request):
 
 
 # ELLIE SECTION
+
+def coffee_beans_index(request):
+  coffee_beans = CoffeeBean.objects.all()
+  return render(request, 'coffee_beans/index.html', { 'coffee_beans': coffee_beans })
+
+
+def coffee_beans_detail(request, coffee_beans_id):
+  coffee_bean = CoffeeBean.objects.get(id = coffee_beans_id)
+  return render(request, 'coffee_beans/detail.html',{ 'coffee_bean': coffee_bean })

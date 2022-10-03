@@ -27,8 +27,13 @@ urlpatterns = [
     
     
     
-    # Ellie SECTION
-    # path()
+
+    # ELLIE SECTION
+    path('coffee_beans/', views.coffee_beans_index,name='coffee_beans_index'),
+    path('coffee_beans/<int:coffee_beans_id>', views.coffee_beans_detail, name='coffee_beans_detail'),
+    
+
+
     
     
     
