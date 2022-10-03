@@ -16,8 +16,8 @@ VARIETIES = (
 )
 # Create your models here.
 Days = (
-    ('Chemex', 'Chemex')
-    ('Tue', '')
+    ('Mon', 'Monday')
+    ('Tue', 'Tuesday')
     ('Wed', 'Wednesday')
     ('Thr', 'Thursday')
     ('Fri', 'Friday')
