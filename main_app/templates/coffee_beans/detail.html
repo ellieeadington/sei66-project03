@@ -10,7 +10,7 @@
             </div>
             
             <div class="coffee-bean-details">
-                <span class="card-title"> {{ coffee_bean.coffee_bean_name }}</span>
+                <span class="card-title"> {{ cafe.cafe_name }}</span>
                 <p>Roastery: {{ coffee_bean.roastery_name }}</p> 
                 <p>Variety: {{ coffee_bean.coffee_bean_variety }}</p>
                 <p>Description: {{ coffee_bean.coffee_bean_description }}</p> 
@@ -22,6 +22,30 @@
 </div>
 
 <h4>Cafes Serving this Coffee Bean</h4>
+
+<div class="col s6">
+    {% if cafes.count %}
+
+    {% for cafe in cafes.all %}
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">{{ cafe.cafe_name }} </span>
+                    <p>{{ cafe.cafe_bio }}</p> 
+                    <br>
+                    <p>{{ cafe.address_line_1}}</p>
+                    <p>Description: {{ cafe.address_city}}</p> 
+                    <p>Date harvested: {{ cafe.address_postcode }}</p> 
+                    <a href="{{cafe.cafe_website}}">Website</a> 
+            </div>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        <h5>already has all cafes available.</h5>
+        {% endif %}
+</div>
+
+</div>
 
 
 
