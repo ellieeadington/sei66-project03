@@ -1,9 +1,10 @@
 from django.contrib import admin
 
-from .models import CoffeeBean,Cafe
+from .models import BrewingMethod, CoffeeBean,Cafe
 
 # Register your models here.
 
 admin.site.register(CoffeeBean)
 admin.site.register(Cafe)
+admin.site.register(BrewingMethod)
 
