@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import Cafe, CoffeeBean, User
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 # Create your views here.
 from django.http import HttpResponse

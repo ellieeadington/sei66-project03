@@ -19,7 +19,7 @@ urlpatterns = [
     
     
     # ASHISH SECTION
-    path('acounts/signup', views.signup, name="signup"),
+    path('accounts/signup', views.signup, name="signup"),
     
     
     
