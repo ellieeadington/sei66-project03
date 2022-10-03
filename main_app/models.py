@@ -30,7 +30,7 @@ class Cafe(models.Model):
     cafe_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     menu_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     cafe_website = models.CharField(max_length=1000)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    #user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     
 class Event(models.Model):
