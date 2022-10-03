@@ -6,7 +6,7 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
-    path('/', views.cafes_index, name='index'),
+    path('cafes/', views.cafes_index, name='index'),
 
     # ROB SECTION
     path('cafes/<int:cafe_id>', views.cafes_detail, name='detail'),
@@ -19,7 +19,7 @@ urlpatterns = [
     
     
     # ASHISH SECTION
-    path('acounts/signup', views.signup, name="signup")
+    path('acounts/signup', views.signup, name="signup"),
     
     
     
