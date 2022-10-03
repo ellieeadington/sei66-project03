@@ -71,6 +71,8 @@ class CafeOpening:
     
 class BrewingMethod:
     brewing_method = models.CharField(max_length=250),
+    
+    
         
     
     
