@@ -2,13 +2,54 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    text-align: center;
   }
   
   main {
     flex: 1 0 auto;
   }
+
+  .hero {
+    width: 90%;
+    height: 220px;
+    margin: 20px auto;
+    border: 1px solid black;
+  }
+
+  .home-bio {
+    width: 90%;
+    height: 100px;
+    margin: 20px auto;
+    border: 1px solid black;
+  }
+
+  .featured {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 20px;
+    width: 90%;
+    height: 360px;
+    margin: 40px auto;
+    padding: 20px 40px;
+    border: 1px solid black;
+  }
+
+  .featured-content {
+
+    border: 1px solid black;
+  }
   
   footer.page-footer {
     padding-top: 0;
     text-align: right;
+  }
+  
+  .coffee-beans {
+    display: flex;
+    flex-direction: row;
+
+  }
+
+  .coffee-bean-details {
+    width: 500px;
   }
