@@ -31,7 +31,8 @@ class Cafe(models.Model):
     
     
 class Event(models.Model):
-    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)  
+
+    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)   
     event_name = models.CharField(max_length=250)
     event_description = models.CharField(max_length=1000)
     event_weekday = models.CharField(max_length=20)
