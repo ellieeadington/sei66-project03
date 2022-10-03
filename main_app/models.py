@@ -15,7 +15,7 @@ VARIETIES = (
     ('E', 'Excelsa')
 )
 # Create your models here.
-class Cafe:
+class Cafe(models.Model):
     cafe_name = models.CharField(max_length=250),
     cafe_bio = models.CharField(max_length=2500),
     date_founded = models.DateField(),
@@ -30,7 +30,7 @@ class Cafe:
     cafe_website = models.CharField(max_length=1000)
     
     
-class Event:
+class Event(models.Model):
     cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE),    
     event_name = models.CharField(max_length=250),
     event_description = models.CharField(max_length=1000),
@@ -39,13 +39,13 @@ class Event:
     event_time_to = models.TimeField(),
     event_image = models.CharField(max_length=1000)
     
-class Review:
+class Review(models.Model):
     datetime = models.DateTimeField(),
     stars = models.CharField(max_length=2, choices=STARS, default=STARS[0][0]),
     review_title = models.CharField(max_length=250),
     review_body = models.CharField(max_length=1000)
 
-class CoffeeBean:
+class CoffeeBean(models.Model):
     coffee_bean_name = models.CharField(max_length=250),
     coffee_bean_variety =  models.CharField(max_length=1000, choices=VARIETIES, default=VARIETIES[0][0]),
     coffee_bean_description = models.CharField(max_length=2000),
@@ -54,12 +54,12 @@ class CoffeeBean:
     coffee_bean_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded"),
     coffee_bean_location = models.CharField(max_length=250)
     
-class CafeOpening:
+class CafeOpening(models.Model):
     weekday_open = models.CharField(max_length=250),
     open_from = models.TimeField(),
     open_from = models.TimeField(),
     
-class BrewingMethod:
+class BrewingMethod(models.Model):
     brewing_method = models.CharField(max_length=250),
     
     
