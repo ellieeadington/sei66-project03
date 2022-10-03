@@ -14,3 +14,46 @@ def about(request):
 def cafes_index(request):
   cafes = Cafe.objects.all()
   return render(request, 'cafes/index.html', { 'cafes': cafes })
+
+# ROB SECTION
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ASHISH SECTION
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ELLIE SECTION

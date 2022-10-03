@@ -7,4 +7,26 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
     path('cafes/', views.cafes_index, name='index'),
+    
+    # ROB SECTION
+    
+    
+    
+    
+    
+    
+    
+    # ASHISH SECTION
+    
+    
+    
+    
+    
+    
+    
+    # ROB SECTION
+    
+    
+    
+    
 ]
