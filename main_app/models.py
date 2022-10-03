@@ -16,16 +16,16 @@ VARIETIES = (
 )
 # Create your models here.
 Days = (
-    ('Mon', 'Monday')
-    ('Tue', 'Tuesday')
-    ('Wed', 'Wednesday')
-    ('Thr', 'Thursday')
-    ('Fri', 'Friday')
-    ('Sat', 'Saturday')
+    ('Mon', 'Monday'),
+    ('Tue', 'Tuesday'),
+    ('Wed', 'Wednesday'),
+    ('Thr', 'Thursday'),
+    ('Fri', 'Friday'),
+    ('Sat', 'Saturday'),
     ('Sun', 'Sunday')
 )
 
-class Cafe:
+class Cafe(models.model):
     cafe_name = models.CharField(max_length=250)
     cafe_bio = models.CharField(max_length=2500)
     date_founded = models.DateField()
@@ -40,7 +40,7 @@ class Cafe:
     cafe_website = models.CharField(max_length=1000)
     
     
-class Event:
+class Event(models.model):
     cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
     event_name = models.CharField(max_length=250)
     event_description = models.CharField(max_length=1000)
@@ -49,13 +49,13 @@ class Event:
     event_time_to = models.TimeField()
     event_image = models.CharField(max_length=1000)
     
-class Review:
+class Review(models.model):
     datetime = models.DateTimeField()
     stars = models.CharField(max_length=2, choices=STARS, default=STARS[0][0])
     review_title = models.CharField(max_length=250)
     review_body = models.CharField(max_length=1000)
 
-class CoffeeBean:
+class CoffeeBean(models.model):
     coffee_bean_name = models.CharField(max_length=250)
     coffee_bean_variety =  models.CharField(max_length=1000, choices=VARIETIES, default=VARIETIES[0][0])
     coffee_bean_description = models.CharField(max_length=2000)
@@ -64,12 +64,12 @@ class CoffeeBean:
     coffee_bean_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     coffee_bean_location = models.CharField(max_length=250)
     
-class CafeOpening:
+class CafeOpening(models.model):
     weekday_open = models.CharField(max_length=250)
     open_from = models.TimeField()
     open_from = models.TimeField()
     
-class BrewingMethod:
+class BrewingMethod(models.model):
     brewing_method = models.CharField(max_length=250)
     
     
