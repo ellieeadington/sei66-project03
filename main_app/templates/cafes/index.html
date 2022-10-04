@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %} 
+<header><h1> Cafe List </h1></header>
+
+{% for cafe in cafes %} 
+
+<div class="card">
+    <a href="/cafes/{{ cafe.id }}">
+        <div class="card-content cafe">
+            <div class="img-container cafe-image">
+                {% load static %} 
+                <img width="200px" height="200px" src={% static cafe.cafe_image|cut:'main_app/static/' %} />
+            </div>
+
+            <div class="cafe-details">
+                <span class="card-title"> {{ cafe.cafe_name }} </span>
+                <p> Bio: {{ cafe.cafe_bio }} </p>
+                <p> Website: {{ cafe.cafe_website }} </p>
+            </div>
+        </div>
+        
+    </a>
+</div>
+
+
+{% endfor %}
+{% endblock %}

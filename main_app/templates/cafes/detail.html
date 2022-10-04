@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+<div class="card">
+    <div class="card-content cafe">
+      <div class="img-container cafe-image">
+        {% load static %} 
+        <img width="150px" height="150px" src={% static cafe.cafe_image|cut:'main_app/static/' %} />
+      </div>
+
+      <div class="cafe-details">
+      <span class="card-title">{{ cafe.cafe_name }}</span>
+      <p>Bio: {{ cafe.cafe_bio }}</p>
+      <p>Established: {{ cafe.date_founded }}</p>
+      <p>Address: {{ cafe.address_line_1 }}, <br> 
+        {{ cafe.address_line_2 }}, <br> 
+        {{ cafe.address_city }}, <br>
+        {{ cafe.address_county }}, <br>
+        {{ cafe.address_country }}, <br>
+        {{ cafe.address_postcode }}</p>
+      </div>
+
+      <div class="card-action">
+        <a href="{% url 'cafes_update' cafe.id %}">Edit</a>
+        <a href="{% url 'cafes_delete' cafe.id %}">Delete</a>
+      </div>
+
+  </div>
+</div>
+
+
+
+{% endblock %}
