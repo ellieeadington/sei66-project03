@@ -12,8 +12,12 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 class CafeCreate(CreateView):
   model = Cafe
-  fields = '__all__'
-  success_url = 
+  fields = ['cafe_name','date_founded','address_line_1', 'address_line_2','address_city', 'address_county', 'address_country', 'address_postcode']
+
+  #Overriding
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
 
 class CafeUpdate(UpdateView):
   model = Cafe

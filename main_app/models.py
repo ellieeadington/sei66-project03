@@ -38,7 +38,7 @@ class Cafe(models.Model):
     cafe_bio = models.CharField(max_length=2500)
     date_founded = models.DateField()
     address_line_1 = models.CharField(max_length=250)
-    address_line_2 = models.CharField(max_length=250, default="left blank")
+    address_line_2 = models.CharField(max_length=250, blank=True)
     address_city = models.CharField(max_length=250)
     address_county = models.CharField(max_length=250)
     address_country = models.CharField(max_length=250)
