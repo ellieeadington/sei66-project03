@@ -30,6 +30,16 @@ BREWINGMETHOD = (
     ('AP', 'Aeropress')
 )
 
+TYPE = (
+    ('KID', 'Children'),
+    ('MUM', 'Parent and Children'),
+    ('HEA', 'Health and Wellbeing'),
+    ('FIT', 'Fitness'),
+    ('FOO', 'Cooking and Food'),
+    ('ENT', 'Entertainment'),
+    ('ART', 'Arts and Crafts')
+)
+
 class CoffeeBean(models.Model):
     name = models.CharField(max_length=250)
     variety =  models.CharField(max_length=1000, choices=VARIETIES, default=VARIETIES[0][0])
@@ -64,10 +74,14 @@ class Event(models.Model):
     cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)   
     event_name = models.CharField(max_length=250)
     event_description = models.CharField(max_length=1000)
-    event_weekday = models.CharField(max_length=20)
+    event_type = models.CharField(max_length=4, choices=TYPE, default=TYPE[0][0])
+    event_date = models.DateField()
     event_time_from = models.TimeField()
     event_time_to = models.TimeField()
     event_image = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return f"{self.get_event_name_display()} on {self.date}"
     
 class Review(models.Model):
     datetime = models.DateTimeField()
@@ -88,6 +102,8 @@ class BrewingMethod(models.Model):
 
     def __str__(self):
         return f"{self.get_method_name_display()} on {self.method_bio}"
+    
+
     
     
         

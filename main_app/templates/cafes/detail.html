@@ -61,10 +61,52 @@
   </table>
 </div>
 
+
+<div>
+  <form method="post" action="{% url 'add_event' cafe.id %}">
+    {% csrf_token %} 
+    {{ event_form.as_p }}
+    <input type="submit" value="Add Event" class="btn" />
+  </form>
+</div>
+
+<div>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Event Name </th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Date</th>
+        <th>Time From</th>
+        <th>Time To</th>
+        <th>Image</th>
+      </tr>
+    </thead>
+{{ cafe }}
+    <tbody>
+      {% for event in cafe.event_set.all %} 
+      <tr>
+        <td>{{ event.event_name }}</td>
+        <td>{{ event.event_description }}</td>
+        <td>{{ event.event_type }}</td>
+        <td>{{ event.event_date }}</td>
+        <td>{{ event.event_time_from }}</td>
+        <td>{{ event.event_time_to }}</td>
+        <td>{{ event.event_image }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
 <script>
 
   let selectEl = document.getElementById('id_method_name')
   M.FormSelect.init(selectEl);
+
+  let selectEventEl = document.getElementById('id_event_name')
+  M.FormSelect.init(selectEventEl);
 
 </script>
 {% endblock %}
