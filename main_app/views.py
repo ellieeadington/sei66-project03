@@ -100,7 +100,11 @@ def coffee_beans_index(request):
   coffee_beans = CoffeeBean.objects.all()
   coffee_bean_filter = CoffeeBeanFilter(request.GET, queryset=coffee_beans)
   coffee_beans = coffee_bean_filter.qs
-  return render(request, 'coffee_beans/index.html', { 'coffee_beans': coffee_beans, 'coffee_bean_filter':coffee_bean_filter })
+  context = {
+    'coffee_bean_filter': coffee_bean_filter,
+    'coffee_beans': coffee_beans
+  }
+  return render(request, 'coffee_beans/index.html', context )
 
 
 def coffee_beans_detail(request, coffee_beans_id):
@@ -108,3 +112,6 @@ def coffee_beans_detail(request, coffee_beans_id):
   cafes = Cafe.objects.filter(coffee_beans = coffee_bean)
 
   return render(request, 'coffee_beans/detail.html',{ 'coffee_bean': coffee_bean, 'cafes': cafes})
+
+def cafe_owner_profile(request):
+  return render(request, 'users/cafe_profile.html')

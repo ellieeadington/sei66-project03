@@ -42,7 +42,7 @@ class Cafe(models.Model):
     menu_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     cafe_website = models.CharField(max_length=1000)
     #user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # coffee_beans = models.ManyToManyField(CoffeeBean)
+    coffee_beans = models.ManyToManyField(CoffeeBean)
     
     def get_absolute_url(self):
         return reverse('detail', kwargs = {'cafe_id': self.id})

@@ -32,8 +32,9 @@ urlpatterns = [
     
 
     # ELLIE SECTION
-    path('coffee_beans/', views.coffee_beans_index,name='coffee_beans_index'),
+    path('coffee_beans/', views.coffee_beans_index, name='coffee_beans_index'),
     path('coffee_beans/<int:coffee_beans_id>', views.coffee_beans_detail, name='coffee_beans_detail'),
+    path('profile/cafe/',views.cafe_owner_profile, name='cafe_owner_profile')
     
 
 
