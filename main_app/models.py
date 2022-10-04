@@ -18,6 +18,18 @@ VARIETIES = (
     ('E', 'Excelsa')
 )
 
+BREWINGMETHOD = (
+    ('DB', 'Drip Brewed'),
+    ('P', 'Percolator'),
+    ('FP', 'French Press'),
+    ('C', 'Chezve'),
+    ('P', 'Pour-over'),
+    ('S', 'Syphon'),
+    ('CM', 'Coffee Maker'),
+    ('V', 'V60'),
+    ('AP', 'Aeropress')
+)
+
 class CoffeeBean(models.Model):
     name = models.CharField(max_length=250)
     variety =  models.CharField(max_length=1000, choices=VARIETIES, default=VARIETIES[0][0])
@@ -42,7 +54,7 @@ class Cafe(models.Model):
     menu_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     cafe_website = models.CharField(max_length=1000)
     #user = models.ForeignKey(User, on_delete=models.CASCADE)
-    coffee_beans = models.ManyToManyField(CoffeeBean)
+    # coffee_beans = models.ManyToManyField(CoffeeBean)
     
     def get_absolute_url(self):
         return reverse('detail', kwargs = {'cafe_id': self.id})
@@ -69,8 +81,15 @@ class CafeOpening(models.Model):
     open_from = models.TimeField()
     
 class BrewingMethod(models.Model):
-    brewing_method = models.CharField(max_length=250)
+    method_name = models.CharField(max_length=2, choices=BREWINGMETHOD, default=BREWINGMETHOD[0][0])
+    method_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
+    method_bio = models.CharField(max_length=300)
     cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.get_method_name_display()} on {self.method_bio}"
+    
+    
         
     
         
