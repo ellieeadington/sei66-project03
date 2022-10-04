@@ -1,11 +1,13 @@
 from django.shortcuts import render,redirect
-from .models import Cafe, CoffeeBean, User
+
+from .models import BrewingMethod, Cafe, CoffeeBean, User
 
 # Create your views here.
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView
 from .filters import CoffeeBeanFilter
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from .forms import BrewingMethodForm
 
 
 class CafeCreate(CreateView):
@@ -40,8 +42,18 @@ def cafes_detail(request, cafe_id):
 
   cafe = Cafe.objects.get(id = cafe_id)
   
-  return render(request, 'cafes/detail.html', {'cafe': cafe})
+  brewing_method_form = BrewingMethodForm()
+  return render(request, 'cafes/detail.html', {'cafe': cafe, 'brewing_method_form': brewing_method_form})
 
+def add_brewing_method(request, cafe_id):
+
+  form = BrewingMethodForm(request.POST)
+
+  if form.is_valid():
+    new_brewing_method = form.save(commit=False)
+    new_brewing_method.cafe_id = cafe_id
+    new_brewing_method.save()
+  return redirect('detail', cafe_id = cafe_id)
 
 
 
