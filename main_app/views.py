@@ -1,18 +1,19 @@
+import re
 from django.shortcuts import render,redirect
-from .models import Cafe, CoffeeBean, User, BrewingMethod
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-# Create your views here.
 from django.http import HttpResponse
-from django.views.generic.edit import CreateView
-from .filters import CoffeeBeanFilter
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import forms
+# Create your views here.
+from .filters import CoffeeBeanFilter
 from .forms import BrewingMethodForm
+from .models import Cafe, CoffeeBean, User, BrewingMethod
+from .decorators import unauthenicated_user, allowed_users
 
-
+#@allowed_users(allowed_roles=['Cafe Owner'])
 class CafeCreate(LoginRequiredMixin, CreateView):
   model = Cafe
   fields = ['cafe_name','date_founded','address_line_1', 'address_line_2','address_city', 'address_county', 'address_country', 'address_postcode']
@@ -43,8 +44,6 @@ def cafes_index(request):
   return render(request, 'cafes/index.html', { 'cafes': cafes })
 
 # ROB SECTION
-
-
 
 def cafes_detail(request, cafe_id):
 
@@ -113,7 +112,6 @@ def signup(request):
 
 
 
-
 # ELLIE SECTION
 
 def coffee_beans_index(request):
@@ -134,8 +132,11 @@ def coffee_beans_detail(request, coffee_beans_id):
   return render(request, 'coffee_beans/detail.html',{ 'coffee_bean': coffee_bean, 'cafes': cafes})
 
 def cafe_owner_profile(request, cafe_id):
+  is_cafe_owner = request.user.profile.profile_type_set.all()
+  print('is cafe owner:', is_cafe_owner)
+
   cafe = Cafe.objects.get(id = cafe_id)
-  return render(request, 'users/profile/cafe_profile.html',{'cafe': cafe})
+  return render(request, 'users/profile/cafe_profile.html',{'cafe': cafe })
 
 def coffee_bean_create(request, cafe_id):
   cafe = Cafe.objects.get(id = cafe_id)
