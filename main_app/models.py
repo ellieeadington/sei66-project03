@@ -34,23 +34,20 @@ class CoffeeBean(models.Model):
 # Create your models here.
 
 class Cafe(models.Model):
-    cafe_name = models.CharField(max_length=250)
-    cafe_bio = models.CharField(max_length=2500)
+    cafe_name = models.CharField(max_length=250, blank=True)
+    cafe_bio = models.CharField(max_length=2500, blank=True)
     date_founded = models.DateField()
-    address_line_1 = models.CharField(max_length=250)
+    address_line_1 = models.CharField(max_length=250, blank=True)
     address_line_2 = models.CharField(max_length=250, blank=True)
-    address_city = models.CharField(max_length=250)
-    address_county = models.CharField(max_length=250)
-    address_country = models.CharField(max_length=250)
-    address_postcode = models.CharField(max_length=10)
+    address_city = models.CharField(max_length=250, blank=True)
+    address_county = models.CharField(max_length=250, blank=True)
+    address_country = models.CharField(max_length=250, blank=True)
+    address_postcode = models.CharField(max_length=10, blank=True)
     cafe_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     menu_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     cafe_website = models.CharField(max_length=1000)
-    # coffee_beans = models.ManyToManyField(CoffeeBean)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    #user = models.ForeignKey(User, on_delete=models.CASCADE)
-    coffee_beans = models.ManyToManyField(CoffeeBean)
+    coffee_beans = models.ManyToManyField(CoffeeBean, blank=True)
     
     def get_absolute_url(self):
         return reverse('detail', kwargs = {'cafe_id': self.id})

@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Cafe, CoffeeBean, User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 from django.http import HttpResponse
@@ -11,7 +12,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import forms
 
 
-class CafeCreate(CreateView):
+class CafeCreate(LoginRequiredMixin, CreateView):
   model = Cafe
   fields = ['cafe_name','date_founded','address_line_1', 'address_line_2','address_city', 'address_county', 'address_country', 'address_postcode']
 
@@ -20,11 +21,11 @@ class CafeCreate(CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-class CafeUpdate(UpdateView):
+class CafeUpdate(LoginRequiredMixin, UpdateView):
   model = Cafe
   fields = '__all__'
   
-class CafeDelete(DeleteView):
+class CafeDelete(LoginRequiredMixin, DeleteView):
   model = Cafe
   success_url = '/cafes/'
 
