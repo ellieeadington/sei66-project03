@@ -13,6 +13,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 class CafeCreate(CreateView):
   model = Cafe
   fields = '__all__'
+  success_url = 
 
 class CafeUpdate(UpdateView):
   model = Cafe

@@ -23,8 +23,10 @@
           <li><a href="{% url 'about' %}">About</a></li>
 
           {% if request.user.is_authenticated %}
+          <li><a href="">My Profile</a></li>
           <li><a href="/coffee_beans">Coffee</a></li>
           <li><a href="{% url 'index' %}">View Cafes</a></li>
+          <li><a href="{% url 'cafes_create' %}">Add a Cafe</a></li>
           <li><a href="{% url 'logout' %}">LogOut</a></li>
             Hi {{ user.username }}
           {% else %}

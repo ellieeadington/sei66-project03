@@ -2,7 +2,6 @@ from tkinter import CASCADE
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
 
 STARS = (
     ('5', '★★★★★'),
@@ -18,6 +17,10 @@ VARIETIES = (
     ('L', 'Liberica'),
     ('E', 'Excelsa')
 )
+
+# class Profile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     is_cafe = models.BooleanField
 
 class CoffeeBean(models.Model):
     coffee_bean_name = models.CharField(max_length=250)
@@ -35,7 +38,7 @@ class Cafe(models.Model):
     cafe_bio = models.CharField(max_length=2500)
     date_founded = models.DateField()
     address_line_1 = models.CharField(max_length=250)
-    address_line_2 = models.CharField(max_length=250)
+    address_line_2 = models.CharField(max_length=250, default="left blank")
     address_city = models.CharField(max_length=250)
     address_county = models.CharField(max_length=250)
     address_country = models.CharField(max_length=250)
@@ -43,9 +46,9 @@ class Cafe(models.Model):
     cafe_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     menu_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     cafe_website = models.CharField(max_length=1000)
-    #user = models.ForeignKey(User, on_delete=models.CASCADE)
     # coffee_beans = models.ManyToManyField(CoffeeBean)
-    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     def get_absolute_url(self):
         return reverse('detail', kwargs = {'cafe_id': self.id})
     
