@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.views.generic.edit import CreateView
 from .filters import CoffeeBeanFilter
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django import forms
 
 
 class CafeCreate(CreateView):
@@ -107,7 +108,11 @@ def coffee_beans_index(request):
   coffee_beans = CoffeeBean.objects.all()
   coffee_bean_filter = CoffeeBeanFilter(request.GET, queryset=coffee_beans)
   coffee_beans = coffee_bean_filter.qs
-  return render(request, 'coffee_beans/index.html', { 'coffee_beans': coffee_beans, 'coffee_bean_filter':coffee_bean_filter })
+  context = {
+    'coffee_bean_filter': coffee_bean_filter,
+    'coffee_beans': coffee_beans
+  }
+  return render(request, 'coffee_beans/index.html', context )
 
 
 def coffee_beans_detail(request, coffee_beans_id):
@@ -115,3 +120,13 @@ def coffee_beans_detail(request, coffee_beans_id):
   cafes = Cafe.objects.filter(coffee_beans = coffee_bean)
 
   return render(request, 'coffee_beans/detail.html',{ 'coffee_bean': coffee_bean, 'cafes': cafes})
+
+def cafe_owner_profile(request, cafe_id):
+  cafe = Cafe.objects.get(id = cafe_id)
+  return render(request, 'users/profile/cafe_profile.html',{'cafe': cafe})
+
+def coffee_bean_create(request, cafe_id):
+  cafe = Cafe.objects.get(id = cafe_id)
+  coffee_beans = CoffeeBean.objects.filter(cafe = cafe)
+  return render(request,'users/profile/update/coffee_beans.html', {'cafe': cafe, 'coffee_beans': coffee_beans} )
+

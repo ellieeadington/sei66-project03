@@ -6,16 +6,16 @@
 
             <div class="img-container coffee-bean-image">
                 {% load static %}
-                <img src="{% static 'uploads/'%}{{coffee_bean.coffee_bean_image}}" alt="My image" width="200" height="200">
+                <img src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="My image" width="200" height="200">
             </div>
             
             <div class="coffee-bean-details">
                 <span class="card-title"> {{ cafe.cafe_name }}</span>
-                <p>Roastery: {{ coffee_bean.roastery_name }}</p> 
-                <p>Variety: {{ coffee_bean.coffee_bean_variety }}</p>
-                <p>Description: {{ coffee_bean.coffee_bean_description }}</p> 
+                <p>Roastery: {{ coffee_bean.roastery }}</p> 
+                <p>Variety: {{ coffee_bean.variety }}</p>
+                <p>Description: {{ coffee_bean.description }}</p> 
                 <p>Date harvested: {{ coffee_bean.date_harvested }}</p> 
-                <p>Bean Location: {{ coffee_bean.coffee_bean_location }}</p> 
+                <p>Bean Location: {{ coffee_bean.location }}</p> 
             </div>
 
         </div>
