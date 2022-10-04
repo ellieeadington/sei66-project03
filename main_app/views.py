@@ -105,4 +105,6 @@ def coffee_beans_index(request):
 
 def coffee_beans_detail(request, coffee_beans_id):
   coffee_bean = CoffeeBean.objects.get(id = coffee_beans_id)
-  return render(request, 'coffee_beans/detail.html',{ 'coffee_bean': coffee_bean})
+  cafes = Cafe.objects.filter(coffee_beans = coffee_bean)
+
+  return render(request, 'coffee_beans/detail.html',{ 'coffee_bean': coffee_bean, 'cafes': cafes})
