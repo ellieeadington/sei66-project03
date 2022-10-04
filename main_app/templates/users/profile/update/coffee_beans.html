@@ -1,19 +1,8 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% block content %}
-<header><h1>Coffee Beans</h1></header>
 
-<div class="row">
-    <div class="col">
-        <div class="card card-body">
+<h1>Coffee Beans Served at {{ cafe.cafe_name }}</h1>
 
-            <form method="get" action="">
-                {{coffee_bean_filter.form}}
-                <button class="btn" type="submit">Search</button>
-            </form>
-
-        </div>
-    </div>
-</div>
 
 {% for coffee_bean in coffee_beans %}
 
@@ -32,15 +21,16 @@
                 <p>Variety: {{ coffee_bean.variety }}</p>
                 <p>Description: {{ coffee_bean.description }}</p> 
             </div>
-
         </div>
+
+            <div class="card-action">
+                <a href="">Edit</a>
+                <a href="">Delete</a>
+            </div> 
     </a>
 </div>
-
-<script>
-
-    let varietyEl = document.getElementById('id_variety');
-    M.FormSelect.init(varietyEl);
-</script>
 {% endfor %}
+
+<h2>Want to add more coffee beans? </h2>
+
 {% endblock %}

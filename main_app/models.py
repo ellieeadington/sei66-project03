@@ -19,13 +19,13 @@ VARIETIES = (
 )
 
 class CoffeeBean(models.Model):
-    coffee_bean_name = models.CharField(max_length=250)
-    coffee_bean_variety =  models.CharField(max_length=1000, choices=VARIETIES, default=VARIETIES[0][0])
-    coffee_bean_description = models.CharField(max_length=2000)
-    roastery_name = models.CharField(max_length=250)
+    name = models.CharField(max_length=250)
+    variety =  models.CharField(max_length=1000, choices=VARIETIES, default=VARIETIES[0][0])
+    description = models.CharField(max_length=2000)
+    roastery = models.CharField(max_length=250)
     date_harvested = models.CharField(max_length=250)
-    coffee_bean_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
-    coffee_bean_location = models.CharField(max_length=250)
+    image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
+    location = models.CharField(max_length=250)
     
 # Create your models here.
 class Cafe(models.Model):
@@ -71,11 +71,7 @@ class CafeOpening(models.Model):
 class BrewingMethod(models.Model):
     brewing_method = models.CharField(max_length=250)
     cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
-    
-    
         
-    
-    
     
         
 
