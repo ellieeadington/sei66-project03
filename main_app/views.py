@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Cafe, CoffeeBean, User
+from .models import Cafe, CoffeeBean, User, BrewingMethod
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -10,6 +10,7 @@ from django.views.generic.edit import CreateView
 from .filters import CoffeeBeanFilter
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import forms
+from .forms import BrewingMethodForm
 
 
 class CafeCreate(LoginRequiredMixin, CreateView):
@@ -49,8 +50,18 @@ def cafes_detail(request, cafe_id):
 
   cafe = Cafe.objects.get(id = cafe_id)
   
-  return render(request, 'cafes/detail.html', {'cafe': cafe})
+  brewing_method_form = BrewingMethodForm()
+  return render(request, 'cafes/detail.html', {'cafe': cafe, 'brewing_method_form': brewing_method_form})
 
+def add_brewing_method(request, cafe_id):
+
+  form = BrewingMethodForm(request.POST)
+
+  if form.is_valid():
+    new_brewing_method = form.save(commit=False)
+    new_brewing_method.cafe_id = cafe_id
+    new_brewing_method.save()
+  return redirect('detail', cafe_id = cafe_id)
 
 
 
