@@ -125,8 +125,13 @@ def coffee_beans_detail(request, coffee_beans_id):
   return render(request, 'coffee_beans/detail.html',{ 'coffee_bean': coffee_bean, 'cafes': cafes})
 
 def cafe_owner_profile(request, cafe_id):
+<<<<<<< HEAD
   # is_cafe_owner = request.user.profile.profile_type_set.all()
   # print('is cafe owner:', is_cafe_owner)
+=======
+  is_cafe_owner = request.user.profile.profile_type_set.all()
+  print('is cafe owner:', is_cafe_owner)
+>>>>>>> 40b5386b1a3497f60b4385bdebf371255e98e84e
 
   cafe = Cafe.objects.get(id = cafe_id)
   return render(request, 'users/profile/cafe_profile.html',{'cafe': cafe })
@@ -144,7 +149,11 @@ def add_coffee_bean(request, cafe_id):
         new_coffee_bean = coffee_bean_form.save(commit=False) 
         new_coffee_bean.cafe_id = cafe_id
         new_coffee_bean.save()
+<<<<<<< HEAD
     return redirect('coffee_bean_edit', cafe_id=cafe_id)   
+=======
+    return redirect('coffee_bean_create', cafe_id=cafe_id)   
+>>>>>>> 40b5386b1a3497f60b4385bdebf371255e98e84e
   
 class CoffeeBeanUpdate(UpdateView):
     model = CoffeeBean
