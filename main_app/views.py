@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import forms
 from .forms import BrewingMethodForm, CoffeeBeanForm
+from .filters import CoffeeBeanFilter
 from django.urls import reverse_lazy
 
 #@allowed_users(allowed_roles=['Cafe Owner'])

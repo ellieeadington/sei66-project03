@@ -57,6 +57,12 @@ class CoffeeBean(models.Model):
     
     def get_absolute_url(self):
         return reverse('coffee_bean_edit', kwargs = {'cafe_id': self.id})
+    def __str__(self):
+        return self.variety
+    def __str__(self):
+        return self.roastery
+    
+
     
 # Create your models here.
 
