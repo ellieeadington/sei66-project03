@@ -51,7 +51,7 @@ body {
   }
 
   .coffee-bean-details {
-    width: 500px;
+    border: 1px solid black;
   }
 
   .cafe {

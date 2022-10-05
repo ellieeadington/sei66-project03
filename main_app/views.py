@@ -145,6 +145,7 @@ def add_coffee_bean(request, cafe_id):
         new_coffee_bean = coffee_bean_form.save(commit=False) 
         new_coffee_bean.cafe_id = cafe_id
         new_coffee_bean.save()
+        coffee_bean_form.save_m2m() 
     return redirect('coffee_bean_edit', cafe_id=cafe_id)   
   
 class CoffeeBeanUpdate(UpdateView):
