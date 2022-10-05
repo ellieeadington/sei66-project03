@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 
-from .models import BrewingMethod, Cafe, CoffeeBean, User
+from .models import BrewingMethod, Cafe, CoffeeBean, User, Event
 
 # Create your views here.
 from django.http import HttpResponse

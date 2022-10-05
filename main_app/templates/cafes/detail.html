@@ -52,9 +52,11 @@
     <tbody>
       {% for brewing_method in cafe.brewingmethod_set.all %} 
       <tr>
-        <td>{{ brewing_method.method_name }}</td>
+        <td>{{ brewing_method.get_method_name_display }}</td>
         <td>{{ brewing_method.method_bio }}</td>
-        <td>{{ brewing_method.method_image }}</td>
+        <td>{% load static %} {{ brewing_method.method_image}}
+          <img width="150px" height="150px" src={% static brewing_method.method_image|cut:'main_app/static/' %} />
+      </td>
       </tr>
       {% endfor %}
     </tbody>
@@ -83,17 +85,19 @@
         <th>Image</th>
       </tr>
     </thead>
-{{ cafe }}
+
     <tbody>
       {% for event in cafe.event_set.all %} 
       <tr>
         <td>{{ event.event_name }}</td>
         <td>{{ event.event_description }}</td>
-        <td>{{ event.event_type }}</td>
+        <td>{{ event.get_event_type_display }}</td>
         <td>{{ event.event_date }}</td>
         <td>{{ event.event_time_from }}</td>
         <td>{{ event.event_time_to }}</td>
-        <td>{{ event.event_image }}</td>
+        <td> {% load static %} 
+          <img width="150px" height="150px" src={% static event.event_image|cut:'main_app/static/' %} />
+       </td>
       </tr>
       {% endfor %}
     </tbody>
@@ -102,10 +106,24 @@
 
 <script>
 
+  let dateEl = document.getElementById('id_event_date');
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  })
+
+  let timeToEl = document.getElementById('id_event_time_from');
+  M.Timepicker.init(timeToEl);
+
+  let timeFromEl = document.getElementById('id_event_time_to');
+  M.Timepicker.init(timeFromEl);
+
   let selectEl = document.getElementById('id_method_name')
   M.FormSelect.init(selectEl);
 
-  let selectEventEl = document.getElementById('id_event_name')
+  let selectEventEl = document.getElementById('id_event_type')
   M.FormSelect.init(selectEventEl);
 
 </script>

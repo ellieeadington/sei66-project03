@@ -18,7 +18,6 @@ urlpatterns = [
     path('cafes/<int:cafe_id>/add_brewing_method/', views.add_brewing_method, name='add_brewing_method'),
     
     path('cafes/<int:cafe_id>/add_event/', views.add_event, name='add_event'),
-
     
     
     
