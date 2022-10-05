@@ -1,26 +1,29 @@
 from django.shortcuts import render,redirect
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 from .models import BrewingMethod, Cafe, CoffeeBean, User
-
-# Create your views here.
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.views.generic.edit import CreateView
-from .filters import CoffeeBeanFilter
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import forms
 from .forms import BrewingMethodForm, CoffeeBeanForm
 from django.urls import reverse_lazy
 
-
-class CafeCreate(CreateView):
+#@allowed_users(allowed_roles=['Cafe Owner'])
+class CafeCreate(LoginRequiredMixin, CreateView):
   model = Cafe
-  fields = '__all__'
+  fields = ['cafe_name','date_founded','address_line_1', 'address_line_2','address_city', 'address_county', 'address_country', 'address_postcode']
 
-class CafeUpdate(UpdateView):
+  #Overriding
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
+class CafeUpdate(LoginRequiredMixin, UpdateView):
   model = Cafe
   fields = '__all__'
   
-class CafeDelete(DeleteView):
+class CafeDelete(LoginRequiredMixin, DeleteView):
   model = Cafe
   success_url = '/cafes/'
 
@@ -37,8 +40,6 @@ def cafes_index(request):
   return render(request, 'cafes/index.html', { 'cafes': cafes })
 
 # ROB SECTION
-
-
 
 def cafes_detail(request, cafe_id):
 
@@ -124,8 +125,11 @@ def coffee_beans_detail(request, coffee_beans_id):
   return render(request, 'coffee_beans/detail.html',{ 'coffee_bean': coffee_bean, 'cafes': cafes})
 
 def cafe_owner_profile(request, cafe_id):
+  is_cafe_owner = request.user.profile.profile_type_set.all()
+  print('is cafe owner:', is_cafe_owner)
+
   cafe = Cafe.objects.get(id = cafe_id)
-  return render(request, 'users/profile/cafe_profile.html',{'cafe': cafe})
+  return render(request, 'users/profile/cafe_profile.html',{'cafe': cafe })
 
 def coffee_bean_edit(request, cafe_id):
   cafe = Cafe.objects.get(id = cafe_id)

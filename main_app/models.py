@@ -2,6 +2,7 @@ from tkinter import CASCADE
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.dispatch import receiver
 
 STARS = (
     ('5', '★★★★★'),
@@ -18,6 +19,7 @@ VARIETIES = (
     ('E', 'Excelsa')
 )
 
+
 BREWINGMETHOD = (
     ('DB', 'Drip Brewed'),
     ('P', 'Percolator'),
@@ -29,6 +31,20 @@ BREWINGMETHOD = (
     ('V', 'V60'),
     ('AP', 'Aeropress')
 )
+
+PROFILETYPE = (
+    ('O', 'Cafe Owner'),
+    ('U', 'Bean Fiend')
+)
+
+class Profile(models.Model):
+     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+     profile_type = models.CharField(max_length=250, choices=PROFILETYPE, default=PROFILETYPE[0][0])
+     
+# @receiver(post_save, sender=User)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created: 
+#         Profile.objects.create(user=instance)
 
 class CoffeeBean(models.Model):
     name = models.CharField(max_length=250)
@@ -43,21 +59,22 @@ class CoffeeBean(models.Model):
         return reverse('coffee_bean_edit', kwargs = {'cafe_id': self.id})
     
 # Create your models here.
+
 class Cafe(models.Model):
-    cafe_name = models.CharField(max_length=250)
-    cafe_bio = models.CharField(max_length=2500)
+    cafe_name = models.CharField(max_length=250, blank=True)
+    cafe_bio = models.CharField(max_length=2500, blank=True)
     date_founded = models.DateField()
-    address_line_1 = models.CharField(max_length=250)
-    address_line_2 = models.CharField(max_length=250)
-    address_city = models.CharField(max_length=250)
-    address_county = models.CharField(max_length=250)
-    address_country = models.CharField(max_length=250)
-    address_postcode = models.CharField(max_length=10)
+    address_line_1 = models.CharField(max_length=250, blank=True)
+    address_line_2 = models.CharField(max_length=250, blank=True)
+    address_city = models.CharField(max_length=250, blank=True)
+    address_county = models.CharField(max_length=250, blank=True)
+    address_country = models.CharField(max_length=250, blank=True)
+    address_postcode = models.CharField(max_length=10, blank=True)
     cafe_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     menu_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     cafe_website = models.CharField(max_length=1000)
-    #user = models.ForeignKey(User, on_delete=models.CASCADE)
-    coffee_beans = models.ManyToManyField(CoffeeBean)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    coffee_beans = models.ManyToManyField(CoffeeBean, blank=True)
     
     def get_absolute_url(self):
         return reverse('detail', kwargs = {'cafe_id': self.id})
