@@ -1,25 +1,29 @@
 from django.shortcuts import render,redirect
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 from .models import BrewingMethod, Cafe, CoffeeBean, User
-
-# Create your views here.
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.views.generic.edit import CreateView
-from .filters import CoffeeBeanFilter
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import forms
-from .forms import BrewingMethodForm
+from .forms import BrewingMethodForm, CoffeeBeanForm
+from django.urls import reverse_lazy
 
-
-class CafeCreate(CreateView):
+#@allowed_users(allowed_roles=['Cafe Owner'])
+class CafeCreate(LoginRequiredMixin, CreateView):
   model = Cafe
-  fields = '__all__'
+  fields = ['cafe_name','date_founded','address_line_1', 'address_line_2','address_city', 'address_county', 'address_country', 'address_postcode']
 
-class CafeUpdate(UpdateView):
+  #Overriding
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
+class CafeUpdate(LoginRequiredMixin, UpdateView):
   model = Cafe
   fields = '__all__'
   
-class CafeDelete(DeleteView):
+class CafeDelete(LoginRequiredMixin, DeleteView):
   model = Cafe
   success_url = '/cafes/'
 
@@ -36,8 +40,6 @@ def cafes_index(request):
   return render(request, 'cafes/index.html', { 'cafes': cafes })
 
 # ROB SECTION
-
-
 
 def cafes_detail(request, cafe_id):
 
@@ -103,10 +105,6 @@ def signup(request):
 
 
 
-
-
-
-
 # ELLIE SECTION
 
 def coffee_beans_index(request):
@@ -127,11 +125,34 @@ def coffee_beans_detail(request, coffee_beans_id):
   return render(request, 'coffee_beans/detail.html',{ 'coffee_bean': coffee_bean, 'cafes': cafes})
 
 def cafe_owner_profile(request, cafe_id):
-  cafe = Cafe.objects.get(id = cafe_id)
-  return render(request, 'users/profile/cafe_profile.html',{'cafe': cafe})
+  # is_cafe_owner = request.user.profile.profile_type_set.all()
+  # print('is cafe owner:', is_cafe_owner)
 
-def coffee_bean_create(request, cafe_id):
+  cafe = Cafe.objects.get(id = cafe_id)
+  return render(request, 'users/profile/cafe_profile.html',{'cafe': cafe })
+
+def coffee_bean_edit(request, cafe_id):
   cafe = Cafe.objects.get(id = cafe_id)
   coffee_beans = CoffeeBean.objects.filter(cafe = cafe)
-  return render(request,'users/profile/update/coffee_beans.html', {'cafe': cafe, 'coffee_beans': coffee_beans} )
+  coffee_bean_form = CoffeeBeanForm()
+  return render(request,'users/profile/update/coffee_beans.html', {'cafe': cafe, 'coffee_beans': coffee_beans, 'coffee_bean_form': coffee_bean_form } )
 
+def add_coffee_bean(request, cafe_id):
+    coffee_bean_form = CoffeeBeanForm(request.POST) 
+    
+    if coffee_bean_form.is_valid():
+        new_coffee_bean = coffee_bean_form.save(commit=False) 
+        new_coffee_bean.cafe_id = cafe_id
+        new_coffee_bean.save()
+    return redirect('coffee_bean_edit', cafe_id=cafe_id)   
+  
+class CoffeeBeanUpdate(UpdateView):
+    model = CoffeeBean
+    fields = '__all__'
+    
+class CoffeeBeanDelete(DeleteView):
+  model = CoffeeBean
+  success_url = '/profile/cafe/<int:cafe_id>/coffee_beans/'  
+  
+  def get_success_url(self):
+      return reverse_lazy('coffee_bean_edit', kwargs={'cafe_id': self.object.pk})
