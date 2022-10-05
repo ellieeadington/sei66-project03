@@ -24,13 +24,32 @@
         </div>
 
             <div class="card-action">
-                <a href="">Edit</a>
-                <a href="">Delete</a>
+                <a href="{% url 'coffee_bean_update' coffee_bean.id %}">Edit</a>
+                <a href="{% url 'coffee_bean_delete' coffee_bean.id %}">Delete</a>
             </div> 
     </a>
 </div>
 {% endfor %}
 
 <h2>Want to add more coffee beans? </h2>
+
+<form method="post" action="{% url 'add_coffee_bean' cafe.id %}">
+    {% csrf_token %}
+    {{ coffee_bean_form.as_p}}
+    <input type="submit" value="Add Coffee Beans" class="btn">
+</form>    
+
+<script>
+    let dateEl = document.getElementById('id_date_harvested');
+    M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    })
+
+    let varietyEl = document.getElementById('id_variety');
+    M.FormSelect.init(varietyEl);
+</script>
 
 {% endblock %}
