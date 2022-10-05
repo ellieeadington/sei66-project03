@@ -1,14 +1,16 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from .models import BrewingMethod, Cafe, CoffeeBean, User
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import BrewingMethod, Cafe, CoffeeBean, User, Event
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import forms
 from .forms import BrewingMethodForm, CoffeeBeanForm
 from .filters import CoffeeBeanFilter
 from django.urls import reverse_lazy
+from .forms import BrewingMethodForm, EventForm
+
 
 #@allowed_users(allowed_roles=['Cafe Owner'])
 class CafeCreate(LoginRequiredMixin, CreateView):
@@ -47,7 +49,10 @@ def cafes_detail(request, cafe_id):
   cafe = Cafe.objects.get(id = cafe_id)
   
   brewing_method_form = BrewingMethodForm()
-  return render(request, 'cafes/detail.html', {'cafe': cafe, 'brewing_method_form': brewing_method_form})
+  event_form = EventForm()
+  return render(request, 'cafes/detail.html', {'cafe': cafe, 'brewing_method_form': brewing_method_form, 'event_form': event_form})
+
+
 
 def add_brewing_method(request, cafe_id):
 
@@ -57,8 +62,19 @@ def add_brewing_method(request, cafe_id):
     new_brewing_method = form.save(commit=False)
     new_brewing_method.cafe_id = cafe_id
     new_brewing_method.save()
-  return redirect('detail', cafe_id = cafe_id)
+  return redirect('detail', cafe_id = cafe_id)  
 
+
+
+def add_event(request, cafe_id):
+
+  form = EventForm(request.POST)
+
+  if form.is_valid():
+    new_event = form.save(commit=False)
+    new_event.cafe_id = cafe_id
+    new_event.save()
+  return redirect('detail', cafe_id = cafe_id)
 
 
 
