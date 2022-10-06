@@ -2,6 +2,19 @@
 {% block content %}
 <header><h1>Coffee Beans</h1></header>
 
+<div class="row">
+    <div class="col">
+        <div class="card card-body">
+
+            <form method="get" action="">
+                {{coffee_bean_filter.form.as_p}}
+                <button class="btn" type="submit">Search</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 {% for coffee_bean in coffee_beans %}
 
 <div class="card">
@@ -10,18 +23,27 @@
 
             <div class="img-container coffee-bean-image">
                 {% load static %}
-                <img src="{% static 'uploads/'%}{{coffee_bean.coffee_bean_image}}" alt="My image" width="200" height="200">
+                <img src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="My image" width="200" height="200">
             </div>
             
             <div class="coffee-bean-details">
-                <span class="card-title"> {{ coffee_bean.coffee_bean_name }}</span>
-                <p>Roastery: {{ coffee_bean.roastery_name }}</p> 
-                <p>Variety: {{ coffee_bean.coffee_bean_variety }}</p>
-                <p>Description: {{ coffee_bean.coffee_bean_description }}</p> 
+                <span class="card-title"> {{ coffee_bean.name }} - {{ coffee_bean.roastery }}</span>
+        
+                <p>Variety: {{ coffee_bean.variety }}</p>
+                <p>Description: {{ coffee_bean.description }}</p> 
             </div>
 
         </div>
     </a>
 </div>
+
+<script>
+
+    let varietyEl = document.getElementById('id_variety');
+    M.FormSelect.init(varietyEl);
+
+    let roasteryEl = document.getElementById('id_roastery');
+    M.FormSelect.init(roasteryEl);
+</script>
 {% endfor %}
 {% endblock %}

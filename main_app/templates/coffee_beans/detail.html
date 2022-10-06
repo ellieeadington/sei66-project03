@@ -1,25 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="card">
-        <div class="card-content coffee-beans">
+<div class="container">
 
-            <div class="img-container coffee-bean-image">
-                {% load static %}
-                <img src="{% static 'uploads/'%}{{coffee_bean.coffee_bean_image}}" alt="My image" width="200" height="200">
-            </div>
-            
-            <div class="coffee-bean-details">
-                <span class="card-title"> {{ coffee_bean.coffee_bean_name }}</span>
-                <p>Roastery: {{ coffee_bean.roastery_name }}</p> 
-                <p>Variety: {{ coffee_bean.coffee_bean_variety }}</p>
-                <p>Description: {{ coffee_bean.coffee_bean_description }}</p> 
-                <p>Date harvested: {{ coffee_bean.date_harvested }}</p> 
-                <p>Bean Location: {{ coffee_bean.coffee_bean_location }}</p> 
-            </div>
-
+    <div class="left">
+      <div class="card">
+        <div class="card-image">
+            {% load static %}
+            <img src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="My image"  width="1000">
+          <span class="card-title">{{ cafe.cafe_name }}</span>
         </div>
- 
+        <div class="card-content">
+            <p>Roastery: {{ coffee_bean.roastery }}</p> 
+            <p>Variety: {{ coffee_bean.variety }}</p>
+            <p>Description: {{ coffee_bean.description }}</p> 
+            <p>Date harvested: {{ coffee_bean.date_harvested }}</p> 
+            <p>Bean Location: {{ coffee_bean.location }}</p> 
+        </div>
+      </div>
+    </div>  
+
+    <div class="right">
+        <h4>Cafes Serving this Coffee Bean</h4>
+        {% if cafes.count %}
+            {% for cafe in cafes.all %}
+                <div class="card small">
+                    <div class="card-image">
+                        {% load static %}
+                        <img src="{% static 'uploads/'%}{{cafe.cafe_image}}" alt="My image" width="200" height="200">
+                        <span class="card-title">{{ cafe.cafe_name }}</span>
+                    </div>
+
+                    <div class="card-content">
+                        <p>{{ cafe.address_line_1}}</p>
+                        <p>{{ cafe.address_city}}</p> 
+                        <p>{{ cafe.address_postcode }}</p>
+                        <div class="card-action">
+                            <a href="{{cafe.cafe_website}}">Website</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h5>There areo cafe's serving this coffee bean</h5>
+        {% endif %}
+</div>
 </div>
 
 {% endblock %}
