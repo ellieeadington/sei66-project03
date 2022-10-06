@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %} 
-<header><h1> Cafe </h1></header>
+<header><h1 class="fancy-font"> Cafes </h1></header>
 
 <div class="main-cc">
     <aside class="row">
@@ -18,15 +18,15 @@
     <div class="container-cc">
         <div class="row">
             {% for cafe in cafes %} 
-                <div class="col s3 ">
+                <div class="col s4 ">
                     <div class="card card-cc">
                         <a href="/cafes/{{ cafe.id }}">
+                            <span class="card-title"><b> {{ cafe.cafe_name }}</b> </span><br>
                             <div class="img-container cafe-image">
                                 {% load static %} 
                                 <img width="200px" height="200px" src={% static cafe.cafe_image|cut:'main_app/static/' %} />
                             </div>
                             <div class="card-content-cc">
-                                <span class="card-title"><b> {{ cafe.cafe_name }}</b> </span><br>
                                 <small> {{ cafe.address_city }}</small>
                             </div>
                         </a>

@@ -4,7 +4,7 @@
 <div class="container-cafe">
   <div class="card card-cafe left-cafe">
     <div class="card-content cafe">
-      <h4>{{ cafe.cafe_name }}</h4>
+      <h1 class="fancy-font">{{ cafe.cafe_name }}</h1>
       <div class="img-container cafe-image">
         {% load static %} 
         <img width="150px" height="150px" src={% static cafe.cafe_image|cut:'main_app/static/' %} />
@@ -26,7 +26,7 @@
 </div>
 
 <div class="right-cafe">
-  <h4>Leave a Review</h4>
+  <h4 class="fancy-font">Leave a Review</h4>
 <form class="card review-form" method="post" action="{% url 'add_review' cafe.id %}">
     {% csrf_token %}
     {{ review_form.as_p }}
@@ -43,7 +43,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for review in cafe.reviews_set.all %}
+        {% for review in cafe.review_set.all %}
         <tr>
             <td>{{ review.datetime }}</td>
             <td>{{ review.get_stars_display }}</td>

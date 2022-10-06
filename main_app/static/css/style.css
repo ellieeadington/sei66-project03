@@ -3,9 +3,22 @@ body {
     min-height: 100vh;
     flex-direction: column;
     text-align: center;
+  }
+
+  .hero {
+    margin-top: 60px;
+  }
+
+  .fancy-font {
     font-family: 'Dancing Script', cursive;
   }
-  
+
+  .explore {
+    margin: 20px auto;
+    width: 80px;
+    padding: 10px;
+  }
+
   main {
     flex: 1 0 auto;
   }
@@ -24,32 +37,6 @@ body {
     color: black !important;
   }
 
-
-
-  .hero {
-    width: 90%;
-    height: 220px;
-    margin: 20px auto;
-    border: none;
-  }
-
-  .home-bio {
-    width: 90%;
-    height: 100px;
-    margin: 20px auto;
-    border: 1px solid black;
-  }
-
-  .featured {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-gap: 20px;
-    width: 90%;
-    height: 360px;
-    margin: 40px auto;
-    padding: 20px 40px;
-    border: 1px solid black;
-  }
 
 .left-c {
     margin-right: 20px;
@@ -103,10 +90,16 @@ aside {
   width: 1000px;
 }
 
-.review-form {
+.form {
+  margin: 0 auto;
   width: 500px;
   padding: 20px;
+}
+
+.review-form {
+  width: 600px;
   margin: 0 auto;
+  text-align: center;
 }
 /* ------------------------------ */
 
@@ -124,12 +117,7 @@ aside {
   width: 1200px;
 }
 
-.card-cc {
-  width: 250px;
-  height: 300px;
-}
-
-.card-cb {
+.card-cb, .card-cc {
   height: 350px;
   width: 350px;
 }
@@ -140,7 +128,29 @@ aside {
 }
 
 /* ------------------------------ */
+/* footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background-color:rgb(104, 104, 104);
+} */
 
+.footer {
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 38px;
+  margin: 0 40px;
+  text-align: right;
+}
+
+.social {
+  padding-top: 26px;
+  margin: 10px 40px;
+}
 
   footer.page-footer {
     padding-top: 0;

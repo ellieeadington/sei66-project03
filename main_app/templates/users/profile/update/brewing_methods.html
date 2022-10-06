@@ -22,13 +22,13 @@
       </thead>
   {{ cafe }}
       <tbody>
-        {% for brewing_method in cafe.brewingmethods_set.all %} 
+        {% for brewing_method in cafe.brewing_methods_set.all %} 
         <tr>
           <td>{{ brewing_method.get_method_name_display }}</td>
           <td>{{ brewing_method.method_bio }}</td>
           <td>{% load static %} {{ brewing_method.method_image}}
             <img src="{% static 'uploads/'%}{{ brewing_method.method_image }}" alt="My image" height="100">
-            <img width="150px" height="150px" src={% static brewingmethod.method_image|cut:'main_app/static/' %} />
+            <img width="150px" height="150px" src={% static brewing_method.method_image|cut:'main_app/static/'%} />
         </td>
         </tr>
         {% endfor %}

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Brewing Methods at {{ cafe.cafe_name }}</h1>
+<h1>Events at {{ cafe.cafe_name }}</h1>
 
 <div>
     <form method="post" action="{% url 'add_event' cafe.id %}" enctype="multipart/form-data">

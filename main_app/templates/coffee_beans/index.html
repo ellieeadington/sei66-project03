@@ -1,6 +1,6 @@
 {% extends 'base.html'%}
 {% block content %}
-<header><h1>Coffee Beans</h1></header>
+<header><h1 class="fancy-font">Coffee Beans</h1></header>
 
 <div class="main-cb">
     <aside class="row">
@@ -21,7 +21,7 @@
             <div class="col s4">
                 <div class="card card-cb">
                     <a href="{% url 'coffee_beans_detail' coffee_bean.id %}">
-                        <span class="card-title"><b>{{ coffee_bean.name }}</b></span>
+                        <span class="card-title "><b>{{ coffee_bean.name }}</b></span>
                         <div class="img-container coffee-bean-image">
                             {% load static %}
                             <img src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="My image" width="200" height="200">
