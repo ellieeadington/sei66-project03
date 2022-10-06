@@ -122,7 +122,7 @@ def profile(request):
         p_form.save()
         print("p_form is valid")
         print("p_form is valid")
-        return HttpResponse("Profile form")
+        return redirect('profile_cafeowner')
 
 
       if u_form.is_valid():
@@ -141,7 +141,9 @@ def profile(request):
     }
     return render(request, 'users/profile/profile.html', context)
 
-
+def cafe_owner_profile(request):
+  
+  return render(request, 'users/profile/cafe_profile.html')
 
 
 
@@ -174,13 +176,6 @@ def coffee_beans_detail(request, coffee_beans_id):
   cafes = Cafe.objects.filter(coffee_beans = coffee_bean)
 
   return render(request, 'coffee_beans/detail.html',{ 'coffee_bean': coffee_bean, 'cafes': cafes})
-
-def cafe_owner_profile(request, cafe_id):
-  # is_cafe_owner = request.user.profile.profile_type_set.all()
-  # print('is cafe owner:', is_cafe_owner)
-
-  cafe = Cafe.objects.get(id = cafe_id)
-  return render(request, 'users/profile/cafe_profile.html',{'cafe': cafe })
 
 def coffee_bean_edit(request, cafe_id):
   cafe = Cafe.objects.get(id = cafe_id)

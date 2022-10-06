@@ -135,11 +135,8 @@ LOGOUT_REDIRECT_URL = '/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-<<<<<<< HEAD
 AUTHENTICATION_BACKENDS = (
     ('django.contrib.auth.backends.ModelBackend'),
 )
-=======
-import django_heroku
-django_heroku.settings(locals())
->>>>>>> 19ec914f3e8cb624ab76a8ceaef7e2a2472f684a
+# import django_heroku
+# django_heroku.settings(locals())
