@@ -6,10 +6,9 @@ from .models import BrewingMethod, Cafe, CoffeeBean, User, Event
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import forms
-from .forms import BrewingMethodForm, CoffeeBeanForm, ReviewForm
+from .forms import BrewingMethodForm, CoffeeBeanForm, ReviewForm, EventForm
 from .filters import CoffeeBeanFilter, CafeFilter
 from django.urls import reverse_lazy
-from .forms import BrewingMethodForm, EventForm
 
 
 #@allowed_users(allowed_roles=['Cafe Owner'])
@@ -68,8 +67,16 @@ def add_brewing_method(request, cafe_id):
     new_brewing_method = form.save(commit=False)
     new_brewing_method.cafe_id = cafe_id
     new_brewing_method.save()
-  return redirect('detail', cafe_id = cafe_id)  
+    return redirect('brewing_method_edit', cafe_id=cafe_id)   
+  
 
+
+def brewing_method_edit(request, cafe_id):
+  cafe = Cafe.objects.get(id = cafe_id)
+  print(cafe)
+  brewing_methods = BrewingMethod.objects.filter(cafe = cafe)
+  brewing_method_form = BrewingMethodForm()
+  return render(request,'users/profile/update/brewing_methods.html', {'cafe': cafe, 'brewing_methods': brewing_methods, 'brewing_method_form': brewing_method_form } )
 
 
 def add_event(request, cafe_id):

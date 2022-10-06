@@ -115,7 +115,6 @@ class Event(models.Model):
     event_time_to = models.TimeField()
     event_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
 
-    
     def __str__(self):
         return f"{self.get_event_type_display} on {self.event_date}"
 
@@ -140,17 +139,9 @@ class BrewingMethod(models.Model):
     method_bio = models.CharField(max_length=300)
     cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
 
+
+    def get_absolute_url(self):
+        return reverse('brewing_method_edit', kwargs = {'cafe_id': self.id})
+
     def __str__(self):
         return f"{self.get_method_name_display} on {self.method_bio}"
-    
-
-    
-    
-        
-    
-        
-
-    
-    
-    
-    

@@ -16,7 +16,8 @@ urlpatterns = [
     path('cafes/<int:pk>/delete/', views.CafeDelete.as_view(), name='cafes_delete'),
     
     path('cafes/<int:cafe_id>/add_brewing_method/', views.add_brewing_method, name='add_brewing_method'),
-    
+    path('profile/cafe/<int:cafe_id>/brewing_methods/', views.brewing_method_edit, name='brewing_method_edit'),
+
     path('cafes/<int:cafe_id>/add_event/', views.add_event, name='add_event'),
     
     
