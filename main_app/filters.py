@@ -11,3 +11,6 @@ class CoffeeBeanFilter(django_filters.FilterSet):
     class Meta:
         model = CoffeeBean
         fields = ['variety', 'roastery']
+        
+        
+

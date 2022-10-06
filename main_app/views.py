@@ -6,7 +6,7 @@ from .models import BrewingMethod, Cafe, CoffeeBean, User, Event
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import forms
-from .forms import BrewingMethodForm, CoffeeBeanForm
+from .forms import BrewingMethodForm, CoffeeBeanForm, ReviewForm
 from .filters import CoffeeBeanFilter
 from django.urls import reverse_lazy
 from .forms import BrewingMethodForm, EventForm
@@ -150,18 +150,23 @@ def cafe_owner_profile(request, cafe_id):
 
 def coffee_bean_edit(request, cafe_id):
   cafe = Cafe.objects.get(id = cafe_id)
+  print(cafe)
   coffee_beans = CoffeeBean.objects.filter(cafe = cafe)
   coffee_bean_form = CoffeeBeanForm()
   return render(request,'users/profile/update/coffee_beans.html', {'cafe': cafe, 'coffee_beans': coffee_beans, 'coffee_bean_form': coffee_bean_form } )
 
 def add_coffee_bean(request, cafe_id):
     coffee_bean_form = CoffeeBeanForm(request.POST) 
-    
+    cafe = Cafe.objects.get(id = cafe_id)
     if coffee_bean_form.is_valid():
         new_coffee_bean = coffee_bean_form.save(commit=False) 
         new_coffee_bean.cafe_id = cafe_id
         new_coffee_bean.save()
-        coffee_bean_form.save_m2m() 
+        new_beans_id = []
+        new_beans_id.append(new_coffee_bean.pk)
+        # 21 , 4
+        cafe.coffee_beans.set(new_beans_id)
+
     return redirect('coffee_bean_edit', cafe_id=cafe_id)   
   
 class CoffeeBeanUpdate(UpdateView):
@@ -174,3 +179,13 @@ class CoffeeBeanDelete(DeleteView):
   
   def get_success_url(self):
       return reverse_lazy('coffee_bean_edit', kwargs={'cafe_id': self.object.pk})
+    
+def add_review(request, cafe_id):  
+    
+    form = ReviewForm(request.POST)
+    
+    if form.is_valid():
+        new_review = form.save(commit=False)
+        new_review.cafe_id = cafe_id
+        new_review.save()
+    return redirect('detail', cafe_id = cafe_id)     

@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import BrewingMethod, CoffeeBean, Event
+from .models import BrewingMethod, CoffeeBean, Event, Review
 
 class BrewingMethodForm(ModelForm):
     class Meta:
@@ -17,3 +17,9 @@ class EventForm(ModelForm):
         model = Event
         fields = ['event_name', 'event_description', 'event_type', 'event_date', 'event_time_from', 'event_time_to', 'event_image']
 
+class ReviewForm(ModelForm):
+    class Meta:
+        model = Review
+        fields = ['datetime', 'review_title', 'review_body', 'stars']
+        
+        

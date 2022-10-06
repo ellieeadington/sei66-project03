@@ -120,6 +120,8 @@ class Review(models.Model):
     stars = models.CharField(max_length=2, choices=STARS, default=STARS[0][0])
     review_title = models.CharField(max_length=250)
     review_body = models.CharField(max_length=1000)
+    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     
 class CafeOpening(models.Model):
     weekday_open = models.CharField(max_length=250)

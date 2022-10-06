@@ -20,17 +20,43 @@
         {{ cafe.address_country }}, <br>
         {{ cafe.address_postcode }}</p>
       </div>
-
+{% comment %} 
       <div class="card-action">
         <a href="{% url 'cafes_update' cafe.id %}">Edit</a>
         <a href="{% url 'cafes_delete' cafe.id %}">Delete</a>
-      </div>
-
+      </div> {% endcomment %}
   </div>
 </div>
 
+<div>
+  <form method="post" action="{% url 'add_review' cafe.id %}">
+      {% csrf_token %}
+      {{ review_form.as_p }}
+      <input type="submit" value="Add Review" class="btn"/>
+  </form>
 
-
+  <table class="striped">
+      <thead>
+          <tr>
+              <th> Review Date </th>
+              <th> Stars </th>
+              <th> Review Title </th>
+              <th> Review </th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for review in cafe.reviews_set.all %}
+          <tr>
+              <td>{{ review.datetime }}</td>
+              <td>{{ review.get_stars_display }}</td>
+              <td>{{ review.review_title }}</td>
+              <td>{{ review.review_body }}</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</div>
+{% comment %} 
 <div>
   <form method="post" action="{% url 'add_brewing_method' cafe.id %}">
     {% csrf_token %} 
@@ -126,5 +152,5 @@
   let selectEventEl = document.getElementById('id_event_type')
   M.FormSelect.init(selectEventEl);
 
-</script>
+</script> {% endcomment %}
 {% endblock %}
