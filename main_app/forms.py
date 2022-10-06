@@ -20,6 +20,6 @@ class EventForm(ModelForm):
 class ReviewForm(ModelForm):
     class Meta:
         model = Review
-        fields = ['datetime', 'review_title', 'review_body', 'stars']
+        fields = ['review_title', 'review_body', 'stars']
         
         
