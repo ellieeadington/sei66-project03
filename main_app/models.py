@@ -97,9 +97,9 @@ class Cafe(models.Model):
         return reverse('detail', kwargs = {'cafe_id': self.id})
     
     def __str__(self):
-        return self.cafe_name
-    def __str__(self):
-        return self.address_city
+        return f"{self.cafe_name} on {self.address_city}" # NEED TO WORK OUT HOW TO RETURN TWO OBJECT FIELD NAMES - STRING OVERRIDE!!!!!
+    # def __str__(self):
+    #     return self.address_city
     
 class Event(models.Model):
 

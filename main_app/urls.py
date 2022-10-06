@@ -30,12 +30,7 @@ urlpatterns = [
     
     # ASHISH SECTION
     path('accounts/signup', views.signup, name="signup"),
-    
-    
-    
-    
-    
-    
+
     
 
     # ELLIE SECTION
