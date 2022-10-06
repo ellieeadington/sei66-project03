@@ -5,24 +5,134 @@
   <div class="card card-cafe left-cafe">
     <div class="card-content cafe">
       <h4>{{ cafe.cafe_name }}</h4>
+      <small>{{ cafe.address_line_1 }} 
+        {{ cafe.address_city }}, 
+        {{ cafe.address_county }}, 
+        {{ cafe.address_postcode }}</small>
       <div class="img-container cafe-image">
         {% load static %} 
-        <img width="150px" height="150px" src={% static cafe.cafe_image|cut:'main_app/static/' %} />
+        <img width="650px" src={% static cafe.cafe_image|cut:'main_app/static/' %} />
       </div>
 
       <div class="cafe-details">
         <p>{{ cafe.cafe_bio }}</p>
-        <br>
-        <small>{{ cafe.address_line_1 }} <br> 
-        {{ cafe.address_city }}, <br>
-        {{ cafe.address_county }}, <br>
-        {{ cafe.address_postcode }}</small>
       </div>
     </div>
     <div class="card-action">
-      <a href={{ cafe.cafe_webiste }}>Website</a>
+      <a href={{ cafe.cafe_website }}>Website</a>
     </div>
   </div>
+</div>
+<br>
+<hr>
+<div class="right-c">
+  <h4>Coffee Beans served at {{cafe.cafe_name}}</h4>
+  {% if cafe.coffeebeans.count %}
+      {% for coffeebean in cafe.coffeebeans.all %}
+          <div class="card">
+              <div class="card-content-c">
+                  <div>
+                      {% load static %}
+                      <img src="{% static 'uploads/'%}{{cafe.coffeebean.image}}" alt="My image" height="100">
+                      <span class="card-title">{{ cafe.coffeebean.name }} - {{ cafe.coffeebean.roastery}}</span>
+                  </div>
+              </div>
+              <div class="card-action">
+                  <a href="">Details</a>
+              </div>
+          </div>
+      {% endfor %}
+  {% else %}
+      <h5><em>There are no cafe's serving this coffee bean</em></h5>
+  {% endif %}
+</div>
+<br><hr><br>
+<div>
+  <h4>Brewing Methods at {{cafe.cafe_name}}</h4>
+<div>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Brewing Method </th>
+        <th>Bio</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for brewing_method in cafe.brewingmethod_set.all %} 
+      <tr>
+        <td>{{ brewing_method.get_method_name_display }}</td>
+        <td>{{ brewing_method.method_bio }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+<br><hr><br>
+<div>
+  <h4>Activities</h4>
+<div>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Event </th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Date</th>
+        <th>Time From</th>
+        <th>Time to</th>
+        <th>Image</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for event in cafe.event_set.all %} 
+      <tr>
+        <td>{{ event.event_name }}</td>
+        <td>{{ event.description }}</td>
+        <td>{{ event.get_event_type_display }}</td>
+        <td>{{ event.event_date }}</td>
+        <td>{{ event.time_from }}</td>
+        <td>{{ event.time_to }}</td>
+        <td>{% load static %} {{ event.event_image}}
+          <img width="150px" height="150px" src={% static event.event_image|cut:'main_app/static/' %} />
+      </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+<div>
+  <h4>Menu</h4>
+<div class="img-container cafe-image">
+  {% load static %} 
+  <img width="650px" src={% static cafe.menu_image|cut:'main_app/static/' %} />
+</div>
+</div>
+
+<div>
+  <h4>Reviews</h4>
+<table class="striped">
+  <thead>
+      <tr>
+          <th> Review Date </th>
+          <th> Stars </th>
+          <th> Review Title </th>
+          <th> Review </th>
+      </tr>
+  </thead>
+  <tbody>
+      {% for review in cafe.reviews_set.all %}
+      <tr>
+          <td>{{ review.datetime }}</td>
+          <td>{{ review.get_stars_display }}</td>
+          <td>{{ review.review_title }}</td>
+          <td>{{ review.review_body }}</td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
 </div>
 
 <div class="right-cafe">
@@ -33,26 +143,6 @@
     <input type="submit" value="Add Review" class="btn"/>
 </form>
 
-<table class="striped">
-    <thead>
-        <tr>
-            <th> Review Date </th>
-            <th> Stars </th>
-            <th> Review Title </th>
-            <th> Review </th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for review in cafe.reviews_set.all %}
-        <tr>
-            <td>{{ review.datetime }}</td>
-            <td>{{ review.get_stars_display }}</td>
-            <td>{{ review.review_title }}</td>
-            <td>{{ review.review_body }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
 </div>
 <script>
 

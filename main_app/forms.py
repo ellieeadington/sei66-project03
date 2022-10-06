@@ -4,7 +4,7 @@ from .models import BrewingMethod, CoffeeBean, Event, Review
 class BrewingMethodForm(ModelForm):
     class Meta:
         model = BrewingMethod
-        fields = ['method_name', 'method_bio', 'method_image']
+        fields = ['method_name', 'method_bio']
 
         
 class CoffeeBeanForm(ModelForm):
@@ -15,7 +15,7 @@ class CoffeeBeanForm(ModelForm):
 class EventForm(ModelForm):
     class Meta:
         model = Event
-        fields = ['event_name', 'event_description', 'event_type', 'event_date', 'event_time_from', 'event_time_to', 'event_image']
+        fields = ['event_name', 'event_description', 'event_type', 'event_date', 'event_time_from', 'event_time_to']
 
 class ReviewForm(ModelForm):
     class Meta:
