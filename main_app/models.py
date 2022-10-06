@@ -17,7 +17,7 @@ VARIETIES = (
     ('R', 'Robusta'),
     ('L', 'Liberica'),
     ('E', 'Excelsa')
-)
+)  
 
 
 BREWINGMETHOD = (
@@ -100,7 +100,7 @@ class Cafe(models.Model):
     
 class Event(models.Model):
 
-    event_cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)   
+    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)   
     event_name = models.CharField(max_length=250)
     event_description = models.CharField(max_length=1000)
     event_type = models.CharField(max_length=4, choices=TYPE, default=TYPE[0][0])
@@ -132,7 +132,7 @@ class BrewingMethod(models.Model):
     method_name = models.CharField(max_length=2, choices=BREWINGMETHOD, default=BREWINGMETHOD[0][0])
     method_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     method_bio = models.CharField(max_length=300)
-    method_cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
+    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.get_method_name_display} on {self.method_bio}"
