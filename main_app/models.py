@@ -17,7 +17,7 @@ VARIETIES = (
     ('R', 'Robusta'),
     ('L', 'Liberica'),
     ('E', 'Excelsa')
-)
+)  
 
 
 BREWINGMETHOD = (
@@ -45,6 +45,18 @@ class Profile(models.Model):
 #     if created: 
 #         Profile.objects.create(user=instance)
 
+
+TYPE = (
+    ('KID', 'Children'),
+    ('MUM', 'Parent and Children'),
+    ('HEA', 'Health and Wellbeing'),
+    ('FIT', 'Fitness'),
+    ('FOO', 'Cooking and Food'),
+    ('ENT', 'Entertainment'),
+    ('ART', 'Arts and Crafts')
+)
+
+
 class CoffeeBean(models.Model):
     name = models.CharField(max_length=250)
     variety =  models.CharField(max_length=1000, choices=VARIETIES, default=VARIETIES[0][0])
@@ -56,6 +68,12 @@ class CoffeeBean(models.Model):
     
     def get_absolute_url(self):
         return reverse('coffee_bean_edit', kwargs = {'cafe_id': self.id})
+    def __str__(self):
+        return self.variety
+    def __str__(self):
+        return self.roastery
+    
+
     
 # Create your models here.
 
@@ -83,16 +101,25 @@ class Event(models.Model):
     cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)   
     event_name = models.CharField(max_length=250)
     event_description = models.CharField(max_length=1000)
-    event_weekday = models.CharField(max_length=20)
+    event_type = models.CharField(max_length=4, choices=TYPE, default=TYPE[0][0])
+    event_date = models.DateField()
     event_time_from = models.TimeField()
     event_time_to = models.TimeField()
-    event_image = models.CharField(max_length=1000)
+    event_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
+
+    
+    def __str__(self):
+        return f"{self.get_event_type_display} on {self.event_date}"
+
+        
     
 class Review(models.Model):
     datetime = models.DateTimeField()
     stars = models.CharField(max_length=2, choices=STARS, default=STARS[0][0])
     review_title = models.CharField(max_length=250)
     review_body = models.CharField(max_length=1000)
+    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     
 class CafeOpening(models.Model):
     weekday_open = models.CharField(max_length=250)
@@ -106,7 +133,9 @@ class BrewingMethod(models.Model):
     cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.get_method_name_display()} on {self.method_bio}"
+        return f"{self.get_method_name_display} on {self.method_bio}"
+    
+
     
     
         

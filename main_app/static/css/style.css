@@ -34,32 +34,21 @@ body {
     border: 1px solid black;
   }
 
-  .featured-content {
-
-    border: 1px solid black;
+  .container {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    border: 1px solid red;
   }
+
+
   
   footer.page-footer {
     padding-top: 0;
     text-align: right;
   }
   
-  .coffee-beans {
-    display: flex;
-    flex-direction: row;
-
-  }
-
-  .coffee-bean-details {
-    width: 500px;
-  }
-
-  .cafe {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .cafe-details {
-    width: 500px;
+  .grid {
+    width: 200px;
   }
 

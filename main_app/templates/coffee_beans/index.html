@@ -7,7 +7,7 @@
         <div class="card card-body">
 
             <form method="get" action="">
-                {{coffee_bean_filter.form}}
+                {{coffee_bean_filter.form.as_p}}
                 <button class="btn" type="submit">Search</button>
             </form>
 
@@ -27,8 +27,8 @@
             </div>
             
             <div class="coffee-bean-details">
-                <span class="card-title"> {{ coffee_bean.name }}</span>
-                <p>Roastery: {{ coffee_bean.roastery }}</p> 
+                <span class="card-title"> {{ coffee_bean.name }} - {{ coffee_bean.roastery }}</span>
+        
                 <p>Variety: {{ coffee_bean.variety }}</p>
                 <p>Description: {{ coffee_bean.description }}</p> 
             </div>
@@ -41,6 +41,9 @@
 
     let varietyEl = document.getElementById('id_variety');
     M.FormSelect.init(varietyEl);
+
+    let roasteryEl = document.getElementById('id_roastery');
+    M.FormSelect.init(roasteryEl);
 </script>
 {% endfor %}
 {% endblock %}

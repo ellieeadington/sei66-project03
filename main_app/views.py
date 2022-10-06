@@ -1,17 +1,16 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import BrewingMethod, Cafe, CoffeeBean, Profile
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import BrewingMethod, Cafe, CoffeeBean, Profile, Event
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django import forms
-from .forms import BrewingMethodForm, CoffeeBeanForm, UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import BrewingMethodForm, CoffeeBeanForm, UserRegisterForm, UserUpdateForm, ProfileUpdateForm, ReviewForm
 from .filters import CoffeeBeanFilter
 from django.urls import reverse_lazy
+
 
 #@allowed_users(allowed_roles=['Cafe Owner'])
 class CafeCreate(LoginRequiredMixin, CreateView):
@@ -53,7 +52,10 @@ def cafes_detail(request, cafe_id):
   cafe = Cafe.objects.get(id = cafe_id)
   
   brewing_method_form = BrewingMethodForm()
-  return render(request, 'cafes/detail.html', {'cafe': cafe, 'brewing_method_form': brewing_method_form})
+  event_form = EventForm()
+  return render(request, 'cafes/detail.html', {'cafe': cafe, 'brewing_method_form': brewing_method_form, 'event_form': event_form})
+
+
 
 def add_brewing_method(request, cafe_id):
 
@@ -63,8 +65,19 @@ def add_brewing_method(request, cafe_id):
     new_brewing_method = form.save(commit=False)
     new_brewing_method.cafe_id = cafe_id
     new_brewing_method.save()
-  return redirect('detail', cafe_id = cafe_id)
+  return redirect('detail', cafe_id = cafe_id)  
 
+
+
+def add_event(request, cafe_id):
+
+  form = EventForm(request.POST)
+
+  if form.is_valid():
+    new_event = form.save(commit=False)
+    new_event.cafe_id = cafe_id
+    new_event.save()
+  return redirect('detail', cafe_id = cafe_id)
 
 
 
@@ -164,18 +177,24 @@ def cafe_owner_profile(request, cafe_id):
 
 def coffee_bean_edit(request, cafe_id):
   cafe = Cafe.objects.get(id = cafe_id)
+  print(cafe)
   coffee_beans = CoffeeBean.objects.filter(cafe = cafe)
   coffee_bean_form = CoffeeBeanForm()
   return render(request,'users/profile/update/coffee_beans.html', {'cafe': cafe, 'coffee_beans': coffee_beans, 'coffee_bean_form': coffee_bean_form } )
 
 def add_coffee_bean(request, cafe_id):
     coffee_bean_form = CoffeeBeanForm(request.POST) 
-    
+    cafe = Cafe.objects.get(id = cafe_id)
     if coffee_bean_form.is_valid():
         new_coffee_bean = coffee_bean_form.save(commit=False) 
         new_coffee_bean.cafe_id = cafe_id
         new_coffee_bean.save()
-    return redirect('coffee_bean_create', cafe_id=cafe_id)   
+        new_beans_id = []
+        new_beans_id.append(new_coffee_bean.pk)
+        # 21 , 4
+        cafe.coffee_beans.set(new_beans_id)
+
+    return redirect('coffee_bean_edit', cafe_id=cafe_id)   
   
 class CoffeeBeanUpdate(UpdateView):
     model = CoffeeBean
@@ -187,3 +206,13 @@ class CoffeeBeanDelete(DeleteView):
   
   def get_success_url(self):
       return reverse_lazy('coffee_bean_edit', kwargs={'cafe_id': self.object.pk})
+    
+def add_review(request, cafe_id):  
+    
+    form = ReviewForm(request.POST)
+    
+    if form.is_valid():
+        new_review = form.save(commit=False)
+        new_review.cafe_id = cafe_id
+        new_review.save()
+    return redirect('detail', cafe_id = cafe_id)     

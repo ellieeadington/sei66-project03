@@ -20,17 +20,43 @@
         {{ cafe.address_country }}, <br>
         {{ cafe.address_postcode }}</p>
       </div>
-
+{% comment %} 
       <div class="card-action">
         <a href="{% url 'cafes_update' cafe.id %}">Edit</a>
         <a href="{% url 'cafes_delete' cafe.id %}">Delete</a>
-      </div>
-
+      </div> {% endcomment %}
   </div>
 </div>
 
+<div>
+  <form method="post" action="{% url 'add_review' cafe.id %}">
+      {% csrf_token %}
+      {{ review_form.as_p }}
+      <input type="submit" value="Add Review" class="btn"/>
+  </form>
 
-
+  <table class="striped">
+      <thead>
+          <tr>
+              <th> Review Date </th>
+              <th> Stars </th>
+              <th> Review Title </th>
+              <th> Review </th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for review in cafe.reviews_set.all %}
+          <tr>
+              <td>{{ review.datetime }}</td>
+              <td>{{ review.get_stars_display }}</td>
+              <td>{{ review.review_title }}</td>
+              <td>{{ review.review_body }}</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</div>
+{% comment %} 
 <div>
   <form method="post" action="{% url 'add_brewing_method' cafe.id %}">
     {% csrf_token %} 
@@ -52,9 +78,52 @@
     <tbody>
       {% for brewing_method in cafe.brewingmethod_set.all %} 
       <tr>
-        <td>{{ brewing_method.method_name }}</td>
+        <td>{{ brewing_method.get_method_name_display }}</td>
         <td>{{ brewing_method.method_bio }}</td>
-        <td>{{ brewing_method.method_image }}</td>
+        <td>{% load static %} {{ brewing_method.method_image}}
+          <img width="150px" height="150px" src={% static brewingmethod.method_image|cut:'main_app/static/' %} />
+      </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+<div>
+  <form method="post" action="{% url 'add_event' cafe.id %}">
+    {% csrf_token %} 
+    {{ event_form.as_p }}
+    <input type="submit" value="Add Event" class="btn" />
+  </form>
+</div>
+
+<div>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Event Name </th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Date</th>
+        <th>Time From</th>
+        <th>Time To</th>
+        <th>Image</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for event in cafe.event_set.all %} 
+      <tr>
+        <td>{{ event.event_name }}</td>
+        <td>{{ event.event_description }}</td>
+        <td>{{ event.get_event_type_display }}</td>
+        <td>{{ event.event_date }}</td>
+        <td>{{ event.event_time_from }}</td>
+        <td>{{ event.event_time_to }}</td>
+        <td> {% load static %} 
+          <img width="150px" height="150px" src={% static event.event_image|cut:'main_app/static/' %} />
+       </td>
       </tr>
       {% endfor %}
     </tbody>
@@ -63,8 +132,25 @@
 
 <script>
 
+  let dateEl = document.getElementById('id_event_date');
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  })
+
+  let timeToEl = document.getElementById('id_event_time_from');
+  M.Timepicker.init(timeToEl);
+
+  let timeFromEl = document.getElementById('id_event_time_to');
+  M.Timepicker.init(timeFromEl);
+
   let selectEl = document.getElementById('id_method_name')
   M.FormSelect.init(selectEl);
 
-</script>
+  let selectEventEl = document.getElementById('id_event_type')
+  M.FormSelect.init(selectEventEl);
+
+</script> {% endcomment %}
 {% endblock %}
