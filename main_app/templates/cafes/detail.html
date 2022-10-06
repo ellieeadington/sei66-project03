@@ -43,7 +43,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for review in cafe.review_set.all %}
+        {% for review in cafe.reviews_set.all %}
         <tr>
             <td>{{ review.datetime }}</td>
             <td>{{ review.get_stars_display }}</td>

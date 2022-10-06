@@ -26,7 +26,7 @@
       </thead>
   {{ cafe }}
       <tbody>
-        {% for event in cafe.event_set.all %} 
+        {% for event in cafe.events_set.all %} 
         <tr>
           <td>{{ event.event_name }}</td>
           <td>{{ event.description }}</td>
@@ -61,7 +61,6 @@
     M.Timepicker.init(timeToEl, {
         twelveHour: false
     })
-
 
     let selectEl = document.getElementById('id_event_type')
     M.FormSelect.init(selectEl);
