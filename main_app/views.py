@@ -53,7 +53,6 @@ def cafes_index(request):
 def cafes_detail(request, cafe_id):
 
   cafe = Cafe.objects.get(id = cafe_id)
-  
   brewing_method_form = BrewingMethodForm()
   event_form = EventForm()
   review_form = ReviewForm()

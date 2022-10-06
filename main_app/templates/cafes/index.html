@@ -2,46 +2,46 @@
 {% block content %} 
 <header><h1> Cafe List </h1></header>
 
-<div class="row">
-    <div class="col">
-        <div class="card card-body">
-
-            <form method="get" action="">
-                {{cafe_filter.form.as_p}}
-                <button class="btn" type="submit">Search</button>
-            </form>
-
+<div class="main-cc">
+    <aside class="row">
+        <div class="col">
+            <div class="card card-body">
+                <form method="get" action="">
+                    {{cafe_filter.form.as_p}}
+                    <button class="btn" type="submit">Search</button>
+                </form>
+            </div>
         </div>
+    </aside>
+
+    <div class="container-cc">
+    {% for cafe in cafes %} 
+
+        <div class="card card-cc">
+            <a href="/cafes/{{ cafe.id }}">
+                <div class="card-content-cc">
+
+                    <div class="img-container cafe-image">
+                        {% load static %} 
+                        <img width="200px" height="200px" src={% static cafe.cafe_image|cut:'main_app/static/' %} />
+                    </div>
+
+                    <div class="right-cc">
+                        <span class="card-title"> {{ cafe.cafe_name }} - {{ cafe.address_city }} </span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
     </div>
 </div>
 
-{% for cafe in cafes %} 
-
-<div class="card">
-    <a href="/cafes/{{ cafe.id }}">
-        <div class="card-content cafe">
-            <div class="img-container cafe-image">
-                {% load static %} 
-                <img width="200px" height="200px" src={% static cafe.cafe_image|cut:'main_app/static/' %} />
-            </div>
-
-            <div class="cafe-details">
-                <span class="card-title"> {{ cafe.cafe_name }} </span>
-                <p> Bio: {{ cafe.cafe_bio }} </p>
-                <p> Website: {{ cafe.cafe_website }} </p>
-            </div>
-        </div>
-        
-    </a>
-</div>
-
 <script>
-
     let nameEl = document.getElementById('id_cafe_name');
     M.FormSelect.init(nameEl);
 
     let cityEl = document.getElementById('id_address_city');
     M.FormSelect.init(cityEl);
 </script>
-{% endfor %}
+
 {% endblock %}
