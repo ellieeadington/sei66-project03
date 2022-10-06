@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %} 
-
-<div class="card">
+<div class="container-cafe">
+  <div class="card card-cafe left-cafe">
     <div class="card-content cafe">
       <h4>{{ cafe.cafe_name }}</h4>
       <div class="img-container cafe-image">
@@ -12,29 +12,28 @@
 
       <div class="cafe-details">
         <p>{{ cafe.cafe_bio }}</p>
-        <p>Established: {{ cafe.date_founded }}</p>
         <br>
         <small>Address: {{ cafe.address_line_1 }} <br> 
-          {{ cafe.address_city }}, <br>
-          {{ cafe.address_county }}, <br>
-          {{ cafe.address_country }}, <br>
-          {{ cafe.address_postcode }}</small>
+        {{ cafe.address_city }}, <br>
+        {{ cafe.address_county }}, <br>
+        {{ cafe.address_country }}, <br>
+        {{ cafe.address_postcode }}</small>
       </div>
+    </div>
+    <div class="card-action">
+      <a href={{ cafe.cafe_webiste }}>Website</a>
+    </div>
   </div>
-  <div class="card-action">
-    <a href={{ cafe.cafe_webiste }}>Website</a>
-  </div>
-</div>
 
-<div>
-  <div>
+
+  <div class="right-cafe">
     <h4>Leave a Review</h4>
-  <form class="review-form" method="post" action="{% url 'add_review' cafe.id %}">
+  <form class="card review-form" method="post" action="{% url 'add_review' cafe.id %}">
       {% csrf_token %}
       {{ review_form.as_p }}
       <input type="submit" value="Add Review" class="btn"/>
   </form>
-</div>
+
   <table class="striped">
       <thead>
           <tr>
@@ -56,5 +55,20 @@
       </tbody>
   </table>
 </div>
+</div>
+
+<script>
+
+  let dateEl = document.getElementById('id_datetime');
+  M.Datepicker.init(dateEl, {
+      format: 'yyyy-mm-dd',
+      defaultDate: new Date(),
+      setDefaultDate: true,
+      autoClose: true
+  })
+
+  let starsEl = document.getElementById('id_stars');
+  M.FormSelect.init(starsEl);
+</script>
 
 {% endblock %}

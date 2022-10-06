@@ -8,6 +8,8 @@ from .models import BrewingMethod, Cafe, CoffeeBean, Profile, Event
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import BrewingMethodForm, CoffeeBeanForm, UserRegisterForm, UserUpdateForm, ProfileUpdateForm, ReviewForm, EventForm
+from django import forms
+from .forms import BrewingMethodForm, CoffeeBeanForm, ReviewForm, EventForm
 from .filters import CoffeeBeanFilter, CafeFilter
 from django.urls import reverse_lazy
 
@@ -56,7 +58,6 @@ def cafes_index(request):
 def cafes_detail(request, cafe_id):
 
   cafe = Cafe.objects.get(id = cafe_id)
-  
   brewing_method_form = BrewingMethodForm()
   event_form = EventForm()
   review_form = ReviewForm()
@@ -72,8 +73,16 @@ def add_brewing_method(request, cafe_id):
     new_brewing_method = form.save(commit=False)
     new_brewing_method.cafe_id = cafe_id
     new_brewing_method.save()
-  return redirect('detail', cafe_id = cafe_id)  
+    return redirect('brewing_method_edit', cafe_id=cafe_id)   
+  
 
+
+def brewing_method_edit(request, cafe_id):
+  cafe = Cafe.objects.get(id = cafe_id)
+  print(cafe)
+  brewing_methods = BrewingMethod.objects.filter(cafe = cafe)
+  brewing_method_form = BrewingMethodForm()
+  return render(request,'users/profile/update/brewing_methods.html', {'cafe': cafe, 'brewing_methods': brewing_methods, 'brewing_method_form': brewing_method_form } )
 
 
 def add_event(request, cafe_id):
@@ -84,7 +93,14 @@ def add_event(request, cafe_id):
     new_event = form.save(commit=False)
     new_event.cafe_id = cafe_id
     new_event.save()
-  return redirect('detail', cafe_id = cafe_id)
+  return redirect('event_edit', cafe_id = cafe_id)
+
+def event_edit(request, cafe_id):
+  cafe = Cafe.objects.get(id = cafe_id)
+  print(cafe)
+  events = Event.objects.filter(cafe = cafe)
+  event_form = EventForm()
+  return render(request,'users/profile/update/events.html', {'cafe': cafe, 'events': events, 'event_form': event_form } )
 
 
 
@@ -142,7 +158,7 @@ def profile(request):
     return render(request, 'users/profile/profile.html', context)
 
 def cafe_owner_profile(request):
-  
+
   return render(request, 'users/profile/cafe_profile.html')
 
 

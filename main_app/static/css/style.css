@@ -34,16 +34,16 @@ body {
     border: 1px solid black;
   }
 
-  .left-c {
+.left-c {
     margin-right: 20px;
     width: 600px;
   }
 
-  .right-c {
+.right-c {
     margin-top: 100px;
   }
 
-  .container-c {
+.container-c {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -74,7 +74,7 @@ aside {
   text-align: center;
 }
 .card-cb {
-  width: 600px;
+  width: 700px;
   padding: 20px;
 }
 
@@ -85,12 +85,45 @@ aside {
   justify-content: space-around;
 }
 
+.container-cafe {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+.card-cafe {
+  width: 1000px;
+}
+
 .review-form {
   width: 500px;
+  padding: 20px;
   margin: 0 auto;
 }
 
-  
+.main-cc {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+.container-cc {
+  flex-grow: 1;
+  margin: 0 auto;
+  text-align: center;
+}
+.card-cc {
+  width: 700px;
+  padding: 20px;
+}
+
+.card-content-cc {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}  
   footer.page-footer {
     padding-top: 0;
     text-align: right;

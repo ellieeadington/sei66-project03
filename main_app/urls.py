@@ -11,14 +11,20 @@ urlpatterns = [
     # ROB SECTION
     path('cafes/<int:cafe_id>', views.cafes_detail, name='detail'),
     path('cafes/create/', views.CafeCreate.as_view(), name='cafes_create'),
+
+    # path('profile/cafe/<int:cafe_id>/', views.cafe_edit, name='cafe_edit'),
+
+    
     # Delete and Update for Cafes
     path('cafes/<int:pk>/update/', views.CafeUpdate.as_view(), name='cafes_update'),
     path('cafes/<int:pk>/delete/', views.CafeDelete.as_view(), name='cafes_delete'),
     
     path('cafes/<int:cafe_id>/add_brewing_method/', views.add_brewing_method, name='add_brewing_method'),
-    
+    path('profile/cafe/<int:cafe_id>/brewing_methods/', views.brewing_method_edit, name='brewing_method_edit'),
+
     path('cafes/<int:cafe_id>/add_event/', views.add_event, name='add_event'),
-    
+    path('profile/cafe/<int:cafe_id>/events/', views.event_edit, name='event_edit'),
+
     
     
     

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Brewing Methods at {{ cafe.cafe_name }}</h1>
+
+<div>
+    <form method="post" action="{% url 'add_brewing_method' cafe.id %}">
+      {% csrf_token %} 
+      {{ brewing_method_form.as_p }}
+      <input type="submit" value="Add Brewing Method" class="btn" />
+    </form>
+  </div>
+  
+  <div>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Brewing Method </th>
+          <th>Bio</th>
+          <th>Image</th>
+        </tr>
+      </thead>
+  {{ cafe }}
+      <tbody>
+        {% for brewing_method in cafe.brewingmethod_set.all %} 
+        <tr>
+          <td>{{ brewing_method.get_method_name_display }}</td>
+          <td>{{ brewing_method.method_bio }}</td>
+          <td>{% load static %} {{ brewing_method.method_image}}
+            <img width="150px" height="150px" src={% static brewingmethod.method_image|cut:'main_app/static/' %} />
+        </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+  <script>
+    let selectEl = document.getElementById('id_method_name')
+    M.FormSelect.init(selectEl);
+  </script>
+
+
+{% endblock %}

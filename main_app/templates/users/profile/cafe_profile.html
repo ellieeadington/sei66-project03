@@ -23,13 +23,13 @@
     </div> 
 
     <div class="card">
-        <a href="">
+        <a href="{% url 'event_edit' cafe.id%}">
             <span class="card-title">Edit Events</span>
         </a>
     </div>
 
     <div class="card">
-        <a href="">
+        <a href="{% url 'brewing_method_edit' cafe.id%}">
             <span class="card-title">Edit Brewing Methods</span>
         </a>
     </div>
