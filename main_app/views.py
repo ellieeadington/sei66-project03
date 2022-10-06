@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import forms
 from .forms import BrewingMethodForm, CoffeeBeanForm, ReviewForm
-from .filters import CoffeeBeanFilter
+from .filters import CoffeeBeanFilter, CafeFilter
 from django.urls import reverse_lazy
 from .forms import BrewingMethodForm, EventForm
 
@@ -40,7 +40,13 @@ def about(request):
 
 def cafes_index(request):
   cafes = Cafe.objects.all()
-  return render(request, 'cafes/index.html', { 'cafes': cafes })
+  cafe_filter = CafeFilter(request.GET, queryset=cafes)
+  cafes = cafe_filter.qs
+  context = {
+    'cafe_filter': cafe_filter,
+    'cafes': cafes
+  }
+  return render(request, 'cafes/index.html', context)
 
 # ROB SECTION
 
