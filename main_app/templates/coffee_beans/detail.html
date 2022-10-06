@@ -1,50 +1,46 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container">
+<div class="container-c">
 
-    <div class="left">
+    <div class="left-c">
+        <h4>{{ coffee_bean.roastery }} - {{coffee_bean.name}}</h4>
       <div class="card">
         <div class="card-image">
             {% load static %}
-            <img src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="My image"  width="1000">
-          <span class="card-title">{{ cafe.cafe_name }}</span>
+            <img src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="My image" height="400" width="auto">
         </div>
         <div class="card-content">
-            <p>Roastery: {{ coffee_bean.roastery }}</p> 
-            <p>Variety: {{ coffee_bean.variety }}</p>
-            <p>Description: {{ coffee_bean.description }}</p> 
-            <p>Date harvested: {{ coffee_bean.date_harvested }}</p> 
-            <p>Bean Location: {{ coffee_bean.location }}</p> 
+            <p>{{ coffee_bean.description }}</p> 
+            <hr>
+            <p>{{ coffee_bean.variety }}</p>
+            <hr>
+            <p>{{ coffee_bean.location }}</p> 
         </div>
       </div>
     </div>  
 
-    <div class="right">
-        <h4>Cafes Serving this Coffee Bean</h4>
+    <div class="right-c">
+        <h5>Cafes Serving this Coffee Bean</h5>
         {% if cafes.count %}
             {% for cafe in cafes.all %}
-                <div class="card small">
-                    <div class="card-image">
-                        {% load static %}
-                        <img src="{% static 'uploads/'%}{{cafe.cafe_image}}" alt="My image" width="200" height="200">
-                        <span class="card-title">{{ cafe.cafe_name }}</span>
-                    </div>
-
-                    <div class="card-content">
-                        <p>{{ cafe.address_line_1}}</p>
-                        <p>{{ cafe.address_city}}</p> 
-                        <p>{{ cafe.address_postcode }}</p>
-                        <div class="card-action">
-                            <a href="{{cafe.cafe_website}}">Website</a>
+                <div class="card">
+                    <div class="card-content-c">
+                        <div>
+                            {% load static %}
+                            <img src="{% static 'uploads/'%}{{cafe.cafe_image}}" alt="My image" height="100">
+                            <span class="card-title">{{ cafe.cafe_name }} - {{ cafe.address_city}}</span>
                         </div>
+                    </div>
+                    <div class="card-action">
+                        <a href="">Details</a>
                     </div>
                 </div>
             {% endfor %}
         {% else %}
-            <h5>There areo cafe's serving this coffee bean</h5>
+            <h5><em>There are no cafe's serving this coffee bean</em></h5>
         {% endif %}
-</div>
+    </div>
 </div>
 
 {% endblock %}

@@ -34,12 +34,61 @@ body {
     border: 1px solid black;
   }
 
-  .container {
-    display: grid;
-    grid-template-columns: 1fr;
+  .left-c {
+    margin-right: 20px;
+    width: 600px;
+  }
+
+  .right-c {
+    margin-top: 100px;
+  }
+
+  .container-c {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
     width: 100%;
   }
 
+.card-content-c {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.main-cb {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+aside {
+  width: 200px;
+}
+
+.container-cb {
+  flex-grow: 1;
+  margin: 0 auto;
+  text-align: center;
+}
+.card-cb {
+  width: 600px;
+  padding: 20px;
+}
+
+.card-content-cb {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.review-form {
+  width: 500px;
+  margin: 0 auto;
+}
 
   
   footer.page-footer {

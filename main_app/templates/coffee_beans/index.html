@@ -2,40 +2,45 @@
 {% block content %}
 <header><h1>Coffee Beans</h1></header>
 
-<div class="row">
-    <div class="col">
-        <div class="card card-body">
+<div class="main-cb">
+    <aside class="row">
+        <div class="col">
+            <div class="card card-body">
 
-            <form method="get" action="">
-                {{coffee_bean_filter.form.as_p}}
-                <button class="btn" type="submit">Search</button>
-            </form>
+                <form method="get" action="">
+                    {{coffee_bean_filter.form.as_p}}
+                    <button class="btn" type="submit">Search</button>
+                </form>
 
+            </div>
         </div>
+    </aside>
+
+    <div class="container-cb">
+        {% for coffee_bean in coffee_beans %}
+
+        <div class="card card-cb">
+            <a href="{% url 'coffee_beans_detail' coffee_bean.id %}">
+                <div class="card-content-cb">
+
+                    <div class="img-container coffee-bean-image">
+                        {% load static %}
+                        <img src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="My image" width="200" height="200">
+                    </div>
+                    
+                    <div class="right-cb">
+                        <span class="card-title">{{ coffee_bean.roastery }} - {{ coffee_bean.name }}</p></span>
+                        <hr>
+                        <p>Variety: {{ coffee_bean.variety }}</p>
+                    </div>
+
+                </div>
+            </a>
+        </div>
+        {% endfor %}
     </div>
 </div>
 
-{% for coffee_bean in coffee_beans %}
-
-<div class="card">
-    <a href="{% url 'coffee_beans_detail' coffee_bean.id %}">
-        <div class="card-content coffee-beans">
-
-            <div class="img-container coffee-bean-image">
-                {% load static %}
-                <img src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="My image" width="200" height="200">
-            </div>
-            
-            <div class="coffee-bean-details">
-                <span class="card-title"> {{ coffee_bean.name }} - {{ coffee_bean.roastery }}</span>
-        
-                <p>Variety: {{ coffee_bean.variety }}</p>
-                <p>Description: {{ coffee_bean.description }}</p> 
-            </div>
-
-        </div>
-    </a>
-</div>
 
 <script>
 
@@ -45,5 +50,4 @@
     let roasteryEl = document.getElementById('id_roastery');
     M.FormSelect.init(roasteryEl);
 </script>
-{% endfor %}
 {% endblock %}

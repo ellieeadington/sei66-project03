@@ -4,21 +4,21 @@
 
 <div class="card">
     <div class="card-content cafe">
-
+      <h4>{{ cafe.cafe_name }}</h4>
       <div class="img-container cafe-image">
         {% load static %} 
         <img width="150px" height="150px" src={% static cafe.cafe_image|cut:'main_app/static/' %} />
       </div>
 
       <div class="cafe-details">
-        <span class="card-title">{{ cafe.cafe_name }}</span>
-        <p>Bio: {{ cafe.cafe_bio }}</p>
+        <p>{{ cafe.cafe_bio }}</p>
         <p>Established: {{ cafe.date_founded }}</p>
-        <p>Address: {{ cafe.address_line_1 }}, <br> 
+        <br>
+        <small>Address: {{ cafe.address_line_1 }} <br> 
           {{ cafe.address_city }}, <br>
           {{ cafe.address_county }}, <br>
           {{ cafe.address_country }}, <br>
-          {{ cafe.address_postcode }}</p>
+          {{ cafe.address_postcode }}</small>
       </div>
   </div>
   <div class="card-action">
@@ -27,12 +27,14 @@
 </div>
 
 <div>
-  <form method="post" action="{% url 'add_review' cafe.id %}">
+  <div>
+    <h4>Leave a Review</h4>
+  <form class="review-form" method="post" action="{% url 'add_review' cafe.id %}">
       {% csrf_token %}
       {{ review_form.as_p }}
       <input type="submit" value="Add Review" class="btn"/>
   </form>
-
+</div>
   <table class="striped">
       <thead>
           <tr>
