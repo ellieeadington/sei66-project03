@@ -119,7 +119,7 @@ class Event(models.Model):
         
     
 class Review(models.Model):
-    datetime = models.DateTimeField()
+    datetime = models.DateField(auto_now_add=True, null=True)
     stars = models.CharField(max_length=2, choices=STARS, default=STARS[0][0])
     review_title = models.CharField(max_length=250)
     review_body = models.CharField(max_length=1000)
