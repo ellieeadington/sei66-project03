@@ -11,6 +11,10 @@ urlpatterns = [
     # ROB SECTION
     path('cafes/<int:cafe_id>', views.cafes_detail, name='detail'),
     path('cafes/create/', views.CafeCreate.as_view(), name='cafes_create'),
+
+    # path('profile/cafe/<int:cafe_id>/', views.cafe_edit, name='cafe_edit'),
+
+    
     # Delete and Update for Cafes
     path('cafes/<int:pk>/update/', views.CafeUpdate.as_view(), name='cafes_update'),
     path('cafes/<int:pk>/delete/', views.CafeDelete.as_view(), name='cafes_delete'),
