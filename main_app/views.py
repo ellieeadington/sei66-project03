@@ -56,7 +56,8 @@ def cafes_detail(request, cafe_id):
   
   brewing_method_form = BrewingMethodForm()
   event_form = EventForm()
-  return render(request, 'cafes/detail.html', {'cafe': cafe, 'brewing_method_form': brewing_method_form, 'event_form': event_form})
+  review_form = ReviewForm()
+  return render(request, 'cafes/detail.html', {'cafe': cafe, 'brewing_method_form': brewing_method_form, 'event_form': event_form, 'review_form': review_form})
 
 
 
