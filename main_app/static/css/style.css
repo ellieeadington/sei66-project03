@@ -9,6 +9,22 @@ body {
     flex: 1 0 auto;
   }
 
+  a { color:black 
+  
+  }
+
+  a:hover {
+    background: black;
+    color:rgb(255, 255, 255);
+    padding: 5px;
+  }
+
+  .card-content-cb,.card-content-cc {
+    color: black !important;
+  }
+
+
+
   .hero {
     width: 90%;
     height: 220px;
@@ -61,21 +77,11 @@ body {
 .main-cb {
   display: flex;
   justify-content: center;
-  border: 1px solid black;
 }
 
 aside {
-  width: 200px;
-}
-
-.container-cb {
-  flex-grow: 1;
   margin: 0 auto;
-  text-align: center;
-}
-.card-cb {
-  width: 700px;
-  padding: 20px;
+  width: 200px;
 }
 
 .card-content-cb {
@@ -101,29 +107,40 @@ aside {
   padding: 20px;
   margin: 0 auto;
 }
+/* ------------------------------ */
 
 .main-cc {
   display: flex;
   justify-content: center;
-  border: 1px solid black;
 }
 
-.container-cc {
-  flex-grow: 1;
-  margin: 0 auto;
-  text-align: center;
+.filter {
+  width: 180px;
+  padding: 10px 20px;
+  margin-right: 20px;
 }
+.container-cc,.container-cb {
+  width: 1200px;
+}
+
 .card-cc {
-  width: 700px;
-  padding: 20px;
+  width: 250px;
+  height: 300px;
 }
 
-.card-content-cc {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-}  
+.card-cb {
+  height: 350px;
+  width: 350px;
+}
+
+
+.cafe-image, .coffee-bean-image {
+  padding: 10px;
+}
+
+/* ------------------------------ */
+
+
   footer.page-footer {
     padding-top: 0;
     text-align: right;

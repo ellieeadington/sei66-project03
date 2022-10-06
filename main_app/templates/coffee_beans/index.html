@@ -5,36 +5,33 @@
 <div class="main-cb">
     <aside class="row">
         <div class="col">
-            <div class="card card-body">
-
+            <div class="card card-body filter">
+                <h6>Filters</h6>
                 <form method="get" action="">
                     {{coffee_bean_filter.form.as_p}}
                     <button class="btn" type="submit">Search</button>
                 </form>
-
             </div>
         </div>
     </aside>
 
     <div class="container-cb">
-        {% for coffee_bean in coffee_beans %}
-
-        <div class="card card-cb">
-            <a href="{% url 'coffee_beans_detail' coffee_bean.id %}">
-                <div class="card-content-cb">
-
-                    <div class="img-container coffee-bean-image">
-                        {% load static %}
-                        <img src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="My image" width="200" height="200">
-                    </div>
-                    
-                    <div class="right-cb">
-                        <span class="card-title">{{ coffee_bean.roastery }} - {{ coffee_bean.name }}</p></span>
-                    </div>
-
+        <div class="row">
+            {% for coffee_bean in coffee_beans %}
+            <div class="col s4">
+                <div class="card card-cb">
+                    <a href="{% url 'coffee_beans_detail' coffee_bean.id %}">
+                        <span class="card-title"><b>{{ coffee_bean.name }}</b></span>
+                        <div class="img-container coffee-bean-image">
+                            {% load static %}
+                            <img src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="My image" width="200" height="200">
+                        </div>
+                        <div class="card-content-cb">
+                            <h6>{{ coffee_bean.roastery }}</h6>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        </div>
+            </div>
         {% endfor %}
     </div>
 </div>

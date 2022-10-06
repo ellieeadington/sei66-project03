@@ -22,7 +22,7 @@
       </thead>
   {{ cafe }}
       <tbody>
-        {% for brewing_method in cafe.brewingmethod_set.all %} 
+        {% for brewing_method in cafe.brewingmethods_set.all %} 
         <tr>
           <td>{{ brewing_method.get_method_name_display }}</td>
           <td>{{ brewing_method.method_bio }}</td>

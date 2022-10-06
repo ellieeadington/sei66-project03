@@ -98,7 +98,6 @@ class Cafe(models.Model):
     
     def __str__(self):
         return self.cafe_name
-    
     def __str__(self):
         return self.address_city
     
