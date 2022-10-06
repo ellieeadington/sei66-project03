@@ -3,6 +3,7 @@ body {
     min-height: 100vh;
     flex-direction: column;
     text-align: center;
+    font-family: 'Dancing Script', cursive;
   }
   
   main {
@@ -13,7 +14,7 @@ body {
     width: 90%;
     height: 220px;
     margin: 20px auto;
-    border: 1px solid black;
+    border: none;
   }
 
   .home-bio {
@@ -127,9 +128,17 @@ aside {
   footer.page-footer {
     padding-top: 0;
     text-align: right;
+    background-color: black;
   }
   
   .grid {
     width: 200px;
   }
 
+nav {
+  background-color: black;
+}
+
+.about {
+  font-size: large;
+}
