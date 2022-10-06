@@ -83,10 +83,9 @@ WSGI_APPLICATION = 'fitcoffee.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DATABASENAME'),
-        'USER': os.getenv('DATABASEUSER'),
-        'PASSWORD': os.getenv('DATABASEPASSWORD'),
-        'PORT': os.getenv('PORT'),
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
     }
 }
 
@@ -134,3 +133,6 @@ LOGOUT_REDIRECT_URL = '/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import django_heroku
+django_heroku.settings(locals())
