@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import BrewingMethod, Cafe, CoffeeBean, Profile, Event
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import BrewingMethodForm, CoffeeBeanForm, UserRegisterForm, UserUpdateForm, ProfileUpdateForm, ReviewForm
+from .forms import BrewingMethodForm, CoffeeBeanForm, UserRegisterForm, UserUpdateForm, ProfileUpdateForm, ReviewForm, EventForm
 from .filters import CoffeeBeanFilter
 from django.urls import reverse_lazy
 
@@ -116,7 +116,7 @@ def profile(request):
         print("p_form is valid")
         print("p_form is valid")
         return HttpResponse("Profile form")
-
+    
 
       if u_form.is_valid():
         u_form.save()
