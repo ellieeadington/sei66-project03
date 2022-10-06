@@ -22,16 +22,13 @@ body {
   main {
     flex: 1 0 auto;
   }
-
   a { color:black 
-  
   }
 
   a:hover {
-    background: black;
+    background: rgb(45, 45, 45);
     color:rgb(255, 255, 255);
-    padding: 5px;
-  }
+}
 
   .card-content-cb,.card-content-cc {
     color: black !important;
