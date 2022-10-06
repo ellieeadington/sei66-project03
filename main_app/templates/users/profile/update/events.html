@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Brewing Methods at {{ cafe.cafe_name }}</h1>
+
+<div>
+    <form method="post" action="{% url 'add_event' cafe.id %}">
+      {% csrf_token %} 
+      {{ event_form.as_p }}
+      <input type="submit" value="Add Event" class="btn" />
+    </form>
+  </div>
+  
+  <div>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Event </th>
+          <th>Description</th>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Time From</th>
+          <th>Time to</th>
+          <th>Image</th>
+        </tr>
+      </thead>
+  {{ cafe }}
+      <tbody>
+        {% for event in cafe.event_set.all %} 
+        <tr>
+          <td>{{ event.event_name }}</td>
+          <td>{{ event.description }}</td>
+          <td>{{ event.get_event_type_display }}</td>
+          <td>{{ event.event_date }}</td>
+          <td>{{ event.time_from }}</td>
+          <td>{{ event.time_to }}</td>
+          <td>{% load static %} {{ event.event_image}}
+            <img width="150px" height="150px" src={% static event.event_image|cut:'main_app/static/' %} />
+        </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+  <script>
+  let dateEl = document.getElementById("id_event_date");
+  M.Datepicker.init(dateEl, {
+    format: "yyyy-mm-dd",
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true,
+  });
+
+
+    let timeEl = document.getElementById('id_event_time_from');
+    M.Timepicker.init(timeEl)
+
+    let timeToEl = document.getElementById('id_event_time_to');
+    M.Timepicker.init(timeToEl)
+
+
+    let selectEl = document.getElementById('id_event_type')
+    M.FormSelect.init(selectEl);
+  </script>
+
+
+{% endblock %}

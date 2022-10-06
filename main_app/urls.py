@@ -19,7 +19,8 @@ urlpatterns = [
     path('profile/cafe/<int:cafe_id>/brewing_methods/', views.brewing_method_edit, name='brewing_method_edit'),
 
     path('cafes/<int:cafe_id>/add_event/', views.add_event, name='add_event'),
-    
+    path('profile/cafe/<int:cafe_id>/events/', views.event_edit, name='event_edit'),
+
     
     
     

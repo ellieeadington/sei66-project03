@@ -87,7 +87,14 @@ def add_event(request, cafe_id):
     new_event = form.save(commit=False)
     new_event.cafe_id = cafe_id
     new_event.save()
-  return redirect('detail', cafe_id = cafe_id)
+  return redirect('event_edit', cafe_id = cafe_id)
+
+def event_edit(request, cafe_id):
+  cafe = Cafe.objects.get(id = cafe_id)
+  print(cafe)
+  events = Event.objects.filter(cafe = cafe)
+  event_form = EventForm()
+  return render(request,'users/profile/update/events.html', {'cafe': cafe, 'events': events, 'event_form': event_form } )
 
 
 

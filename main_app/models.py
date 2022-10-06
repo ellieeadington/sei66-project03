@@ -115,6 +115,8 @@ class Event(models.Model):
     event_time_to = models.TimeField()
     event_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
 
+    def get_absolute_url(self):
+        return reverse('event_edit', kwargs = {'cafe_id': self.id})
     def __str__(self):
         return f"{self.get_event_type_display} on {self.event_date}"
 
