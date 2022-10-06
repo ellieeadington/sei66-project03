@@ -17,7 +17,7 @@ VARIETIES = (
     ('R', 'Robusta'),
     ('L', 'Liberica'),
     ('E', 'Excelsa')
-)
+)  
 
 
 BREWINGMETHOD = (
