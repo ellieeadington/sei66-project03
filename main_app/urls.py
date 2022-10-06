@@ -25,7 +25,8 @@ urlpatterns = [
     # ASHISH SECTION
     path('accounts/signup', views.signup, name="signup"),
     path('profile/', views.profile, name='profile'),
-    
+    path('profile/cafeowner/', views.cafe_owner_profile, name='profile_cafeowner'),
+
     
     
     

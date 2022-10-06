@@ -103,7 +103,7 @@ def signup(request):
           user = form.save()
           login(request, user)
           messages.success(request, f'Your account has been created!')
-          return redirect('index') 
+          return redirect('profile') 
       else:
           error_message = "Invalid signup - please try again later"
 
