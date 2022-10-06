@@ -2,6 +2,19 @@
 {% block content %} 
 <header><h1> Cafe List </h1></header>
 
+<div class="row">
+    <div class="col">
+        <div class="card card-body">
+
+            <form method="get" action="">
+                {{cafe_filter.form.as_p}}
+                <button class="btn" type="submit">Search</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 {% for cafe in cafes %} 
 
 <div class="card">
@@ -22,6 +35,13 @@
     </a>
 </div>
 
+<script>
 
+    let nameEl = document.getElementById('id_cafe_name');
+    M.FormSelect.init(nameEl);
+
+    let cityEl = document.getElementById('id_address_city');
+    M.FormSelect.init(cityEl);
+</script>
 {% endfor %}
 {% endblock %}

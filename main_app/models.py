@@ -96,6 +96,12 @@ class Cafe(models.Model):
     def get_absolute_url(self):
         return reverse('detail', kwargs = {'cafe_id': self.id})
     
+    def __str__(self):
+        return self.cafe_name
+    
+    def __str__(self):
+        return self.address_city
+    
 class Event(models.Model):
 
     cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)   

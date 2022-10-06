@@ -8,7 +8,7 @@ from .models import BrewingMethod, Cafe, CoffeeBean, Profile, Event
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import BrewingMethodForm, CoffeeBeanForm, UserRegisterForm, UserUpdateForm, ProfileUpdateForm, ReviewForm, EventForm
-from .filters import CoffeeBeanFilter
+from .filters import CoffeeBeanFilter, CafeFilter
 from django.urls import reverse_lazy
 
 
@@ -43,7 +43,13 @@ def about(request):
 
 def cafes_index(request):
   cafes = Cafe.objects.all()
-  return render(request, 'cafes/index.html', { 'cafes': cafes })
+  cafe_filter = CafeFilter(request.GET, queryset=cafes)
+  cafes = cafe_filter.qs
+  context = {
+    'cafe_filter': cafe_filter,
+    'cafes': cafes
+  }
+  return render(request, 'cafes/index.html', context)
 
 # ROB SECTION
 
@@ -116,7 +122,7 @@ def profile(request):
         print("p_form is valid")
         print("p_form is valid")
         return HttpResponse("Profile form")
-    
+
 
       if u_form.is_valid():
         u_form.save()
