@@ -1,12 +1,16 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 from django.contrib.auth import login
-from .models import BrewingMethod, Cafe, CoffeeBean, User
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from .models import BrewingMethod, Cafe, CoffeeBean, Profile
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import forms
-from .forms import BrewingMethodForm, CoffeeBeanForm
+from .forms import BrewingMethodForm, CoffeeBeanForm, UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .filters import CoffeeBeanFilter
 from django.urls import reverse_lazy
 
 #@allowed_users(allowed_roles=['Cafe Owner'])
@@ -33,6 +37,9 @@ def home(request):
   return render(request,'home.html')
 
 def about(request):
+  user = User.objects.get(pk=request.user.pk)
+  user_profile = user.profile
+  print(user_profile.__str__())
   return render(request,'about.html')
 
 def cafes_index(request):
@@ -68,27 +75,51 @@ def add_brewing_method(request, cafe_id):
 
 
 
-
-
-
-
-
 # ASHISH SECTION
 def signup(request):
   error_message = ""
   if request.method =="POST":
-      form = UserCreationForm(request.POST)
+      form = UserRegisterForm(request.POST)
       if form.is_valid():
           user = form.save()
-          login(request, user) 
+          login(request, user)
+          messages.success(request, f'Your account has been created!')
           return redirect('index') 
       else:
           error_message = "Invalid signup - please try again later"
 
-  form = UserCreationForm 
+  form = UserRegisterForm 
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
+@login_required
+def profile(request):
+    if request.method =="POST":
+      u_form = UserUpdateForm(request.POST, instance=request.user)
+      p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
+     
+      if p_form['is_cafe_owner']:
+        p_form.save()
+        print("p_form is valid")
+        print("p_form is valid")
+        return HttpResponse("Profile form")
+
+
+      if u_form.is_valid():
+        u_form.save()
+        print("u_form is valid")
+        return HttpResponse("User form")
+
+
+    else:
+      u_form = UserUpdateForm(instance=request.user)
+      p_form = ProfileUpdateForm(instance=request.user.profile)
+    
+    context = {
+      'u_form': u_form, 
+      'p_form': p_form
+    }
+    return render(request, 'users/profile/profile.html', context)
 
 
 
@@ -125,8 +156,8 @@ def coffee_beans_detail(request, coffee_beans_id):
   return render(request, 'coffee_beans/detail.html',{ 'coffee_bean': coffee_bean, 'cafes': cafes})
 
 def cafe_owner_profile(request, cafe_id):
-  is_cafe_owner = request.user.profile.profile_type_set.all()
-  print('is cafe owner:', is_cafe_owner)
+  # is_cafe_owner = request.user.profile.profile_type_set.all()
+  # print('is cafe owner:', is_cafe_owner)
 
   cafe = Cafe.objects.get(id = cafe_id)
   return render(request, 'users/profile/cafe_profile.html',{'cafe': cafe })

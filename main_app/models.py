@@ -32,15 +32,14 @@ BREWINGMETHOD = (
     ('AP', 'Aeropress')
 )
 
-PROFILETYPE = (
-    ('O', 'Cafe Owner'),
-    ('U', 'Bean Fiend')
-)
 
 class Profile(models.Model):
      user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-     profile_type = models.CharField(max_length=250, choices=PROFILETYPE, default=PROFILETYPE[0][0])
+     is_cafe_owner = models.BooleanField(default=False)
      
+     def __str__(self):
+        return f"is {self.user.username} a cafe owner? {self.user.profile.is_cafe_owner}"
+
 # @receiver(post_save, sender=User)
 # def create_user_profile(sender, instance, created, **kwargs):
 #     if created: 
@@ -73,7 +72,7 @@ class Cafe(models.Model):
     cafe_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     menu_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     cafe_website = models.CharField(max_length=1000)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     coffee_beans = models.ManyToManyField(CoffeeBean, blank=True)
     
     def get_absolute_url(self):
