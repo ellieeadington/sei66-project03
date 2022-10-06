@@ -85,6 +85,10 @@ aside {
   justify-content: space-around;
 }
 
+.review-form {
+  width: 500px;
+  margin: 0 auto;
+}
 
   
   footer.page-footer {
