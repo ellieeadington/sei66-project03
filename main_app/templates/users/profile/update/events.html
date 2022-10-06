@@ -51,13 +51,16 @@
     setDefaultDate: true,
     autoClose: true,
   });
-
-
-    let timeEl = document.getElementById('id_event_time_from');
-    M.Timepicker.init(timeEl)
-
+  
+  let timeEl = document.getElementById('id_event_time_from');
+  M.Timepicker.init(timeEl, {
+    twelveHour: false
+    });
+    
     let timeToEl = document.getElementById('id_event_time_to');
-    M.Timepicker.init(timeToEl)
+    M.Timepicker.init(timeToEl, {
+        twelveHour: false
+    })
 
 
     let selectEl = document.getElementById('id_event_type')
