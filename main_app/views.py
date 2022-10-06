@@ -133,19 +133,16 @@ def profile(request):
     if request.method =="POST":
       u_form = UserUpdateForm(request.POST, instance=request.user)
       p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
-     
+
       if p_form['is_cafe_owner']:
         p_form.save()
         print("p_form is valid")
-        print("p_form is valid")
-        return redirect('profile_cafeowner')
-
-
+        # return redirect('profile_cafeowner')
+        return HttpResponse("profile_user")
       if u_form.is_valid():
         u_form.save()
         print("u_form is valid")
-        return HttpResponse("User form")
-
+        return HttpResponse("user_account_updated")
 
     else:
       u_form = UserUpdateForm(instance=request.user)
@@ -157,24 +154,20 @@ def profile(request):
     }
     return render(request, 'users/profile/profile.html', context)
 
-def cafe_owner_profile(request):
-
-  return render(request, 'users/profile/cafe_profile.html')
-
-
-
-
-
-
-
-
-
-
-
+# def profile_cafeowner(request):
+#   user = User.objects.get(pk=request.user.pk)
+#   user_profile = user.profile
+#   print(user.profile.is_cafe_owner)
+ 
+#   return render(request, 'users/profile/cafe_profile.html')
 
 
 
 # ELLIE SECTION
+def cafe_owner_profile(request, cafe_id):
+  cafe = Cafe.objects.get(id = cafe_id)
+  return render(request, 'users/profile/cafe_profile.html',{'cafe': cafe })
+
 
 def coffee_beans_index(request):
   coffee_beans = CoffeeBean.objects.all()

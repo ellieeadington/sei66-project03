@@ -12,7 +12,7 @@ urlpatterns = [
     path('cafes/<int:cafe_id>', views.cafes_detail, name='detail'),
     path('cafes/create/', views.CafeCreate.as_view(), name='cafes_create'),
 
-    # path('profile/cafe/<int:cafe_id>/', views.cafe_edit, name='cafe_edit'),
+    # path('profile/cafe/<int:cafe_id>/', views.cafe_edit, name='cafe_edit')
 
     
     # Delete and Update for Cafes
@@ -31,7 +31,7 @@ urlpatterns = [
     # ASHISH SECTION
     path('accounts/signup', views.signup, name="signup"),
     path('profile/', views.profile, name='profile'),
-    path('profile/cafeowner/', views.cafe_owner_profile, name='profile_cafeowner'),
+    # path('profile/cafeowner/', views.profile_cafeowner, name='profile_cafeowner'),
 
     
     
@@ -44,13 +44,16 @@ urlpatterns = [
     path('coffee_beans/', views.coffee_beans_index, name='coffee_beans_index'),
     path('coffee_beans/<int:coffee_beans_id>', views.coffee_beans_detail, name='coffee_beans_detail'),
     path('profile/cafe/<int:cafe_id>',views.cafe_owner_profile, name='cafe_owner_profile'),
+
+
     path('profile/cafe/<int:cafe_id>/coffee_beans/', views.coffee_bean_edit, name='coffee_bean_edit'),
     path('profile/cafe/<int:cafe_id>/coffee_beans/add_coffee_bean/', views.add_coffee_bean, name='add_coffee_bean'),
     path('profile/cafe/<int:pk>/coffee_beans/update/', views.CoffeeBeanUpdate.as_view(), name='coffee_bean_update'),
     path('profile/cafe/<int:pk>/coffee_beans/delete/', views.CoffeeBeanDelete.as_view(), name='coffee_bean_delete'),
+    
     path('cafes/<int:cafe_id>/add_review', views.add_review, name='add_review'),
     
-
+    
 
     
     
