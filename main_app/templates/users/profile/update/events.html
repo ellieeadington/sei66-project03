@@ -4,7 +4,7 @@
 <h1>Brewing Methods at {{ cafe.cafe_name }}</h1>
 
 <div>
-    <form method="post" action="{% url 'add_event' cafe.id %}">
+    <form method="post" action="{% url 'add_event' cafe.id %}" enctype="multipart/form-data">
       {% csrf_token %} 
       {{ event_form.as_p }}
       <input type="submit" value="Add Event" class="btn" />
