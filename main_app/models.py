@@ -69,8 +69,9 @@ class CoffeeBean(models.Model):
     def get_absolute_url(self):
         return reverse('coffee_bean_edit', kwargs = {'cafe_id': self.id})
     def __str__(self):
-        return {self.variety, self.roastery}
-
+        return self.variety
+    def __str__(self):
+        return self.roastery
     
 
     
@@ -96,8 +97,9 @@ class Cafe(models.Model):
         return reverse('detail', kwargs = {'cafe_id': self.id})
     
     def __str__(self):
-        return {self.cafe_name,self.address_city} # NEED TO WORK OUT HOW TO RETURN TWO OBJECT FIELD NAMES - STRING OVERRIDE!!!!!
-
+        return f"{self.cafe_name} on {self.address_city}" # NEED TO WORK OUT HOW TO RETURN TWO OBJECT FIELD NAMES - STRING OVERRIDE!!!!!
+    # def __str__(self):
+    #     return self.address_city
     
 class Event(models.Model):
 
