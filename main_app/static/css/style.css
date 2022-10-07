@@ -28,8 +28,8 @@ body {
   }
 
   a:hover {
-    background: rgb(45, 45, 45);
-    color:rgb(255, 255, 255);
+    /* background: rgb(45, 45, 45); */
+    color: #317b22;
 }
 
   .card-content-cb,.card-content-cc {
@@ -37,9 +37,15 @@ body {
   }
 
 
+
+
 .left-c {
     margin-right: 20px;
     width: 600px;
+  }
+
+  .left-c-cafe {
+    margin-top: 5%;
   }
 
 .right-c {
@@ -47,7 +53,7 @@ body {
 }
 
 .right-cafe-brew {
-    margin-top: 40px;
+    margin-top: 1%;
   }
 
 

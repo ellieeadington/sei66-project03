@@ -22,7 +22,7 @@
 </div>
 
 <div class="container-c">
-<div>
+<div class="left-c-cafe">
   <h4>Coffee Beans served at {{cafe.cafe_name}}</h4>
   {% if cafe.coffeebeans.count %}
       {% for coffeebean in cafe.coffeebeans.all %}
@@ -44,6 +44,7 @@
   {% endif %}
 </div>
 <div class="right-cafe-brew">
+  <br>
   <h4>Brewing Methods at {{cafe.cafe_name}}</h4>
 <div>
   <table class="striped">
