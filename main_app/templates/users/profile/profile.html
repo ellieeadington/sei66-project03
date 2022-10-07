@@ -1,11 +1,11 @@
 {% extends 'base.html' %} 
-
+{% load materializecss %}
 {% block content %}
 
 <form action="" method="POST">
     {% csrf_token %}
     <table>
-        {{ u_form.as_p }}
+        {{ u_form|materializecss}}
     </table>
     <br>
     <br>
