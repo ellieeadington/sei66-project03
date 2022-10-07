@@ -14,7 +14,7 @@ from django.urls import reverse_lazy
 #@allowed_users(allowed_roles=['Cafe Owner'])
 class CafeCreate(LoginRequiredMixin, CreateView):
   model = Cafe
-  fields = ['cafe_name','date_founded','address_line_1', 'address_line_2','address_city', 'address_county', 'address_country', 'address_postcode']
+  fields = ['cafe_name','date_founded','address_line_1', 'address_line_2','address_city', 'address_county', 'address_country', 'address_postcode', 'cafe_image', 'menu_image']
 
   #Overriding
   def form_valid(self, form):
@@ -52,10 +52,9 @@ def cafes_index(request):
 def cafes_detail(request, cafe_id):
 
   cafe = Cafe.objects.get(id = cafe_id)
-  brewing_method_form = BrewingMethodForm()
-  event_form = EventForm()
+  coffee_bean = CoffeeBean.objects.filter(cafe = cafe)
   review_form = ReviewForm()
-  return render(request, 'cafes/detail.html', {'cafe': cafe, 'brewing_method_form': brewing_method_form, 'event_form': event_form, 'review_form': review_form})
+  return render(request, 'cafes/detail.html', {'cafe': cafe, 'coffee_bean': coffee_bean, 'review_form': review_form})
 
 
 

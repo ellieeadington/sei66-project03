@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Events at {{ cafe.cafe_name }}</h1>
+<h1>Activities at {{ cafe.cafe_name }}</h1>
 
 <div>
     <form method="post" action="{% url 'add_event' cafe.id %}" enctype="multipart/form-data">
@@ -26,7 +26,7 @@
       </thead>
   {{ cafe }}
       <tbody>
-        {% for event in cafe.events_set.all %} 
+        {% for event in cafe.event_set.all %} 
         <tr>
           <td>{{ event.event_name }}</td>
           <td>{{ event.description }}</td>

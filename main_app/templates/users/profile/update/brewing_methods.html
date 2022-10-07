@@ -2,7 +2,9 @@
 {% block content %}
 
 <h1>Brewing Methods at {{ cafe.cafe_name }}</h1>
-
+<div>
+    <img src="../../../../static/uploads/Screenshot 2022-10-06 at 21.36.55.png" width="500px" />
+</div>
 <div>
     <form method="post" action="{% url 'add_brewing_method' cafe.id %}" enctype="multipart/form-data">
       {% csrf_token %} 
@@ -17,19 +19,14 @@
         <tr>
           <th>Brewing Method </th>
           <th>Bio</th>
-          <th>Image</th>
         </tr>
       </thead>
   {{ cafe }}
       <tbody>
-        {% for brewing_method in cafe.brewing_methods_set.all %} 
+        {% for brewing_method in cafe.brewingmethod_set.all %} 
         <tr>
           <td>{{ brewing_method.get_method_name_display }}</td>
           <td>{{ brewing_method.method_bio }}</td>
-          <td>{% load static %} {{ brewing_method.method_image}}
-            <img src="{% static 'uploads/'%}{{ brewing_method.method_image }}" alt="My image" height="100">
-            <img width="150px" height="150px" src={% static brewing_method.method_image|cut:'main_app/static/'%} />
-        </td>
         </tr>
         {% endfor %}
       </tbody>
