@@ -1,7 +1,7 @@
 from django import views
 from django.urls import path
 from . import views
-
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -11,7 +11,7 @@ urlpatterns = [
     # ROB SECTION
     path('cafes/<int:cafe_id>', views.cafes_detail, name='detail'),
     path('cafes/create/', views.CafeCreate.as_view(), name='cafes_create'),
-
+    
     # path('profile/cafe/<int:cafe_id>/', views.cafe_edit, name='cafe_edit')
 
     
@@ -32,7 +32,29 @@ urlpatterns = [
     path('accounts/signup', views.signup, name="signup"),
     path('profile/', views.profile, name='profile'),
     # path('profile/cafeowner/', views.profile_cafeowner, name='profile_cafeowner'),
-
+    path('accounts/password/reset', 
+     auth_views.PasswordResetView.as_view(
+             template_name='registration/password_reset.html'
+             ),
+        name='password_reset'
+    ),
+    path('accounts/password/reset/done/',
+         auth_views.PasswordResetDoneView.as_view(
+             template_name='registration/password_reset_done.html'
+         ),
+        name= 'password_reset_done'
+    ),
+    path('accounts/password/reset/confirm/<uidb64>/<token>/',
+         auth_views.PasswordResetConfirmView.as_view(
+             template_name='registration/password_reset_confirm.html'
+         ),
+        name = 'password_reset_confirm'
+    ),
+    path('password-reset-complete/',
+         auth_views.PasswordResetCompleteView.as_view(
+             template_name='registration/password_reset_complete.html'
+         ),
+    name='password_reset_complete'),
     
     
     

@@ -4,13 +4,14 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import BrewingMethod, Cafe, CoffeeBean, Profile, Event
+from .models import BrewingMethod, Cafe, CoffeeBean, Event
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import BrewingMethodForm, CoffeeBeanForm, UserRegisterForm, UserUpdateForm, ProfileUpdateForm, ReviewForm, EventForm
 from django import forms
 from .forms import BrewingMethodForm, CoffeeBeanForm, ReviewForm, EventForm
 from .filters import CoffeeBeanFilter, CafeFilter
+from django.contrib.auth.views import PasswordChangeView, PasswordResetDoneView
 from django.urls import reverse_lazy
 
 
@@ -119,7 +120,7 @@ def signup(request):
       if form.is_valid():
           user = form.save()
           login(request, user)
-          messages.success(request, f'Your account has been created!')
+          messages.success(request, 'Your account has been created!')
           return redirect('profile') 
       else:
           error_message = "Invalid signup - please try again later"
@@ -153,6 +154,7 @@ def profile(request):
       'p_form': p_form
     }
     return render(request, 'users/profile/profile.html', context)
+
 
 # def profile_cafeowner(request):
 #   user = User.objects.get(pk=request.user.pk)

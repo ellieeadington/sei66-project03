@@ -1,3 +1,4 @@
+from xml.dom import UserDataHandler
 from django.forms import ModelForm, EmailField
 from .models import BrewingMethod, CoffeeBean, Profile, Event, Review
 from django.contrib.auth.models import User
@@ -20,16 +21,17 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
-class UserUpdateForm(ModelForm):
+class UserUpdateForm(UserCreationForm):
     email = EmailField()
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['username', 'email', 'password1', 'password2']
 
 class ProfileUpdateForm(ModelForm):
     class Meta:
         model = Profile
         fields = ['is_cafe_owner']
+
 class EventForm(ModelForm):
     class Meta:
         model = Event
