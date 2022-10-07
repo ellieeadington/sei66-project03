@@ -22,12 +22,16 @@ body {
   main {
     flex: 1 0 auto;
   }
+
   a { color:black 
   }
 
   a:hover {
-    background: rgb(45, 45, 45);
+    background: rgb(0, 0, 0);
     color:rgb(255, 255, 255);
+}
+.card-title-cb, .card-title-cc {
+  font-size: 16px;
 }
 
   .card-content-cb,.card-content-cc {
@@ -115,8 +119,8 @@ aside {
 }
 
 .card-cb, .card-cc {
-  height: 350px;
-  width: 350px;
+  height:220px;
+  width: 220px;
 }
 
 
@@ -124,6 +128,9 @@ aside {
   padding: 10px;
 }
 
+.card-title {
+  padding-top: 5px;
+}
 /* ------------------------------ */
 /* footer {
   position: fixed;

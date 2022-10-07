@@ -21,10 +21,10 @@
                 <div class="col s4 ">
                     <div class="card card-cc">
                         <a href="/cafes/{{ cafe.id }}">
-                            <span class="card-title"><b> {{ cafe.cafe_name }}</b> </span><br>
+                            <span class="card-title-cc"> {{ cafe.cafe_name }}</span><br>
                             <div class="img-container cafe-image">
                                 {% load static %} 
-                                <img width="200px" height="200px" src={% static cafe.cafe_image|cut:'main_app/static/' %} />
+                                <img width="100px" height="100px" src={% static cafe.cafe_image|cut:'main_app/static/' %} />
                             </div>
                             <div class="card-content-cc">
                                 <small> {{ cafe.address_city }}</small>

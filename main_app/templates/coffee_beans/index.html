@@ -21,10 +21,10 @@
             <div class="col s4">
                 <div class="card card-cb">
                     <a href="{% url 'coffee_beans_detail' coffee_bean.id %}">
-                        <span class="card-title "><b>{{ coffee_bean.name }}</b></span>
+                        <span class="card-title-cb">{{ coffee_bean.name }}</span>
                         <div class="img-container coffee-bean-image">
                             {% load static %}
-                            <img src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="My image" width="200" height="200">
+                            <img src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="My image" width="100" height="100">
                         </div>
                         <div class="card-content-cb">
                             <h6>{{ coffee_bean.roastery }}</h6>
