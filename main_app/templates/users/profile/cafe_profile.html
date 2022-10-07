@@ -1,46 +1,43 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <h1>Hi {{cafe.cafe_name}}</h1>
 <div class="row grid">
-    
-    <div class="card">
-        <a href="">
-            <span class="card-title">Edit User Details</span>
-        </a>
-    </div>
+  <div class="card">
+    <a href="">
+      <span class="card-title">Edit User Details</span>
+    </a>
+  </div>
 
-    <div class="card">
-        <a href="{% url 'cafes_update' cafe.id%}">
-            <span class="card-title">Edit Cafe Details</span>
-        </a>
-    </div>
+  <div class="card">
+    <a href="{% url 'cafes_update' cafe.id%}">
+      <span class="card-title">Edit Cafe Details</span>
+    </a>
+  </div>
 
-    <div class="card">
-        <a href="{% url 'coffee_bean_edit' cafe.id%}">
-            <span class="card-title">Edit Coffee Beans</span>
-        </a>
-    </div> 
+  <div class="card">
+    <a href="{% url 'coffee_bean_edit' cafe.id%}">
+      <span class="card-title">Edit Coffee Beans</span>
+    </a>
+  </div>
 
-    <div class="card">
-        <a href="{% url 'event_edit' cafe.id%}">
-            <span class="card-title">Edit Events</span>
-        </a>
-    </div>
+  <div class="card">
+    <a href="{% url 'event_edit' cafe.id%}">
+      <span class="card-title">Edit Events</span>
+    </a>
+  </div>
 
-    <div class="card">
-        <a href="{% url 'brewing_method_edit' cafe.id%}">
-            <span class="card-title">Edit Brewing Methods</span>
-        </a>
-    </div>
+  <div class="card">
+    <a href="{% url 'brewing_method_edit' cafe.id%}">
+      <span class="card-title">Edit Brewing Methods</span>
+    </a>
+  </div>
 
-    <div class="card">
-        <a href="">
-            <span class="card-title">Delete</span>
-        </a>
-    </div>
-
+  <div class="card">
+    <a href="">
+      <span class="card-title">Delete</span>
+    </a>
+  </div>
 </div>
 
-<h3> Your Reviews </h3>
+<h3>Your Reviews</h3>
 {% endblock %}

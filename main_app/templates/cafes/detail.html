@@ -5,7 +5,6 @@
   <div class="card card-cafe left-cafe">
     <div class="card-content cafe">
       <h1 class="fancy-font">{{ cafe.cafe_name }}</h1>
-      <h4>{{ cafe.cafe_name }}</h4>
       <small>{{ cafe.address_line_1 }} 
         {{ cafe.address_city }}, 
         {{ cafe.address_county }}, 
@@ -18,19 +17,26 @@
       <div class="cafe-details">
         <p>{{ cafe.cafe_bio }}</p>
       </div>
+      <h6>Menu</h6>
+      <div class="img-container cafe-image">
+        {% load static %} 
+        <img width="650px" src={% static cafe.menu_image|cut:'main_app/static/' %} />
+      </div>
     </div>
     <div class="card-action">
       <a href={{ cafe.cafe_website }}>Website</a>
     </div>
   </div>
 </div>
-<br>
-<hr>
-<div class="right-c">
-  <h4>Coffee Beans served at {{cafe.cafe_name}}</h4>
+
+{% comment %} <br>
+<hr> {% endcomment %}
+
+<div class="right-cafe">
+  <h5>Coffee Beans served at {{cafe.cafe_name}}</h5>
   {% if cafe.coffeebeans.count %}
       {% for coffeebean in cafe.coffeebeans.all %}
-          <div class="card">
+          <div class="card ">
               <div class="card-content-c">
                   <div>
                       {% load static %}
@@ -44,18 +50,18 @@
           </div>
       {% endfor %}
   {% else %}
-      <h5><em>There are no cafe's serving this coffee bean</em></h5>
+      <h6><em>No coffee beans are being served yet.</em></h6>
   {% endif %}
 </div>
 <br><hr><br>
 <div>
-  <h4>Brewing Methods at {{cafe.cafe_name}}</h4>
+  <h5>Brewing Methods</h5>
 <div>
-  <table class="striped">
+  <table class="striped table-cafe">
     <thead>
       <tr>
-        <th>Brewing Method </th>
-        <th>Bio</th>
+        <th>Method </th>
+        <th>About</th>
       </tr>
     </thead>
     <tbody>
@@ -71,9 +77,9 @@
 </div>
 <br><hr><br>
 <div>
-  <h4>Activities</h4>
+  <h5>Activities</h5>
 <div>
-  <table class="striped">
+  <table class="striped table-cafe">
     <thead>
       <tr>
         <th>Event </th>
@@ -105,15 +111,11 @@
 </div>
 </div>
 <div>
-  <h4>Menu</h4>
-<div class="img-container cafe-image">
-  {% load static %} 
-  <img width="650px" src={% static cafe.menu_image|cut:'main_app/static/' %} />
-</div>
 </div>
 
+
 <div>
-  <h4>Reviews</h4>
+  <h5>Reviews</h5>
 <table class="striped">
   <thead>
       <tr>
@@ -144,7 +146,6 @@
     <input type="submit" value="Add Review" class="btn"/>
 </form>
 
-<<<<<<< HEAD
 <table class="striped">
     <thead>
         <tr>
@@ -165,9 +166,9 @@
         {% endfor %}
     </tbody>
 </table>
-=======
->>>>>>> 000ba3539db5e488f2bce6f839013c944aaf12fe
 </div>
+
+
 <script>
 
   let dateEl = document.getElementById('id_datetime');
