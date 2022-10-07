@@ -33,7 +33,7 @@
 
 <h2>Want to add more coffee beans? </h2>
 
-<form method="post" action="{% url 'add_coffee_bean' cafe.id %}">
+<form class="form" method="post" action="{% url 'add_coffee_bean' cafe.id %}">
     {% csrf_token %}
     {{ coffee_bean_form.as_p}}
     <input type="submit" value="Add Coffee Beans" class="btn">
