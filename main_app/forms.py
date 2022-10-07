@@ -27,6 +27,9 @@ class UserUpdateForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+    def clean_password(self):
+        return super().clean_password2()
+
 class ProfileUpdateForm(ModelForm):
     class Meta:
         model = Profile

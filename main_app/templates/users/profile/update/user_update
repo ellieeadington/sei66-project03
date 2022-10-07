@@ -1,0 +1,12 @@
+{% extends 'base.html' %} 
+{% load materializecss %}
+{% block content %}
+
+<div class="container">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{ u_form|materializecss}}
+        </table>
+        <button type="submit" value="Update Account Details" class="waves effect light btn">Submit Changes</button>
+    </form>
