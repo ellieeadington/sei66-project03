@@ -4,6 +4,7 @@ body {
     flex-direction: column;
     text-align: center;
     width: 100%;
+    font-family: 'Poppins', sans-serif;
   }
 
   .hero {
@@ -40,14 +41,31 @@ body {
   }
 
 
+
+
 .left-c {
     margin-right: 20px;
     width: 600px;
   }
 
-.right-c {
-    margin-top: 100px;
+  .left-c-cafe {
+    margin-top: 5%;
   }
+
+.right-c {
+  margin-top: 100px;
+}
+
+.right-cafe-brew {
+    margin-top: 1%;
+  }
+
+
+h4 {
+    font-size: 2.28rem;
+    line-height: 110%;
+    margin: 1.rem 0 .912rem 0;
+}
 
 .container-c {
     display: flex;
@@ -101,10 +119,14 @@ aside {
 .review-form {
   width: 600px;
   margin: 0 auto;
+  margin-bottom: 20px;
   text-align: center;
 }
 /* ------------------------------ */
 
+.cb-image {
+  padding: 10px 140px;
+}
 .filter {
   width: 180px;
   padding: 10px 20px;
