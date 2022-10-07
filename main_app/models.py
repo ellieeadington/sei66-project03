@@ -113,7 +113,7 @@ class Event(models.Model):
     def get_absolute_url(self):
         return reverse('event_edit', kwargs = {'cafe_id': self.id})
     def __str__(self):
-        return f"{self.get_event_type_display} on {self.event_date}"
+        return f"{self.get_event_type_display}"
 
         
     
