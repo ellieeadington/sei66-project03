@@ -27,9 +27,9 @@
                 <div class="card">
                     <div class="card-content-c">
                         <div>
-                            {% load static %}
-                            <img src="{% static 'uploads/'%}{{cafe.cafe_image}}" alt="My image" height="100">
-                            <span class="card-title">{{ cafe.cafe_name }} - {{ cafe.address_city}}</span>
+                            {% load static %} 
+                        <img width="100px" src={% static cafe.cafe_image|cut:'main_app/static/' %} /><br>
+                        <span class="card-title">{{ cafe.cafe_name }} <br> {{ cafe.address_city}}</span>
                         </div>
                     </div>
                     <div class="card-action">
