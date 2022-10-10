@@ -129,41 +129,68 @@ def signup(request):
   return render(request, 'registration/signup.html', context)
 
 @login_required
-def has_profile_submitted(request):
+def profile(request):
     if request.method =="POST":
+      u_form = UserUpdateForm(request.POST, instance=request.user)
       p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
 
-      if p_form['is_cafe_owner' ]:
+      if p_form['is_cafe_owner']:
         p_form.save()
         print("p_form is valid")
-        # return redirect(request.META.get('HTTP_REFERER', 'about'))
-        return redirect('about')
-
-    else:
-      p_form = ProfileUpdateForm(instance=request.user.profile)
-    
-    context = {
-      'p_form': p_form
-    }
-    return render(request, 'users/profile/update/profile_update.html', context)
-
-@login_required
-def has_user_submitted(request):
-  if request.method =="POST":
-      u_form = UserUpdateForm(request.POST, instance=request.user)
-      
+        # return redirect('profile_cafeowner')
+        return HttpResponse("profile_user")
       if u_form.is_valid():
         u_form.save()
         print("u_form is valid")
         return HttpResponse("user_account_updated")
-  else:
-    u_form = UserUpdateForm(instance=request.user)
-    
-    context = {
-      'u_form': u_form
-    }
 
-    return render(request, 'users/profile/update/users_update.html', context)
+    else:
+      u_form = UserUpdateForm(instance=request.user)
+      p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+      'u_form': u_form, 
+      'p_form': p_form
+    }
+    return render(request, 'users/profile/profile.html', context)
+
+
+# @login_required
+# def has_profile_submitted(request):
+#     if request.method =="POST":
+#       p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
+
+#       if p_form['is_cafe_owner' ]:
+#         p_form.save()
+#         print("p_form is valid")
+#         # return redirect(request.META.get('HTTP_REFERER', 'about'))
+#         return redirect('about')
+
+#     else:
+#       p_form = ProfileUpdateForm(instance=request.user.profile)
+    
+#     context = {
+#       'p_form': p_form
+#     }
+#     return render(request, 'users/profile/update/profile_update.html', context)
+
+# @login_required
+# def has_user_submitted(request):
+#   if request.method =="POST":
+#       u_form = UserUpdateForm(request.POST, instance=request.user)
+      
+#       if u_form.is_valid():
+#         u_form.save()
+#         print("u_form is valid")
+#         return HttpResponse("user_account_updated")
+#   else:
+#     u_form = UserUpdateForm(instance=request.user)
+    
+#     context = {
+#       'u_form': u_form
+#     }
+
+    # return render(request, 'users/profile/update/users_update.html', context)
 
 
 
