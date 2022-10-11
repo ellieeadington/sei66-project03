@@ -142,17 +142,16 @@
 
 </div>
 <script>
-
   let dateEl = document.getElementById('id_datetime');
-  M.Datepicker.init(dateEl, {
-      format: 'yyyy-mm-dd',
-      defaultDate: new Date(),
-      setDefaultDate: true,
-      autoClose: true
-  })
-
-  let starsEl = document.getElementById('id_stars');
-  M.FormSelect.init(starsEl);
+    M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    })
+  
+    let starsEl = document.getElementById('id_stars');
+    M.FormSelect.init(starsEl);
 </script>
 
 {% endblock %}

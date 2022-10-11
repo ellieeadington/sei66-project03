@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>fitCoffee</title>
+  {% block css %}
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  {% endblock %}
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="{% static 'javascript.js' %}"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
@@ -28,7 +32,7 @@
           <li><a href="{% url 'about' %}">About</a></li>
 
           {% if request.user.is_authenticated %}
-          <li><a href="">My Profile</a></li>
+          <li><a href="{% url 'profile' %}">My Profile</a></li>
           <li><a href="/coffee_beans">Coffee</a></li>
           <li><a href="{% url 'index' %}">View Cafes</a></li>
           <li><a href="{% url 'cafes_create' %}">Add a Cafe</a></li>
@@ -46,6 +50,10 @@
     {% block content %}
     {% endblock %}
   </main>
+
+  {% block scripts %}
+  {% endblock scripts %}
+
   <footer class="page-footer">
     <ul class="footer">
       <li class="social twitter">
@@ -73,6 +81,10 @@
         </svg>
       </li>
     </ul>
+<<<<<<< HEAD
+=======
+    <div class="middle-footer">Website created by <a href="https://git.generalassemb.ly/sesemann" target="_blank" class="a-footer">Robert Sesemann</a> | <a href="" target="_blank" class="a-footer">Ellie Eadington</a> | <a href="" target="_blank" class="a-footer">Ashish Singh</a></div>
+>>>>>>> b9591eb7baad14c0c68cc848b1026408484763c1
     <div class="right">All Rights Reserved, &copy; 2022 fitCoffee &nbsp;</div>
   </footer>
 </body>
