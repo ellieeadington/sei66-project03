@@ -17,7 +17,6 @@ VARIETIES = (
     ('E', 'Excelsa')
 )  
 
-
 BREWINGMETHOD = (
     ('DB', 'Drip Brewed'),
     ('P', 'Percolator'),
@@ -29,7 +28,6 @@ BREWINGMETHOD = (
     ('V', 'V60'),
     ('AP', 'Aeropress')
 )
-
 
 class Profile(models.Model):
      user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
@@ -43,7 +41,6 @@ class Profile(models.Model):
 #     if created: 
 #         Profile.objects.create(user=instance)
 
-
 TYPE = (
     ('KID', 'Children'),
     ('MUM', 'Parent and Children'),
@@ -53,7 +50,6 @@ TYPE = (
     ('ENT', 'Entertainment'),
     ('ART', 'Arts and Crafts')
 )
-
 
 class CoffeeBean(models.Model):
     name = models.CharField(max_length=250)
@@ -70,10 +66,6 @@ class CoffeeBean(models.Model):
         return self.variety
     def __str__(self):
         return self.roastery
-    
-
-    
-# Create your models here.
 
 class Cafe(models.Model):
     cafe_name = models.CharField(max_length=250, blank=True)
@@ -95,10 +87,8 @@ class Cafe(models.Model):
         return reverse('detail', kwargs = {'cafe_id': self.id})
     
     def __str__(self):
-        return f"{self.cafe_name} on {self.address_city}" # NEED TO WORK OUT HOW TO RETURN TWO OBJECT FIELD NAMES - STRING OVERRIDE!!!!!
-    # def __str__(self):
-    #     return self.address_city
-    
+        return  f'{self.cafe_name}, {self.address_city}'
+
 class Event(models.Model):
 
     cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)   

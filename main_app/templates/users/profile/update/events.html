@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Activities at {{ cafe.cafe_name }}</h1>
+<div class="title">Events at {{ cafe.cafe_name }}</div>
 
-
+<br/>
 {% for event in cafe.event_set.all %} 
 
 <div class="card">
@@ -30,8 +30,8 @@
     </a>
 </div>
 {% endfor %}
-
-<h2>Want to add more events?</h2>
+<br/>
+<div class="sub-title">Want to add more events?</div>
 <div>
     <form class="form" method="post" action="{% url 'add_event' cafe.id %}" enctype="multipart/form-data">
       {% csrf_token %} 

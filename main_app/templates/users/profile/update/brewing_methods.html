@@ -1,40 +1,56 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 
-<h1>Brewing Methods at {{ cafe.cafe_name }}</h1>
-
-  {% for brewing_method in cafe.brewingmethod_set.all %}
-
-<div class="card">
-  <div class="card-content brewing-method">
-    <div class="coffee-bean-details">
-      <span class="card-title">{{ brewing_method.get_method_name_display }}</span>
-       <p>{{ brewing_method.method_bio }}</p> 
-    </div>
-  </div>
-<div class="card-action">
-  <a href="">Edit</a>
-  <a href="">Delete</a>
-</div> 
-</div>
-{% endfor %}
-
-<div>
-  <img src="../../../../static/uploads/Screenshot 2022-10-06 at 21.36.55.png" width="400px" />
-</div>
-
-<div>
+<div class="container-cafe">
+<div class="review">
   <form class="form" method="post" action="{% url 'add_brewing_method' cafe.id %}" enctype="multipart/form-data">
     {% csrf_token %} 
     {{ brewing_method_form.as_p }}
     <input type="submit" value="Add Brewing Method" class="btn" />
   </form>
 </div>
-  
+
+<div class="review-table">
+  <div class="sub-title">Brewing Methods at {{ cafe.cafe_name }}</div>
+{% if cafe.brewingmethod_set.count %}
+<table class="striped">
+  <thead>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+  {% for brewing_method in cafe.brewingmethod_set.all %}
+  <tr>
+    <td><img
+      src="{% static 'uploads/'%}{{brewing_method.get_method_name_display}}.png"
+      alt="My image"
+      width="20"
+    /></td>
+    <td>{{ brewing_method.get_stars_display }}</td>
+    <td>{{ brewing_method.get_method_name_display }}</td>
+    <td>{{ brewing_method.method_bio }}</td>
+    <td><a href="{% url 'brewing_method_delete' brewing_method.id %}">Remove</a></td>
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
+<br/>
+{% else %}
+<p><em>No Brewing Methods</em></p>
+{% endif %}
+</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
   <script>
     let selectEl = document.getElementById('id_method_name')
     M.FormSelect.init(selectEl);
   </script>
+{% endblock scripts %}
 
 
-{% endblock %}

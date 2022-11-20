@@ -1,8 +1,10 @@
 from xml.dom import UserDataHandler
+from django import forms
 from django.forms import ModelForm, EmailField
-from .models import BrewingMethod, CoffeeBean, Profile, Event, Review
+from .models import BrewingMethod, CoffeeBean, Profile, Event, Review, Cafe
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 
 class BrewingMethodForm(ModelForm):
     class Meta:
@@ -16,10 +18,50 @@ class CoffeeBeanForm(ModelForm):
         fields = ['name', 'variety', 'description', 'roastery', 'date_harvested', 'image', 'location']        
 
 class UserRegisterForm(UserCreationForm):
-    email = EmailField()
+    username = forms.CharField(label='Choose a username', min_length=4, max_length=150)
+    email = forms.EmailField(label='Enter email')
+    password1 = forms.CharField(label='Enter password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
+    
+    def clean_username(self):
+        username = self.cleaned_data['username'].lower()
+        r = User.objects.filter(username=username)
+        if r.count():
+            raise  ValidationError("Username already exists")
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower()
+        r = User.objects.filter(email=email)
+        if r.count():
+            raise  ValidationError("Email already exists")
+        return email
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+
+        if password1 and password2 and password1 != password2:
+            raise ValidationError("Password don't match")
+
+        return password2
+
+    def save(self, commit=True):
+        user = User.objects.create_user(
+            self.cleaned_data['username'],
+            self.cleaned_data['email'],
+            self.cleaned_data['password1']
+        )
+        return user
+class IsCafeOwnerForm(ModelForm):
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        model = Profile
+        fields = ['is_cafe_owner']
+
+class CafeForm(ModelForm):
+    class Meta:
+        model = Cafe
+        fields = ['cafe_name', 'cafe_bio', 'date_founded', 'address_line_1', 'address_line_2', 'address_city', 'address_county', 'address_country', 'address_postcode', 'cafe_image', 'menu_image', 'cafe_website']
 
 class UserUpdateForm(UserCreationForm):
     email = EmailField()
@@ -30,10 +72,6 @@ class UserUpdateForm(UserCreationForm):
     def clean_password(self):
         return super().clean_password2()
 
-class ProfileUpdateForm(ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['is_cafe_owner']
 
 class EventForm(ModelForm):
     class Meta:
@@ -44,5 +82,6 @@ class ReviewForm(ModelForm):
     class Meta:
         model = Review
         fields = ['review_title', 'review_body', 'stars']
+        
         
         

@@ -2,16 +2,16 @@
 
 {% block content %}
 
-<h1> Delete Cafe </h1>
+<div class="title"> Delete Cafe </div>
 
-<h4> Are you sure you want to delete 
+<div> Are you sure you want to delete 
 <span class="teal-text"> {{ object.name }} </span>?
-</h4> 
-
+</div> 
+<br/>
 <form action="" method="post">
     {% csrf_token %} 
     <input type="submit" value="Yes - Delete" class="btn">
-    <a href="{% url 'detail' cafe.id %}">Cancel</a>
+    <a href="{% url 'detail' cafe.id %}">No, Cancel</a>
 </form>
 
 

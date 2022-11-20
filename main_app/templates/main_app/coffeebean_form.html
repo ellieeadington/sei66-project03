@@ -3,8 +3,8 @@
 {% block content %}
 
 
-<h1>Edit <span class="teal-text">{{ object.name }}</span></h1>
-
+<div class="title">Edit <span class="teal-text">{{ object.name }}</span></div>
+<br/>
 
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}

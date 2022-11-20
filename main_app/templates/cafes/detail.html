@@ -1,157 +1,179 @@
-{% extends 'base.html' %}
-
+{% extends 'base.html' %} 
+{% load static %} 
 {% block content %} 
-<div class="container-cafe">
-  <div class="card card-cafe left-cafe">
-    <div class="card-content cafe">
-      <h4>{{ cafe.cafe_name }}</h4>
-      <small>{{ cafe.address_line_1 }}, {{ cafe.address_city }}, {{ cafe.address_county }}, {{ cafe.address_postcode }}</small>
-      <div class="img-container cafe-image">
-        {% load static %} 
-        <img width="650px" src={% static cafe.cafe_image|cut:'main_app/static/' %} />
-      </div>
 
-      <div class="cafe-details">
-        <p>{{ cafe.cafe_bio }}</p>
+<div class="card">
+  <div class="container-cafe">
+    <div class="card-cafe">
+      <div class="card-content cafe">
+        <div class="title">{{ cafe.cafe_name }}</div>
+        <div class="img-container cafe-image">
+          <img src="{% static  'uploads/'%}{{cafe.cafe_image}}"
+            alt="My image"
+            height="100"/>
+        </div>
+        <div class="cafe-details">
+          <p>{{ cafe.cafe_bio }}</p>
+          <br/>
+          <small>
+            {{ cafe.address_line_1 }}, {{ cafe.address_city }}, {{ cafe.address_postcode }}</small>
+        </div>
+      </div>
+      <div class="card-action">
+        <a href="{{cafe.cafe_website }}">Website</a>
       </div>
     </div>
-    <div class="card-action">
-      <a href={{ cafe.cafe_website }}>Website</a>
+
+    <div class="img-container cafe-image">
+      <img
+        src="{% static  'uploads/'%}{{cafe.menu_image}}"
+        alt="My image"
+        width="320"
+      />
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class="container-cafe">
+    <div class="cafe-beans">
+      <div class="sub-title">Coffee Beans Served</div>
+      {% if cafe.coffee_beans.count %}
+      {% for coffee_bean in cafe.coffee_beans.all %}
+      <div class="cafe-coffeebean-card">
+          <div>
+            <img
+              src="{% static 'uploads/'%}{{coffee_bean.image}}"
+              alt="My image"
+              width="100" class="cafe-coffee-bean-image" />
+            <span>
+              {{ coffee_bean.name }} - {{ coffee_bean.roastery}}</span>
+          </div>
+      </div>
+      {% endfor %} {% else %}
+      <br />
+      <p><em>No coffee beans listed.</em></p>
+      {% endif %}
+    </div>
+
+    <div class="cafe-brew">
+      <div class="sub-title">Brewing Methods</div>
+      <div>
+        <table class="striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Method</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for brewing_method in cafe.brewingmethod_set.all %}
+            <tr>
+              <td><img
+                src="{% static 'uploads/'%}{{brewing_method.get_method_name_display}}.png"
+                alt="My image"
+                width="20"
+              /></td>
+              <td>{{ brewing_method.get_method_name_display }}</td>
+              <td>{{ brewing_method.method_bio }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <hr/>
+  <div class="activities">
+    <div class="sub-title">Events</div>
+    <div>
+      {% if cafe.event_set.count %}
+      <table class="striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Event</th>
+            <th>Description</th>
+            <th>Date & Time</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for event in cafe.event_set.all %}
+          <tr>
+            <td><img
+              src="{% static 'uploads/'%}{{event.event_image}}"
+              alt="My image"
+              height="40"
+            /></td>
+            <td>{{ event.event_name }}</td>
+            <td>{{ event.description }}</td>
+            <td>
+              {{ event.event_date }}: {{ event.event_time_from }} - {{ event.event_time_to}}
+            </td>
+          </tr>
+          {% endfor %} {% else %}
+        </tbody>
+      </table>
+      <br />
+      <p><em>No Events listed.</em></p>
+      {% endif %}
+    </div>
+  </div>
+  
+  <hr/>
+  <div class="container-cafe">
+    <div class="review">
+      <div class="sub-title">Leave a Review</div>
+      <form
+        class="review-form"
+        method="post"
+        action="{% url 'add_review' cafe.id %}"
+      >
+        {% csrf_token %} {{ review_form.as_p}}
+        <input type="submit" value="Add Review" class="btn" />
+      </form>
+    </div>
+
+    <div class="review-table">
+      <div class="sub-title">Reviews</div>
+      {% if cafe.review_set.count %}
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Stars</th>
+            <th>Title</th>
+            <th>Review</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for review in cafe.review_set.all %}
+          <tr>
+            <td>{{ review.datetime }}</td>
+            <td>{{ review.get_stars_display }}</td>
+            <td>{{ review.review_title }}</td>
+            <td>{{ review.review_body }}</td>
+            <td>Remove</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <br />
+      {% else %}
+      <p><em>No Reviews.</em></p>
+      {% endif %}
     </div>
   </div>
 </div>
-
-<div class="container-c">
-<div class="left-c-cafe">
-  <h4>Coffee Beans served at {{cafe.cafe_name}}</h4>
-  {% if cafe.coffeebeans.count %}
-      {% for coffeebean in cafe.coffeebeans.all %}
-          <div class="card">
-              <div class="card-content-c">
-                  <div>
-                      {% load static %}
-                      <img src="{% static 'uploads/'%}{{cafe.coffeebean.image}}" alt="My image" height="100">
-                      <span class="card-title">{{ cafe.coffeebean.name }} - {{ cafe.coffeebean.roastery}}</span>
-                  </div>
-              </div>
-              <div class="card-action">
-                  <a href="">Details</a>
-              </div>
-          </div>
-      {% endfor %}
-  {% else %}
-      <h5><em>There are no cafe's serving this coffee bean</em></h5>
-  {% endif %}
-</div>
-<div class="right-cafe-brew">
-  <br>
-  <h4>Brewing Methods at {{cafe.cafe_name}}</h4>
-<div>
-  <table class="striped">
-    <thead>
-      <tr>
-        <th>Brewing Method </th>
-        <th>Bio</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for brewing_method in cafe.brewingmethod_set.all %} 
-      <tr>
-        <td>{{ brewing_method.get_method_name_display }}</td>
-        <td>{{ brewing_method.method_bio }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-</div>
-</div>
-<div>
-  <h4>Activities</h4>
-<div>
-  <table class="striped">
-    <thead>
-      <tr>
-        <th>Event </th>
-        <th>Description</th>
-        <th>Type</th>
-        <th>Date</th>
-        <th>Time From</th>
-        <th>Time to</th>
-        <th>Image</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      {% for event in cafe.event_set.all %} 
-      <tr>
-        <td>{{ event.event_name }}</td>
-        <td>{{ event.description }}</td>
-        <td>{{ event.get_event_type_display }}</td>
-        <td>{{ event.event_date }}</td>
-        <td>{{ event.time_from }}</td>
-        <td>{{ event.time_to }}</td>
-        <td>{% load static %} {{ event.event_image}}
-          <img width="150px" height="150px" src={% static event.event_image|cut:'main_app/static/' %} />
-      </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-</div>
-<div>
-  <h4>Menu</h4>
-<div class="img-container cafe-image">
-  {% load static %} 
-  <img width="650px" src={% static cafe.menu_image|cut:'main_app/static/' %} />
-</div>
-</div>
-
-<div>
-  <h4>Reviews</h4>
-<table class="striped">
-  <thead>
-      <tr>
-          <th> Review Date </th>
-          <th> Stars </th>
-          <th> Review Title </th>
-          <th> Review </th>
-      </tr>
-  </thead>
-  <tbody>
-      {% for review in cafe.reviews_set.all %}
-      <tr>
-          <td>{{ review.datetime }}</td>
-          <td>{{ review.get_stars_display }}</td>
-          <td>{{ review.review_title }}</td>
-          <td>{{ review.review_body }}</td>
-      </tr>
-      {% endfor %}
-  </tbody>
-</table>
-</div>
-
-<div class="right-cafe">
-  <h4>Leave a Review</h4>
-<form class="card review-form" method="post" action="{% url 'add_review' cafe.id %}">
-    {% csrf_token %}
-    {{ review_form.as_p }}
-    <input type="submit" value="Add Review" class="btn"/>
-</form>
-
-</div>
-<script>
-  let dateEl = document.getElementById('id_datetime');
-    M.Datepicker.init(dateEl, {
-        format: 'yyyy-mm-dd',
-        defaultDate: new Date(),
-        setDefaultDate: true,
-        autoClose: true
-    })
-  
-    let starsEl = document.getElementById('id_stars');
-    M.FormSelect.init(starsEl);
-</script>
-
 {% endblock %}
+
+
+{% block scripts %}
+<script>
+  let starsEl = document.getElementById("id_stars");
+  M.FormSelect.init(starsEl);
+</script>
+{% endblock scripts %}

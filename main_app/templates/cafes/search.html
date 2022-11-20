@@ -1,23 +1,9 @@
 {% extends 'base.html' %}
-{% block content %} 
-<div class="title"> Cafes </div>
+{% load static %}
+{% block content %}
+
+<div class="title"> Cafes matching search term: {{searched}} </div>
 <br/>
-<!-- SEARCH BOX -->
-<div class="search-div">
-    <form method="POST" action="{% url 'search' %}" class="d-flex search">
-        {% csrf_token %}
-        <input type="search" placeholder="Search for a cafe" class=" text-field" aria-label="Search" name="searched">
-        <button type="submit" class="btn">Search </button>
-    </form>
-</div><br>
-
-<div class="filter">
-    <form class="filter-form" method="get" action="">
-        {{cafe_filter.form.as_p}}
-        <button class="btn" type="submit">Filter</button>
-    </form>
-</div>
-
 <div class="main-cc">
     <div class="container-cc">
         <div class="row">
@@ -41,12 +27,6 @@
     </div>
 </div>
 
-<script>
-    let nameEl = document.getElementById('id_cafe_name');
-    M.FormSelect.init(nameEl);
-
-    let cityEl = document.getElementById('id_address_city');
-    M.FormSelect.init(cityEl);
-</script>
+<br>
 
 {% endblock %}

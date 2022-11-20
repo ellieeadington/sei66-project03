@@ -1,46 +1,52 @@
-{% extends 'base.html' %}
-{% block content %}
-
-<div class="container-c">
-
-    <div class="left-c">
-        <h4>{{ coffee_bean.roastery }} - {{coffee_bean.name}}</h4>
-      <div class="card">
-        <div class="card-image">
-            {% load static %}
-            <img src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="My image" height="300" width="auto" class="cb-image">
-        </div>
-        <div class="card-content">
-            <p>{{ coffee_bean.description }}</p> 
-            <hr>
-            <p>{{ coffee_bean.variety }}</p>
-            <hr>
-            <p>{{ coffee_bean.location }}</p> 
-        </div>
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="card">
+  <div class="title">{{ coffee_bean.roastery }} - {{coffee_bean.name}}</div>
+  <br />
+  <div class="container-c">
+    <div class="coffee-bean-details">
+      <img
+        src="{% static 'uploads/'%}{{coffee_bean.image}}"
+        alt="My image"
+        class="cb-image"
+      />
+      <div class="card-content">
+        <p>{{ coffee_bean.description }}</p>
+        <hr />
+        <p>{{ coffee_bean.variety }}</p>
+        <hr />
+        <p>{{ coffee_bean.location }}</p>
       </div>
-    </div>  
+    </div>
+    <div class="coffee-bean-cafes">
+      <div class="sub-title">Cafes Serving this Coffee Bean</div>
+      <br />
+      {% if cafes.count %} {% for cafe in cafes.all %}
+      <div class="col s12 m6 l6 coffee-bean-detail-cafe">
+   
+                <div class="card-image">
+                    <img src="{% static 'uploads/'%}{{cafe.cafe_image}}" alt="My image" class="card-image"/>
+                </div>
 
-    <div class="right-c">
-        <h5>Cafes Serving this Coffee Bean</h5>
-        {% if cafes.count %}
-            {% for cafe in cafes.all %}
-                <div class="card">
-                    <div class="card-content-c">
-                        <div>
-                            {% load static %} 
-                        <img width="100px" src={% static cafe.cafe_image|cut:'main_app/static/' %} /><br>
-                        <span class="card-title">{{ cafe.cafe_name }} <br> {{ cafe.address_city}}</span>
-                        </div>
+                <div class="card-stacked">
+                    <h2 class="header">{{ cafe.cafe_name }}</h2>
+                    <div >
+                        <small>{{ cafe.address_line_1 }}, {{ cafe.address_city }}, {{ cafe.address_postcode }}</small>
                     </div>
                     <div class="card-action">
-                        <a href="">Details</a>
+                        <a href=""><small>Details</small></a>
                     </div>
-                </div>
-            {% endfor %}
-        {% else %}
-            <h5><em>There are no cafe's serving this coffee bean</em></h5>
-        {% endif %}
-    </div>
-</div>
+                </div> 
+        </div>
 
-{% endblock %}
+        {% endfor %} {% else %}
+        <br />
+        <p class="card-content-c">
+          <em>There are no cafe's serving this coffee bean</em>
+        </p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+</div>

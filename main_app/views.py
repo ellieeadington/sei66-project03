@@ -5,9 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import BrewingMethod, Cafe, CoffeeBean, Event
-from django.http import HttpResponse
+from shapeshifter.views import MultiFormView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import BrewingMethodForm, CoffeeBeanForm, UserRegisterForm, UserUpdateForm, ProfileUpdateForm, ReviewForm, EventForm
+from .forms import BrewingMethodForm, CoffeeBeanForm, UserRegisterForm, UserUpdateForm, CafeForm, IsCafeOwnerForm, ReviewForm, EventForm
 from django import forms
 from .forms import BrewingMethodForm, CoffeeBeanForm, ReviewForm, EventForm
 from .filters import CoffeeBeanFilter, CafeFilter
@@ -15,24 +15,13 @@ from django.contrib.auth.views import PasswordChangeView, PasswordResetDoneView
 from django.urls import reverse_lazy
 
 
-#@allowed_users(allowed_roles=['Cafe Owner'])
-class CafeCreate(LoginRequiredMixin, CreateView):
-  model = Cafe
-  fields = ['cafe_name','date_founded','address_line_1', 'address_line_2','address_city', 'address_county', 'address_country', 'address_postcode', 'cafe_image', 'menu_image']
-
-  #Overriding
-  def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
-
 class CafeUpdate(LoginRequiredMixin, UpdateView):
   model = Cafe
-  fields = '__all__'
+  fields = ['cafe_name', 'cafe_bio', 'date_founded', 'address_line_1', 'address_line_2', 'address_city', 'address_county', 'address_country', 'address_postcode', 'cafe_image', 'menu_image', 'cafe_website']
   
 class CafeDelete(LoginRequiredMixin, DeleteView):
   model = Cafe
   success_url = '/cafes/'
-
 
 # Define the home view
 def home(request):
@@ -79,8 +68,7 @@ def add_brewing_method(request, cafe_id):
 
 def brewing_method_edit(request, cafe_id):
   cafe = Cafe.objects.get(id = cafe_id)
-  print(cafe)
-  brewing_methods = BrewingMethod.objects.filter(cafe = cafe)
+  brewing_methods = BrewingMethod.objects.filter(cafe_id = cafe_id)
   brewing_method_form = BrewingMethodForm()
   return render(request,'users/profile/update/brewing_methods.html', {'cafe': cafe, 'brewing_methods': brewing_methods, 'brewing_method_form': brewing_method_form } )
 
@@ -104,110 +92,7 @@ def event_edit(request, cafe_id):
 
 
 
-
-
-
-
-
-
-
-# ASHISH SECTION
-def signup(request):
-  error_message = ""
-  if request.method =="POST":
-      form = UserRegisterForm(request.POST)
-      if form.is_valid():
-          user = form.save()
-          login(request, user)
-          messages.success(request, 'Your account has been created!')
-          return redirect('profile') 
-      else:
-          error_message = "Invalid signup - please try again later"
-
-  form = UserRegisterForm 
-  context = {'form': form, 'error_message': error_message}
-  return render(request, 'registration/signup.html', context)
-
-@login_required
-def profile(request):
-    if request.method =="POST":
-      u_form = UserUpdateForm(request.POST, instance=request.user)
-      p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
-
-      if p_form['is_cafe_owner']:
-        p_form.save()
-        print("p_form is valid")
-        # return redirect('profile_cafeowner')
-        return HttpResponse("profile_user")
-      if u_form.is_valid():
-        u_form.save()
-        print("u_form is valid")
-        return HttpResponse("user_account_updated")
-
-    else:
-      u_form = UserUpdateForm(instance=request.user)
-      p_form = ProfileUpdateForm(instance=request.user.profile)
-
-    context = {
-      'u_form': u_form, 
-      'p_form': p_form
-    }
-    return render(request, 'users/profile/profile.html', context)
-
-
-# @login_required
-# def has_profile_submitted(request):
-#     if request.method =="POST":
-#       p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
-
-#       if p_form['is_cafe_owner' ]:
-#         p_form.save()
-#         print("p_form is valid")
-#         # return redirect(request.META.get('HTTP_REFERER', 'about'))
-#         return redirect('about')
-
-#     else:
-#       p_form = ProfileUpdateForm(instance=request.user.profile)
-    
-#     context = {
-#       'p_form': p_form
-#     }
-#     return render(request, 'users/profile/update/profile_update.html', context)
-
-# @login_required
-# def has_user_submitted(request):
-#   if request.method =="POST":
-#       u_form = UserUpdateForm(request.POST, instance=request.user)
-      
-#       if u_form.is_valid():
-#         u_form.save()
-#         print("u_form is valid")
-#         return HttpResponse("user_account_updated")
-#   else:
-#     u_form = UserUpdateForm(instance=request.user)
-    
-#     context = {
-#       'u_form': u_form
-#     }
-
-    # return render(request, 'users/profile/update/users_update.html', context)
-
-
-
-# def profile_cafeowner(request):
-#   user = User.objects.get(pk=request.user.pk)
-#   user_profile = user.profile
-#   print(user.profile.is_cafe_owner)
- 
-#   return render(request, 'users/profile/cafe_profile.html')
-
-
-
 # ELLIE SECTION
-def cafe_owner_profile(request, cafe_id):
-  cafe = Cafe.objects.get(id = cafe_id)
-  return render(request, 'users/cafe_profile.html',{'cafe': cafe })
-
 
 def coffee_beans_index(request):
   coffee_beans = CoffeeBean.objects.all()
@@ -242,7 +127,6 @@ def add_coffee_bean(request, cafe_id):
         new_coffee_bean.save()
         new_beans_id = []
         new_beans_id.append(new_coffee_bean.pk)
-        # 21 , 4
         cafe.coffee_beans.set(new_beans_id)
 
     return redirect('coffee_bean_edit', cafe_id=cafe_id)   
@@ -258,12 +142,61 @@ class CoffeeBeanDelete(DeleteView):
   def get_success_url(self):
       return reverse_lazy('coffee_bean_edit', kwargs={'cafe_id': self.object.pk})
     
-def add_review(request, cafe_id):  
-    
+def add_review(request, cafe_id):    
     form = ReviewForm(request.POST)
     
     if form.is_valid():
         new_review = form.save(commit=False)
         new_review.cafe_id = cafe_id
         new_review.save()
-    return redirect('detail', cafe_id = cafe_id)     
+    return redirect('detail', cafe_id = cafe_id)  
+  
+def search(request):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        cafes = Cafe.objects.filter(cafe_name__icontains=searched)
+        return render(request, 'cafes/search.html', {'searched': searched, 'cafes': cafes})
+    else:
+        return render(request, 'cafes/search.html')     
+      
+class SignUpFormsView(MultiFormView):
+    form_classes = (UserRegisterForm, IsCafeOwnerForm, CafeForm)
+    template_name = 'registration/signup.html'
+    success_url = '/cafes/'
+                   
+    def forms_valid(self):
+        forms = self.get_forms()
+        print(forms)
+        userRegisterForm = forms['userregisterform']
+        isCafeOwnerForm = forms['iscafeownerform']
+        cafeForm = forms['cafeform']
+        
+        if userRegisterForm.is_valid():
+            user = userRegisterForm.save()
+        if isCafeOwnerForm.is_valid():
+            isCafeOwnerForm.save()  
+        if cafeForm.is_valid():
+            cafeForm.save()    
+             
+        login(self.request,user)    
+        return super().forms_valid()
+        
+
+@login_required
+def profile(request):
+  user = request.user
+  cafe = Cafe.objects.filter(user_id=user.id)[0]
+  print(cafe.id)
+  return render(request, 'users/profile/profile.html',{'user': user, 'cafe': cafe})
+
+class UserUpdate(LoginRequiredMixin, UpdateView):
+  model = User
+  fields = ['username', 'email']     
+  
+  def get_success_url(self):
+      return reverse_lazy('profile')
+    
+class BrewingMethodDelete(LoginRequiredMixin, DeleteView):
+  model = BrewingMethod
+  def get_success_url(self):
+      return reverse_lazy('profile')     

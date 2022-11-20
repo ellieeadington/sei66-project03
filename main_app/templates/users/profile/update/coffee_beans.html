@@ -1,55 +1,55 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
-<h1>Coffee Beans Served at {{ cafe.cafe_name }}</h1>
+<div class="title">Edit your Coffee Bean Menu</div>
+<br />
+<div class="container-cafe">
+  <div>
+    <div class="sub-title">Beans currently served at {{ cafe.cafe_name }}</div>
+  <div class="cafe-beans-edit">
+    {% if cafe.coffee_beans.count %} {% for coffee_bean in coffee_beans %}
+    <div class="cafe-coffeebean-edit-card card">
+      <div class="card-title-small">{{ coffee_bean.name }}</div>
+      <div>
+        <img
+          src="{% static 'uploads/'%}{{coffee_bean.image}}"
+          alt="My image"
+          width="100"
+          class="cafe-coffee-bean-image"
+        />
+      </div>
 
-
-{% for coffee_bean in coffee_beans %}
-
-<div class="card">
-    <a href="{% url 'coffee_beans_detail' coffee_bean.id %}">
-        <div class="card-content coffee-beans">
-
-            <div class="img-container coffee-bean-image">
-                {% load static %}
-                <img src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="My image" width="200" height="200">
-            </div>
-            
-            <div class="coffee-bean-details">
-                <span class="card-title"> {{ coffee_bean.name }}</span>
-                <p>Roastery: {{ coffee_bean.roastery }}</p> 
-                <p>Variety: {{ coffee_bean.variety }}</p>
-                <p>Description: {{ coffee_bean.description }}</p> 
-            </div>
-        </div>
-
-            <div class="card-action">
-                <a href="{% url 'coffee_bean_update' coffee_bean.id %}">Edit</a>
-                <a href="{% url 'coffee_bean_delete' coffee_bean.id %}">Delete</a>
-            </div> 
-    </a>
+      <div class="card-action">
+        <a href="{% url 'coffee_bean_update' coffee_bean.id %}">Edit</a>
+        <a href="{% url 'coffee_bean_delete' coffee_bean.id %}">Delete</a>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <br />
+    <p><em>No coffee beans listed.</em></p>
+    {% endif %}
+  </div>
 </div>
-{% endfor %}
+  <br />
+  <div class="cafe-beans">
+  <div class="sub-title">Want to add more coffee beans?</div>
 
-<h2>Want to add more coffee beans? </h2>
-
-<form class="form" method="post" action="{% url 'add_coffee_bean' cafe.id %}">
-    {% csrf_token %}
-    {{ coffee_bean_form.as_p}}
-    <input type="submit" value="Add Coffee Beans" class="btn">
-</form>    
-
+  <form class="form" method="post" action="{% url 'add_coffee_bean' cafe.id %}">
+    {% csrf_token %} {{ coffee_bean_form.as_p}}
+    <input type="submit" value="Add Coffee Beans" class="btn" />
+  </form>
+</div>
+</div>
 <script>
-    let dateEl = document.getElementById('id_date_harvested');
-    M.Datepicker.init(dateEl, {
-        format: 'yyyy-mm-dd',
-        defaultDate: new Date(),
-        setDefaultDate: true,
-        autoClose: true
-    })
+  let dateEl = document.getElementById("id_date_harvested");
+  M.Datepicker.init(dateEl, {
+    format: "yyyy-mm-dd",
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true,
+  });
 
-    let varietyEl = document.getElementById('id_variety');
-    M.FormSelect.init(varietyEl);
+  let varietyEl = document.getElementById("id_variety");
+  M.FormSelect.init(varietyEl);
 </script>
 
 {% endblock %}
