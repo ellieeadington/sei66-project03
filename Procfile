@@ -1,1 +1,1 @@
-web: gunicorn sei66project03.wsgi
+web: gunicorn fitcoffee.wsgi
