@@ -59,7 +59,7 @@ Deployed version: [link here]
 
 ### Trello
 
->Next, Rob created a Figma board, where we each populated it with tasks that we were assigning to ourselves.
+Next, Rob created a Trello board, where we each populated it with tasks that we were assigning to ourselves. Once we had a solid idea of exactly which tasks we would each be working on, we then decided which tasks we would each work on first, ensuring that this made logical sense, and kept in communication over zoom and our slack channel to ensure that we were able to provide real-time updates to each other.
 <img src="main_app\static\uploads\trelloe.PNG"/>
 
 ### Build/Code Process
