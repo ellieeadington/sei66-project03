@@ -82,17 +82,16 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-
 DATABASES = {
+    
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': '',
         'NAME': '',
         'USER': '',
         'PASSWORD': '',
-        'PORT': ''
+        'PORT': '',
     }
 }
-
 
 
 # Password validation
@@ -139,5 +138,8 @@ LOGOUT_REDIRECT_URL = '/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTHENTICATION_BACKENDS = (
+    ('django.contrib.auth.backends.ModelBackend'),
+)
 import django_heroku
 django_heroku.settings(locals())
