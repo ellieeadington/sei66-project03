@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import BrewingMethod, Cafe, CoffeeBean, Event
 from shapeshifter.views import MultiFormView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import BrewingMethodForm, CoffeeBeanForm, UserRegisterForm, UserUpdateForm, CafeForm, IsCafeOwnerForm, ReviewForm, EventForm
+from .forms import BrewingMethodForm, CoffeeBeanForm, CafeForm,IsCafeOwnerForm, UserRegisterForm, UserUpdateForm, ReviewForm, EventForm
 from django import forms
 from .forms import BrewingMethodForm, CoffeeBeanForm, ReviewForm, EventForm
 from .filters import CoffeeBeanFilter, CafeFilter
@@ -160,21 +160,21 @@ def search(request):
         return render(request, 'cafes/search.html')     
       
 class SignUpFormsView(MultiFormView):
-    form_classes = (UserRegisterForm, IsCafeOwnerForm, CafeForm)
+    form_classes = (IsCafeOwnerForm, CafeForm, UserRegisterForm)
     template_name = 'registration/signup.html'
     success_url = '/cafes/'
                    
     def forms_valid(self):
         forms = self.get_forms()
         print(forms)
-        userRegisterForm = forms['userregisterform']
         isCafeOwnerForm = forms['iscafeownerform']
+        userRegisterForm = forms['userregisterform']
         cafeForm = forms['cafeform']
-        
+
+        if isCafeOwnerForm.is_valid():
+            isCafeOwnerForm.save()          
         if userRegisterForm.is_valid():
             user = userRegisterForm.save()
-        if isCafeOwnerForm.is_valid():
-            isCafeOwnerForm.save()  
         if cafeForm.is_valid():
             cafeForm.save()    
              

@@ -86,9 +86,9 @@ DATABASES = {
     
     'default': {
         'ENGINE': '',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
+        'NAME':  '',
+        'USER':  '',
+        'PASSWORD':  '',
         'PORT': '',
     }
 }

@@ -1,5 +1,5 @@
 {% extends 'base.html' %} 
-
+{% load materializecss %}
 {% block content %} 
 
 <div class="title"> Sign Up </div>
@@ -11,8 +11,9 @@
 <form action="{% url 'signup' %}" method="POST" class="form">
     {% csrf_token %}
     {% for form in forms %}
-    {{ form.as_p }}
-{% endfor %}
+            {{ form |materializecss }}
+    {% endfor %}
+    
     <input type="submit" value="Save" />
 </form>
 {% endblock content %}

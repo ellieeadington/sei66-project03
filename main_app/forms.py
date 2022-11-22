@@ -17,6 +17,13 @@ class CoffeeBeanForm(ModelForm):
         model = CoffeeBean
         fields = ['name', 'variety', 'description', 'roastery', 'date_harvested', 'image', 'location']        
 
+
+class IsCafeOwnerForm(ModelForm):  
+    is_cafe_owner = forms.BooleanField(label="Please check if you are signing up as a cafe owner today", widget=forms.CheckboxInput())
+    class Meta:
+        model = Profile
+        fields = ['is_cafe_owner']
+
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(label='Choose a username', min_length=4, max_length=150)
     email = forms.EmailField(label='Enter email')
@@ -53,10 +60,6 @@ class UserRegisterForm(UserCreationForm):
             self.cleaned_data['password1']
         )
         return user
-class IsCafeOwnerForm(ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['is_cafe_owner']
 
 class CafeForm(ModelForm):
     class Meta:
