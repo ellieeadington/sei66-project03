@@ -12,9 +12,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
   {% endblock %}
+  <script type="text/javascript" src="{% static 'jquery-3.5.0.js' %}"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="{% static 'javascript.js' %}"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -52,9 +52,6 @@
     {% block content %}
     {% endblock %}
   </main>
-
-  {% block scripts %}
-  {% endblock scripts %}
 <br/>
 <br/>
 <br/>
@@ -89,5 +86,102 @@
     </ul>
     <div class="right">All Rights Reserved, &copy; 2022 fitCoffee &nbsp;</div>
   </footer>
+  
+{% comment %}   
+  <script>    
+    // Call hideShow when page is loaded
+    $(document).ready(function(){
+        hideShow()
+    })
+
+    // call hideShow when the user clicks on the component_type dropdownlist
+    $('#id_iscafeownerform-is_cafe_owner').click(function(){
+        hideShow()
+    });
+
+// The jquery function below hides/shows the k_v, DI and length fields depending on the selected component_type 
+function hideShow(){
+    if(document.getElementById('#id_iscafeownerform-is_cafe_owner').options[document.getElementById('#id_iscafeownerform-is_cafe_owner').selectedIndex].value == False)
+    {
+        $('#id_cafeform-cafe_bio').attr('class': 'hello')
+        $('#id_cafeform-date_founded').hide();
+        $('#id_cafeform-address_line_1').hide();
+        $('#id_cafeform-address_line_2').hide();
+        $('#id_cafeform-address_city').hide();
+        $('#id_cafeform-address_county').hide();
+        $('#id_cafeform-address_country').hide();
+        $('#id_cafeform-address_postcode').hide();
+        $('#id_cafeform-cafe_image').hide();
+        $('#id_cafeform-menu_image').hide();
+        $('#id_cafeform-cafe_website').hide();
+    }else
+    {
+        $('#id_cafeform-cafe_bio').show();
+        $('#id_cafeform-date_founded').show();
+        $('#id_cafeform-address_line_1').show();
+        $('#id_cafeform-address_line_2').show();
+        $('#id_cafeform-address_city').show();
+        $('#id_cafeform-address_county').show();
+        $('#id_cafeform-address_country').show();
+        $('#id_cafeform-address_postcode').show();
+        $('#id_cafeform-cafe_image').show();
+        $('#id_cafeform-menu_image').show();
+        $('#id_cafeform-cafe_website').show();
+    }
+}
+
+</script> {% endcomment %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript"> 
+  $(document).ready(function() {
+
+    $('#id_cafeform-date_founded').hide();
+    $('label[for="id_cafeform-date_founded"]').hide();
+    $('#id_cafeform-cafe_bio').hide();
+    $('#id_cafeform-cafe_name').hide();
+    $('#id_cafeform-address_line_1').hide(); 
+    $('#id_cafeform-address_line_2').hide();
+    $('#id_cafeform-address_city').hide();
+    $('#id_cafeform-address_county').hide();
+    $('#id_cafeform-address_country').hide();
+    $('#id_cafeform-address_postcode').hide();
+    $('.file-field').hide();
+    $('#id_cafeform-cafe_website').hide();
+    $('label[for="id_cafeform-cafe_bio"]').hide();
+    $('label[for="id_cafeform-cafe_name"]').hide();
+    $('label[for="id_cafeform-address_line_1"]').hide(); 
+    $('label[for="id_cafeform-address_line_2"]').hide();
+    $('label[for="id_cafeform-address_city"]').hide();
+    $('label[for="id_cafeform-address_county"]').hide();
+    $('label[for="id_cafeform-address_country"]').hide();
+    $('label[for="id_cafeform-address_postcode"]').hide();
+    $('label[for="id_cafeform-cafe_website"]').hide();
+
+    $('#id_iscafeownerform-is_cafe_owner').click(function() {
+        $('#id_cafeform-date_founded').show();
+        $('label[for="id_cafeform-date_founded"]').show();
+        $('#id_cafeform-cafe_bio').show();
+        $('#id_cafeform-cafe_name').show();
+        $('#id_cafeform-address_line_1').show(); 
+        $('#id_cafeform-address_line_2').show();
+        $('#id_cafeform-address_city').show();
+        $('#id_cafeform-address_county').show();
+        $('#id_cafeform-address_country').show();
+        $('#id_cafeform-address_postcode').show();
+        $('.file-field').show();
+        $('#id_cafeform-cafe_website').show();
+        $('label[for="id_cafeform-cafe_bio"]').show();
+        $('label[for="id_cafeform-cafe_name"]').show();
+        $('label[for="id_cafeform-address_line_1"]').show(); 
+        $('label[for="id_cafeform-address_line_2"]').show();
+        $('label[for="id_cafeform-address_city"]').show();
+        $('label[for="id_cafeform-address_county"]').show();
+        $('label[for="id_cafeform-address_country"]').show();
+        $('label[for="id_cafeform-address_postcode"]').show();
+        $('label[for="id_cafeform-cafe_website"]').show();
+  })
+    }) 
+  </script>
+
 </body>
 </html>

@@ -87,7 +87,7 @@ class Cafe(models.Model):
         return reverse('detail', kwargs = {'cafe_id': self.id})
     
     def __str__(self):
-        return  f'{self.cafe_name}, {self.address_city}'
+        return self.address_city
 
 class Event(models.Model):
 

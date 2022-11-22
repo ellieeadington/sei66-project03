@@ -19,7 +19,7 @@ class CoffeeBeanForm(ModelForm):
 
 
 class IsCafeOwnerForm(ModelForm):  
-    is_cafe_owner = forms.BooleanField(label="Please check if you are signing up as a cafe owner today", widget=forms.CheckboxInput())
+    is_cafe_owner = forms.BooleanField(required=False,label="Please check if you are signing up as a cafe owner today", widget=forms.CheckboxInput())
     class Meta:
         model = Profile
         fields = ['is_cafe_owner']
@@ -62,9 +62,29 @@ class UserRegisterForm(UserCreationForm):
         return user
 
 class CafeForm(ModelForm):
+    
+    cafe_name = forms.CharField(required=False)
+    cafe_bio = forms.CharField(required=False)
+    date_founded = forms.DateField(required=False)
+    address_line_1 = forms.CharField(required=False)
+    address_line_2 = forms.CharField(required=False)
+    address_city = forms.CharField(required=False)
+    address_county = forms.CharField(required=False)
+    address_country = forms.CharField(required=False)
+    address_postcode = forms.CharField(required=False)
+    cafe_image = forms.ImageField(required=False)
+    menu_image = forms.ImageField(required=False)
+    cafe_website = forms.CharField(required=False)
+
     class Meta:
         model = Cafe
         fields = ['cafe_name', 'cafe_bio', 'date_founded', 'address_line_1', 'address_line_2', 'address_city', 'address_county', 'address_country', 'address_postcode', 'cafe_image', 'menu_image', 'cafe_website']
+
+    def __init__(self, *args, **kwargs):
+        super(CafeForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'cafe-form' 
+
 
 class UserUpdateForm(UserCreationForm):
     email = EmailField()

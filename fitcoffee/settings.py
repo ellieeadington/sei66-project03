@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_filters',
     'materializecssform',
     'crispy_forms',
+    'jquery',
 ]
 
 MIDDLEWARE = [
@@ -141,6 +142,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = (
     ('django.contrib.auth.backends.ModelBackend'),
 )
-
 import django_heroku
 django_heroku.settings(locals())
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

@@ -9,11 +9,11 @@ class CoffeeBeanFilter(filters.FilterSet):
 
 class CafeFilter(filters.FilterSet):
 
-    cafe_name = filters.ModelChoiceFilter(field_name = 'cafe_name', label='Cafe', queryset = Cafe.objects.all().distinct('cafe_name'))
+    # cafe_name = filters.ModelChoiceFilter(field_name = 'cafe_name', label='Cafe', queryset = Cafe.objects.all().distinct('cafe_name'))
     address_city = filters.ModelChoiceFilter(field_name = 'address_city', label='Location', queryset = Cafe.objects.all().distinct('address_city'))
     class Meta:
         model = Cafe
-        fields = ['cafe_name', 'address_city']        
+        fields = ['address_city']        
         
         
 
