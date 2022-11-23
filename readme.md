@@ -29,7 +29,7 @@
 
 >This was my third project for this Software Engineering Immersive course; to build a full-stack Python application built with a team of 3. fitCoffee is an app for coffee enthusiasts, where you can discover cafes that serve your favourite coffee beans, and promote your cafe as a business owner.
 
-Deployed version: [link here]
+Deployed version: https://fitcoffee.herokuapp.com/
 
 ## Getting Started/Code Installation
 
