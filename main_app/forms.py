@@ -48,8 +48,8 @@ class UserRegisterForm(UserCreationForm):
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
 
-        if password1 and password2 and password1 != password2:
-            raise ValidationError("Password don't match")
+        if password1 != password2:
+            raise ValidationError("Password must match")
 
         return password2
 
@@ -75,10 +75,11 @@ class CafeForm(ModelForm):
     cafe_image = forms.ImageField(required=False)
     menu_image = forms.ImageField(required=False)
     cafe_website = forms.CharField(required=False)
+    user = forms.CharField(widget=forms.HiddenInput())
 
     class Meta:
         model = Cafe
-        fields = ['cafe_name', 'cafe_bio', 'date_founded', 'address_line_1', 'address_line_2', 'address_city', 'address_county', 'address_country', 'address_postcode', 'cafe_image', 'menu_image', 'cafe_website']
+        fields = ['cafe_name', 'cafe_bio', 'date_founded', 'address_line_1', 'address_line_2', 'address_city', 'address_county', 'address_country', 'address_postcode', 'cafe_image', 'menu_image', 'cafe_website', 'user']
 
     def __init__(self, *args, **kwargs):
         super(CafeForm, self).__init__(*args, **kwargs)
