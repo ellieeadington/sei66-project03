@@ -163,26 +163,22 @@ class SignUpFormsView(MultiFormView):
     form_classes = (IsCafeOwnerForm, CafeForm, UserRegisterForm)
     template_name = 'registration/signup.html'
     success_url = '/cafes/'
-    print("hi")
-                   
-    def forms_valid(self):
+
+    def forms_valid(self, request):
         forms = self.get_forms()
-        print("hello")
         isCafeOwnerForm = forms['iscafeownerform']
         userRegisterForm = forms['userregisterform']
         cafeForm = forms['cafeform']
+        cafeForm = cafeForm(request.POST, request.FILES)
         print(isCafeOwnerForm)
         print(cafeForm.errors)
         if isCafeOwnerForm.is_valid():
-            print("valid")
             isCafeOwnerForm.save(commit=False)         
             isCafeOwnerForm.save()         
         if userRegisterForm.is_valid():
-            print("valid")
             user = userRegisterForm.save(commit=False)
             userRegisterForm.save()
         if cafeForm.is_valid():
-            print("valid")
             cafeForm.save(commit=False)    
             cafeForm.user = user.id
             cafeForm.save()

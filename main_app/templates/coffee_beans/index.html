@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <div class="grid">
             {% for coffee_bean in coffee_beans %}
-                <div class="card" style="width: 18rem;">
+                <div class="card">
                     {% load static %} 
                     <div class="card-img-top-container">
                     <img class="card-img-top" src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="coffee_bean_image">

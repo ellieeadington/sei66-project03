@@ -8,10 +8,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>fitCoffee</title>
 
-  <link rel="icon" href="/../static/uploads/coffee_beans.png">
-
+  <link rel="icon" href="/../static/uploads/coffee-beans.png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-  
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   
   <script
@@ -30,7 +28,7 @@
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a href="{% url 'home' %}" class="nav-item navbar-brand">
-          <img src="/../static/uploads/coffee_beans.png" class="navbar-brand" alt="logo" width="40px"/>
+          <img src="/../static/uploads/coffee-beans.png" class="navbar-brand" alt="logo" width="20px"/>
           fitCoffee</a>
           <div class="navbar-nav">
           <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
@@ -100,77 +98,19 @@
 </footer>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script src="{% static 'js/script.js' %}"></script>
+
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript"> 
   $(document).ready(function() {
-
-    $('#id_cafeform-date_founded').hide();
-    $('label[for="id_cafeform-date_founded"]').hide();
-    $('#id_cafeform-cafe_bio').hide();
-    $('#id_cafeform-cafe_name').hide();
-    $('#id_cafeform-cafe_image').hide();
-    $('#id_cafeform-menu_image').hide();
-    $('#id_cafeform-address_line_1').hide(); 
-    $('#id_cafeform-address_line_2').hide();
-    $('#id_cafeform-address_city').hide();
-    $('#id_cafeform-address_county').hide();
-    $('#id_cafeform-address_country').hide();
-    $('#id_cafeform-address_postcode').hide();
-    $('.file-field').hide();
-    $('#id_cafeform-cafe_website').hide();
-    $('label[for="id_cafeform-cafe_bio"]').hide();
-    $('label[for="id_cafeform-cafe_name"]').hide();
-    $('label[for="id_cafeform-cafe_image"]').hide();
-    $('label[for="id_cafeform-menu_image"]').hide();
-    $('label[for="id_cafeform-address_line_1"]').hide(); 
-    $('label[for="id_cafeform-address_line_2"]').hide();
-    $('label[for="id_cafeform-address_city"]').hide();
-    $('label[for="id_cafeform-address_county"]').hide();
-    $('label[for="id_cafeform-address_country"]').hide();
-    $('label[for="id_cafeform-address_postcode"]').hide();
-    $('label[for="id_cafeform-cafe_website"]').hide();
-
+    
     $('#id_iscafeownerform-is_cafe_owner').click(
-      
     function() {
-        $('#id_cafeform-date_founded').show();
-        $('label[for="id_cafeform-date_founded"]').show();
-        $('#id_cafeform-cafe_bio').show();
-        $('#id_cafeform-cafe_name').show();
-        $('#id_cafeform-cafe_image').show();
-        $('#id_cafeform-menu_image').show();
-        $('#id_cafeform-address_line_1').show(); 
-        $('#id_cafeform-address_line_2').show();
-        $('#id_cafeform-address_city').show();
-        $('#id_cafeform-address_county').show();
-        $('#id_cafeform-address_country').show();
-        $('#id_cafeform-address_postcode').show();
-        $('.file-field').show();
-        $('#id_cafeform-cafe_website').show();
-        $('label[for="id_cafeform-cafe_bio"]').show();
-        $('label[for="id_cafeform-cafe_name"]').show();
-        $('label[for="id_cafeform-cafe_image"]').show();
-        $('label[for="id_cafeform-menu_image"]').show();
-        $('label[for="id_cafeform-address_line_1"]').show(); 
-        $('label[for="id_cafeform-address_line_2"]').show();
-        $('label[for="id_cafeform-address_city"]').show();
-        $('label[for="id_cafeform-address_county"]').show();
-        $('label[for="id_cafeform-address_country"]').show();
-        $('label[for="id_cafeform-address_postcode"]').show();
-        $('label[for="id_cafeform-cafe_website"]').show();
-  }
-  
-  
-  
-  
-  
-  
-  
-  
-  )
-    }) 
+      console.log("hi")
+       
+        $('.cafe-form-item').toggleClass('cafe_form')
+  })
+}) 
   </script>
 
 </body>

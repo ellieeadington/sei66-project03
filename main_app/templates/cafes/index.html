@@ -9,10 +9,9 @@
     <form method="POST" action="{% url 'search' %}" class="d-flex">
         {% csrf_token %}
         <input type="search" placeholder="Search for a cafe" class="search text-field" aria-label="Search" name="searched">
-        <button type="submit" class="btn btn-search">Search </button>
+        <button type="submit" class="btn btn-search">Search</button>
     </form>
 </div><br>
-
 <div class="filter">
     <form class="filter-form" method="get" action="">
         {{cafe_filter.form |crispy}}
@@ -24,7 +23,7 @@
     <div class="container-fluid">
         <div class="grid">
             {% for cafe in cafes %} 
-                    <div class="card" style="width: 18rem;">
+                    <div class="card">
                         {% load static %} 
                         <div class="card-img-top-container">
                         <img class="card-img-top" src="{% static 'uploads/'%}{{cafe.cafe_image}}" alt="Card image cap">

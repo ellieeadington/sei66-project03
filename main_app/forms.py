@@ -23,12 +23,14 @@ class IsCafeOwnerForm(ModelForm):
     class Meta:
         model = Profile
         fields = ['is_cafe_owner']
+  
 
 class UserRegisterForm(UserCreationForm):
-    username = forms.CharField(label='Choose a username', min_length=4, max_length=150)
-    email = forms.EmailField(label='Enter email')
-    password1 = forms.CharField(label='Enter password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
+    username = forms.CharField(label='Choose a username', min_length=4, max_length=150, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(label='Enter email', widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    password1 = forms.CharField(label='Enter password',  widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password2 = forms.CharField(label='Confirm password',  widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+  
     
     def clean_username(self):
         username = self.cleaned_data['username'].lower()
@@ -60,6 +62,8 @@ class UserRegisterForm(UserCreationForm):
             self.cleaned_data['password1']
         )
         return user
+    
+
 
 class CafeForm(ModelForm):
     
@@ -84,7 +88,7 @@ class CafeForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(CafeForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'cafe-form' 
+            visible.field.widget.attrs['class'] = 'cafe_form cafe-form-item form-control' 
 
 
 class UserUpdateForm(UserCreationForm):

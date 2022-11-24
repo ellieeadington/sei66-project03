@@ -11,12 +11,22 @@
     <p class="red-text"> {{ error_message }}</p>
 {% endif %}
 
-<form action="{% url 'signup' %}" method="POST" class="form">
+<form action="{% url 'signup' %}" method="POST" class="form form-control">
     {% csrf_token %}
     {% for form in forms %}
-            {{ form |crispy }}
-    {% endfor %}
-    <br/>
+            {% if form.cafe_name %}
+                {% for field in form %}
+                    <label class="cafe_form cafe-form-item" for="{{ field.auto_id }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% endfor %}
+            {% else %}
+                {% for field in form %}
+                    <label  for="{{ field.auto_id }}" >{{ field.label }}</label>
+                    {{ field }}
+                {% endfor %}
+            {% endif %}   
+     {% endfor %} 
+     <br/>       
     <input type="submit" value="Sign Up" class="btn" />
 </form>
 {% endblock content %}
