@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
-    'materializecssform',
-    'tailwind',
     'crispy_forms',
     'jquery',
 ]
