@@ -1,8 +1,10 @@
 {% extends 'base.html' %} 
 {% load static %} 
+{%load crispy_forms_tags %} 
 {% block content %} 
-
-<div class="card">
+<div class="container">
+<div class="container">
+<div>
   <div class="container-cafe">
     <div class="card-cafe">
       <div class="card-content cafe">
@@ -12,7 +14,7 @@
             alt="My image"
             height="100"/>
         </div>
-        <div class="cafe-details">
+        <div class="card-texxt">
           <p>{{ cafe.cafe_bio }}</p>
           <br/>
           <small>
@@ -59,12 +61,12 @@
     <div class="cafe-brew">
       <div class="sub-title">Brewing Methods</div>
       <div>
-        <table class="striped">
-          <thead>
+        <table class="table">
+          <thead class="thead-dark">
             <tr>
-              <th></th>
-              <th>Method</th>
-              <th>Description</th>
+              <th scope="col"></th>
+              <th scope="col">Method</th>
+              <th scope="col">Description</th>
             </tr>
           </thead>
           <tbody>
@@ -90,13 +92,13 @@
     <div class="sub-title">Events</div>
     <div>
       {% if cafe.event_set.count %}
-      <table class="striped">
-        <thead>
+      <table class="table">
+        <thead class="thead-dark">
           <tr>
-            <th></th>
-            <th>Event</th>
-            <th>Description</th>
-            <th>Date & Time</th>
+            <th scope="col"></th>
+            <th scope="col">Event</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date & Time</th>
           </tr>
         </thead>
 
@@ -132,21 +134,22 @@
         method="post"
         action="{% url 'add_review' cafe.id %}"
       >
-        {% csrf_token %} {{ review_form.as_p}}
+        {% csrf_token %} {{ review_form |crispy}}
+        <br/>
         <input type="submit" value="Add Review" class="btn" />
       </form>
     </div>
 
-    <div class="review-table">
+    <div >
       <div class="sub-title">Reviews</div>
       {% if cafe.review_set.count %}
-      <table class="striped">
-        <thead>
+      <table  class="table">
+        <thead class="thead-dark">
           <tr>
-            <th>Date</th>
-            <th>Stars</th>
-            <th>Title</th>
-            <th>Review</th>
+            <th scope="col">Date</th>
+            <th scope="col">Stars</th>
+            <th scope="col">Title</th>
+            <th scope="col">Review</th>
           </tr>
         </thead>
         <tbody>
@@ -167,6 +170,7 @@
       {% endif %}
     </div>
   </div>
+</div>
 </div>
 {% endblock %}
 

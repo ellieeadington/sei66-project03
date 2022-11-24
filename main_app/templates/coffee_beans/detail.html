@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
-<div class="card">
+<div class="container">
   <div class="title">{{ coffee_bean.roastery }} - {{coffee_bean.name}}</div>
   <br />
   <div class="container-c">
@@ -33,16 +33,18 @@
                         <small>{{ cafe.address_line_1 }}, {{ cafe.address_city }}, {{ cafe.address_postcode }}</small>
                     </div>
                     <div class="card-action">
-                        <a href=""><small>Details</small></a>
+                        <a href="/cafes/{{ cafe.id }}" class="btn"><small>Details</small></a>
                     </div>
                 </div> 
         </div>
 
         {% endfor %} {% else %}
         <br />
-        <p class="card-content-c">
+        <div class="card-content-c">
           <em>There are no cafe's serving this coffee bean</em>
-        </p>
+          <br/>
+          <a href="/coffee_beans" class="btn explore">back to coffee</a>
+        </div>
         {% endif %}
       </div>
     </div>

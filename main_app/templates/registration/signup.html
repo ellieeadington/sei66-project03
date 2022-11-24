@@ -1,5 +1,5 @@
 {% extends 'base.html' %} 
-{% load materializecss %}
+{% load crispy_forms_tags %}
 
 
 {% block content %} 
@@ -14,9 +14,9 @@
 <form action="{% url 'signup' %}" method="POST" class="form">
     {% csrf_token %}
     {% for form in forms %}
-            {{ form |materializecss }}
+            {{ form |crispy }}
     {% endfor %}
-    
-    <input type="submit" value="Sign Up" />
+    <br/>
+    <input type="submit" value="Sign Up" class="btn" />
 </form>
 {% endblock content %}

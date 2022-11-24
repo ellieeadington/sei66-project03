@@ -1,32 +1,32 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
+<div class="container">
 <div class="title"> Cafes matching search term: {{searched}} </div>
 <br/>
 <div class="main-cc">
     <div class="container-cc">
         <div class="row">
             {% for cafe in cafes %} 
-                <div class="col s4 ">
-                    <div class="card card-cc">
-                        <a href="/cafes/{{ cafe.id }}">
-                            <span class="card-title-cc"> {{ cafe.cafe_name }}</span><br>
-                            <div class="img-container cafe-image">
-                                {% load static %} 
-                                <img src="{% static 'uploads/'%}{{cafe.cafe_image}}" alt="My image" width="100">
-                            </div>
-                            <div class="card-content-cc">
-                                <small> {{ cafe.address_city }}</small>
-                            </div>
-                        </a>
+
+                <div class="col s4">
+                    <div class="border">
+                    <div class="card" style="width: 18rem;">
+                        {% load static %} 
+                        <h5 class="card-title">{{ cafe.cafe_name }}</h5>
+                        <img class="card-img-top" src="{% static 'uploads/'%}{{cafe.cafe_image}}" alt="Card image cap">
+                        <div class="card-body">
+                          <p class="card-text">{{ cafe.address_city }}<p>
+                          <a href="/cafes/{{ cafe.id }}" class="btn explore">explore</a>
+                        </div>
+                      </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
     </div>
 </div>
+</div>
 
-<br>
 
 {% endblock %}

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'materializecssform',
+    'tailwind',
     'crispy_forms',
     'jquery',
 ]
@@ -92,6 +93,16 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('DATABASENAME'),
+#         'USER': os.getenv('DATABASEUSER'),
+#         'PASSWORD': os.getenv('DATABASEPASSWORD'),
+#         'PORT': os.getenv('PORT'),
+#     }
+# }
 
 
 # Password validation

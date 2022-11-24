@@ -1,36 +1,35 @@
 {% extends 'base.html'%}
+{% load crispy_forms_tags %}
 {% block content %}
+<div class="container">
 <div class="title">Find Cafes by Bean</div>
 <br/>
 <div class="filter">
     <form method="get" action="">
-        {{coffee_bean_filter.form.as_p}}
+        {{coffee_bean_filter.form |crispy}}
+        <br/>
         <button class="btn" type="submit">Filter</button>
     </form>
 </div>
-
-<div class="main-cb">
-    <div class="container-cb">
-        <div class="row">
+</div>
+    <div class="container-fluid">
+        <div class="grid">
             {% for coffee_bean in coffee_beans %}
-            <div class="col s4">
-                <div class="card card-cb">
-                    <a href="{% url 'coffee_beans_detail' coffee_bean.id %}">
-                        <span class="card-title-cb">{{ coffee_bean.name }}</span>
-                        <div class="img-container coffee-bean-image">
-                            {% load static %}
-                            <img src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="coffee_bean_image" width="100" height="100">
-                        </div>
-                        <div class="card-content-cb">
-                            <small>{{ coffee_bean.roastery }}</small>
-                        </div>
-                    </a>
-                </div>
-            </div>
+                <div class="card" style="width: 18rem;">
+                    {% load static %} 
+                    <div class="card-img-top-container">
+                    <img class="card-img-top" src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="coffee_bean_image">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ coffee_bean.name }}</h5>
+                      <p class="card-text">{{ coffee_bean.roastery }}<p>
+                      </div>
+                      <a href="{% url 'coffee_beans_detail' coffee_bean.id %}" class="btn explore">details</a>
+                  </div>
         {% endfor %}
         </div>
     </div>
-</div>
+
 
 
 <script>

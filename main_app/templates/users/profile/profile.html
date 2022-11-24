@@ -2,6 +2,7 @@
 {% load static %}
 
 {% if cafe %}
+<div class="container">
 <div class="title">Hi {{cafe.cafe_name}}</div>
 <br/>
 <img src="{% static 'uploads/'%}{{cafe.cafe_image}}" alt="My image" height="100">
@@ -9,38 +10,38 @@
 <br/>
 <p>{{cafe.cafe_bio}}</p>
 <br/>
-<div class="profile-links-container">  
-    <div class="profile-links">
+<div class="container-flex">  
+    <div class="profile-links  btn">
         <a href="{% url 'user_update' user.id%}">
             <span>Edit User Details</span>
         </a>
     </div>
 
-  <div class="profile-links">
+  <div class="profile-links  btn">
     <a href="{% url 'cafes_update' cafe.id%}">
       <span>Edit Cafe Details</span>
     </a>
   </div>
 
-  <div class="profile-links">
+  <div class="profile-links  btn">
     <a href="{% url 'coffee_bean_edit' cafe.id%}">
       <span>Edit Coffee Beans</span>
     </a>
   </div>
 
-  <div class="profile-links">
+  <div class="profile-links  btn">
     <a href="{% url 'event_edit' cafe.id%}">
       <span>Edit Events</span>
     </a>
   </div>
 
-  <div class="profile-links">
+  <div class="profile-links  btn">
     <a href="{% url 'brewing_method_edit' cafe.id%}">
       <span>Edit Brewing Methods</span>
     </a>
   </div>
 
-  <div class="profile-links">
+  <div class="profile-links  btn">
     <a href="">
       <span>Delete Cafe from the Site</span>
     </a>
@@ -72,43 +73,41 @@
   </table>
 </div>
 </div>
-</div>
-</div>
+
 
 {% else %}
+<div class="container">
 <div class="title">Hi {{user.username}}</div>
 <br/>
-<div class="profile-links-container">  
-    <div class="profile-links">
+<div class="container-flex">  
+    <div class="profile-links  btn">
         <a href="">
             <span>Edit User Details</span>
         </a>
     </div>
 
-    <div class="profile-links">
+    <div class="profile-links  btn">
         <a href="">
             <span>Update your Password</span>
         </a>
     </div>
 
-  <div class="profile-links">
+  <div class="profile-links  btn">
     <a href="">
       <span>Delete Account</span>
     </a>
   </div>
   </div>
-</div>
 <br/>
 <div class="sub-title">Your Reviews</div>
 <br/>
-<div class="review-table">
-  <table class="striped">
-    <thead>
+  <table class="table">
+    <thead class="thead-dark">
       <tr>
-        <th>Date</th>
-        <th>Stars</th>
-        <th>Title</th>
-        <th>Review</th>
+        <th scope="col">Date</th>
+        <th scope="col">Stars</th>
+        <th scope="col">Title</th>
+        <th scope="col">Review</th>
       </tr>
     </thead>
     <tbody>
@@ -123,9 +122,7 @@
     </tbody>
   </table>
 </div>
-</div>
-</div>
-</div>
+
 {% endif %}
 {% endblock %}
 
