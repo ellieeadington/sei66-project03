@@ -164,27 +164,25 @@ class SignUpFormsView(MultiFormView):
     template_name = 'registration/signup.html'
     success_url = '/cafes/'
 
-    def forms_valid(self, request):
+    def forms_valid(self):
         forms = self.get_forms()
         isCafeOwnerForm = forms['iscafeownerform']
         userRegisterForm = forms['userregisterform']
         cafeForm = forms['cafeform']
-        cafeForm = cafeForm(request.POST, request.FILES)
-        print(isCafeOwnerForm)
-        print(cafeForm.errors)
+        
         if isCafeOwnerForm.is_valid():
             isCafeOwnerForm.save(commit=False)         
-            isCafeOwnerForm.save()         
+            isCafeOwnerForm.save() 
         if userRegisterForm.is_valid():
-            user = userRegisterForm.save(commit=False)
-            userRegisterForm.save()
+            userRegisterForm.save(commit=False)
+            user = userRegisterForm.save()
         if cafeForm.is_valid():
             cafeForm.save(commit=False)    
-            cafeForm.user = user.id
             cafeForm.save()
-             
+            
         login(self.request, user)    
-        return super().forms_valid()
+        return super().forms_valid() 
+        
         
 
 @login_required
@@ -197,7 +195,6 @@ def profile(request):
     return cafe
   else:
     pass 
-  # print(cafe.id)
   return render(request, 'users/profile/profile.html',{'user': user, 'cafe': cafe})
 
 class UserUpdate(LoginRequiredMixin, UpdateView):
