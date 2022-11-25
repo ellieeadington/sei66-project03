@@ -26,10 +26,10 @@ class IsCafeOwnerForm(ModelForm):
   
 
 class UserRegisterForm(UserCreationForm):
-    username = forms.CharField(label='Choose a username', min_length=4, max_length=150, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    email = forms.EmailField(label='Enter email', widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    password1 = forms.CharField(label='Enter password',  widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    password2 = forms.CharField(label='Confirm password',  widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    username = forms.CharField()
+    email = forms.EmailField()
+    password1 = forms.CharField()
+    password2 = forms.CharField()
   
     
     def clean_username(self):
@@ -79,16 +79,15 @@ class CafeForm(ModelForm):
     cafe_image = forms.ImageField(required=False)
     menu_image = forms.ImageField(required=False)
     cafe_website = forms.CharField(required=False)
-    user = forms.CharField(widget=forms.HiddenInput())
 
     class Meta:
         model = Cafe
-        fields = ['cafe_name', 'cafe_bio', 'date_founded', 'address_line_1', 'address_line_2', 'address_city', 'address_county', 'address_country', 'address_postcode', 'cafe_image', 'menu_image', 'cafe_website', 'user']
+        fields = ['cafe_name', 'cafe_bio', 'date_founded', 'address_line_1', 'address_line_2', 'address_city', 'address_county', 'address_country', 'address_postcode', 'cafe_image', 'menu_image', 'cafe_website']
 
     def __init__(self, *args, **kwargs):
         super(CafeForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'cafe_form cafe-form-item form-control' 
+            visible.field.widget.attrs['class'] = 'cafe_form cafe-form-item' 
 
 
 class UserUpdateForm(UserCreationForm):
