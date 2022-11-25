@@ -169,17 +169,22 @@ class SignUpFormsView(MultiFormView):
         isCafeOwnerForm = forms['iscafeownerform']
         userRegisterForm = forms['userregisterform']
         cafeForm = forms['cafeform']
+        print("valid")
         
-        if isCafeOwnerForm.is_valid():
+        if  isCafeOwnerForm.is_valid():
             isCafeOwnerForm.save(commit=False)         
             isCafeOwnerForm.save() 
+            print("valid")
+            
         if userRegisterForm.is_valid():
             userRegisterForm.save(commit=False)
             user = userRegisterForm.save()
+            print("valid") 
         if cafeForm.is_valid():
-            cafeForm.save(commit=False)    
+            cafeForm.save(commit=False) 
+            cafeForm.user = user  
             cafeForm.save()
-            
+            print("valid")  
         login(self.request, user)    
         return super().forms_valid() 
         
