@@ -181,11 +181,10 @@ class SignUpFormsView(MultiFormView):
             print("valid") 
         if cafeForm.is_valid():
             cafeForm.save(commit=False) 
-            cafeForm.user = user  
             cafeForm.save()
             print("valid")    
         login(self.request, user)     
-        # return super().forms_valid() 
+        return super().forms_valid() 
         
         
 
