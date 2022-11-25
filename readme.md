@@ -368,7 +368,7 @@ def profile(request):
 
 ## Bugs
 
->The delete account functionality remains uncompleted.
+>The delete account, update password & update user profile functionalities remain uncompleted.
 
 ## Future Enhancements
 
