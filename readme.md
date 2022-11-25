@@ -322,13 +322,19 @@ class SignUpFormsView(MultiFormView):
 
 ### User Profile
 
->Our app requires two types of user dashboard; the general user dashboard, and the cafe owner dashboard, as the latter is needed to provide the cafe owner with additional CRUD functionalities. In order to take a more streamlined approach, I decided to create just one url, view and template file which would be rendered dynamically depending on the type of user that is logged in. I defined the user from the request object, and the cafe record by filtering on the dataset where the user id was assigned to the cafe. As this just returns an empty array if no record was found, this would not return any error if the individual logged in was just a regular user.
+>Our app requires two types of user dashboard; the general user dashboard, and the cafe owner dashboard, as the latter is needed to provide the cafe owner with additional CRUD functionalities. In order to take a more streamlined approach, I decided to create just one url, view and template file which would be rendered dynamically depending on the type of user that is logged in. I defined the user from the request object, and the cafe record by filtering on the dataset where the user id was assigned to the cafe. Initially I thought this would just return an empty array if no record was found, but it threw an error, so I initialised the variable first to prevent this from happening.
 
 ```py
 @login_required
 def profile(request):
   user = request.user
-  cafe = Cafe.objects.filter(user_id=user.id)[0]
+  print(user)
+  cafe = ""
+  if Cafe.objects.filter(user_id=user.id).exists():
+    cafe = Cafe.objects.filter(user_id=user.id)[0]
+    return cafe
+  else:
+    pass 
   return render(request, 'users/profile/profile.html',{'user': user, 'cafe': cafe})
 ```
 
