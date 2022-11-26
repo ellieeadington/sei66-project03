@@ -1,71 +1,91 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 {%load crispy_forms_tags %} 
+{% load static %} 
 {% block content %}
 
-<div class="title">Events at {{ cafe.cafe_name }}</div>
-
-<br/>
-{% for event in cafe.event_set.all %} 
-
-<div class="card">
-        <div class="card-content event">
-
-            <div class="img-container event-image">
-                {% load static %}
-                <img width="150px" height="150px" src={% static event.event_image|cut:'main_app/static/' %} />
-            </div>
-            
-            <div class="coffee-bean-details">
-                <span class="card-title"> {{ event.event_name }}</span>
-                <p>Description: {{ event.description }}</p> 
-                <p>Event Category:{{ event.get_event_type_display }}</p>
-                <p>Date: {{ event.event_date }}</p> 
-                <p>Time: {{ event.time_from }} till {{ event.time_to }}</p>
-            </div>
-        </div>
-
-            <div class="card-action">
-                <a href="">Edit</a>
-                <a href="">Delete</a>
-            </div> 
-    </a>
-</div>
-{% endfor %}
-<br/>
-<div class="sub-title">Want to add more events?</div>
-<div>
-    <form class="form form-control" method="post" action="{% url 'add_event' cafe.id %}" enctype="multipart/form-data">
-      {% csrf_token %} 
-      {{ event_form |crispy }}
-      <br/>
-      <input type="submit" value="Add Event" class="btn" />
-    </form>
+<div class="title">Edit your Events</div>
+<br />
+<div class="container-cafe">
+  <div class="cafe-beans-edit">
+    <div class="sub-title">Events at {{ cafe.cafe_name }}</div>
+    <br />
+    {% if cafe.event_set.count %}
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for event in cafe.event_set.all %}
+        <tr>
+          <td>
+            <img width="150px" height="150px" src={% static
+            event.event_image|cut:'main_app/static/' %} />
+          </td>
+          <td>{{ event.event_name }}</td>
+          <td>{{ event.description }}</td>
+          <td>{{ event.get_event_type_display }}</td>
+          <td>{{ event.event_date }}</td>
+          <td>{{ event.time_from }} till {{ event.time_to }}</td>
+          <td>
+            <a class="btn" href="{% url 'event_update' event.id %}">Edit</a>
+          </td>
+          <td>
+            <a class="btn" href="">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <br />
+    {% else %}
+    <p><em>No Events</em></p>
+    {% endif %}
   </div>
-  
-  
-  
-  <script>
-  let dateEl = document.getElementById("id_event_date");
-  M.Datepicker.init(dateEl, {
-    format: "yyyy-mm-dd",
-    defaultDate: new Date(),
-    setDefaultDate: true,
-    autoClose: true,
-  });
-  
-  let timeEl = document.getElementById('id_event_time_from');
-  M.Timepicker.init(timeEl, {
-    twelveHour: false
-    });
-    
-    let timeToEl = document.getElementById('id_event_time_to');
-    M.Timepicker.init(timeToEl, {
-        twelveHour: false
-    })
+  <div class="cafe-beans">
+    <div class="sub-title">Want to add more events?</div>
+    <div>
+      <form
+        class="form form-control"
+        method="post"
+        action="{% url 'add_event' cafe.id %}"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %} 
+        {{ event_form |crispy }}
+        <br />
+        <input type="submit" value="Add Event" class="btn" />
+      </form>
+    </div>
+  </div>
 
-    let selectEl = document.getElementById('id_event_type')
+  <script>
+    let dateEl = document.getElementById("id_event_date");
+    M.Datepicker.init(dateEl, {
+      format: "yyyy-mm-dd",
+      defaultDate: new Date(),
+      setDefaultDate: true,
+      autoClose: true,
+    });
+
+    let timeEl = document.getElementById("id_event_time_from");
+    M.Timepicker.init(timeEl, {
+      twelveHour: false,
+    });
+
+    let timeToEl = document.getElementById("id_event_time_to");
+    M.Timepicker.init(timeToEl, {
+      twelveHour: false,
+    });
+
+    let selectEl = document.getElementById("id_event_type");
     M.FormSelect.init(selectEl);
   </script>
 
-
-{% endblock %}
+  {% endblock %}
+</div>

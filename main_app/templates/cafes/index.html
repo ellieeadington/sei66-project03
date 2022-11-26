@@ -1,49 +1,62 @@
-{% extends 'base.html' %}
-{% load crispy_forms_tags %}
-{% block content %} 
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %} 
+{% block content %}
 <div class="container">
-<div class="title"> Cafes </div>
-<br/>
-<!-- SEARCH BOX -->
-<div class="search-div">
+  <div class="title">Cafes</div>
+  <br />
+  <!-- SEARCH BOX -->
+  <div class="search-div">
     <form method="POST" action="{% url 'search' %}" class="d-flex">
-        {% csrf_token %}
-        <input type="search" placeholder="Search for a cafe" class="search text-field" aria-label="Search" name="searched">
-        <button type="submit" class="btn btn-search">Search</button>
+      {% csrf_token %}
+      <input
+        type="search"
+        placeholder="Search for a cafe"
+        class="search text-field"
+        aria-label="Search"
+        name="searched"
+      />
+      <button type="submit" class="btn btn-search">Search</button>
     </form>
-</div><br>
-<div class="filter">
+  </div>
+  <br />
+  <div class="filter">
     <form class="filter-form" method="get" action="">
-        {{cafe_filter.form |crispy}}
-       <br/>
-        <button class="btn" type="submit">Filter</button>
+      {{cafe_filter.form |crispy}}
+      <br />
+      <button class="btn" type="submit">Filter</button>
     </form>
+  </div>
 </div>
-</div>
-    <div class="container-fluid">
-        <div class="grid">
-            {% for cafe in cafes %} 
-                    <div class="card">
-                        {% load static %} 
-                        <div class="card-img-top-container">
-                        <img class="card-img-top" src="{% static 'uploads/'%}{{cafe.cafe_image}}" alt="Card image cap">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ cafe.cafe_name }}</h5>
-                          <p class="card-text">{{ cafe.address_city }}<p>
-                          </div>
-                          <a href="/cafes/{{ cafe.id }}" class="btn explore">details</a>
-                      </div>
-            {% endfor %}
-        </div>
+<div class="container-fluid">
+  <div class="grid">
+    {% for cafe in cafes %}
+    <div class="card">
+      {% load static %}
+      <div class="card-img-top-container">
+        <img
+          class="card-img-top"
+          src="{% static 'uploads/'%}{{cafe.cafe_image}}"
+          alt="Card image cap"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ cafe.cafe_name }}</h5>
+        <p class="card-text">{{ cafe.address_city }}</p>
+        <p></p>
+      </div>
+
+      <a href="/cafes/{{ cafe.id }}" class="btn explore">details</a>
     </div>
+    {% endfor %}
+  </div>
+</div>
 
 <script>
-    let nameEl = document.getElementById('id_cafe_name');
-    M.FormSelect.init(nameEl);
+  let nameEl = document.getElementById("id_cafe_name");
+  M.FormSelect.init(nameEl);
 
-    let cityEl = document.getElementById('id_address_city');
-    M.FormSelect.init(cityEl);
+  let cityEl = document.getElementById("id_address_city");
+  M.FormSelect.init(cityEl);
 </script>
 
 {% endblock %}

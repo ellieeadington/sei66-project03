@@ -1,44 +1,53 @@
-{% extends 'base.html' %} {% load static %} {%load crispy_forms_tags %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
+{%load crispy_forms_tags %} 
+{% block content %}
 
 <div class="title">Edit your Coffee Bean Menu</div>
 <br />
 <div class="container-cafe">
   <div>
     <div class="sub-title">Beans currently served at {{ cafe.cafe_name }}</div>
-  <div class="cafe-beans-edit">
-    {% if cafe.coffee_beans.count %} {% for coffee_bean in coffee_beans %}
-    <div class="cafe-coffeebean-edit-card card">
-      <div class="card-title-small">{{ coffee_bean.name }}</div>
-      <div>
-        <img
-          src="{% static 'uploads/'%}{{coffee_bean.image}}"
-          alt="My image"
-          width="100"
-          class="cafe-coffee-bean-image"
-        />
-      </div>
+    <div class="cafe-beans-edit">
+      {% if cafe.coffee_beans.count %} 
+        {% for coffee_bean in coffee_beans %}
+          <div class="cafe-coffeebean-edit-card card">
+            <div class="card-title-small">{{ coffee_bean.name }}</div>
+            <div>
+              <img
+                src="{% static 'uploads/'%}{{coffee_bean.image}}"
+                alt="My image"
+                width="100"
+                class="cafe-coffee-bean-image"
+              />
+            </div>
 
-      <div class="card-action">
-        <a href="{% url 'coffee_bean_update' coffee_bean.id %}">Edit</a>
-        <a href="{% url 'coffee_bean_delete' coffee_bean.id %}">Delete</a>
-      </div>
+            <div class="card-action">
+              <a href="{% url 'coffee_bean_update' coffee_bean.id %}">Edit</a>
+              <a href="{% url 'coffee_bean_delete' coffee_bean.id %}">Delete</a>
+            </div>
+          </div>
+        {% endfor %} 
+      {% else %}
+        <br />
+        <p><em>No coffee beans listed.</em></p>
+      {% endif %}
     </div>
-    {% endfor %} {% else %}
-    <br />
-    <p><em>No coffee beans listed.</em></p>
-    {% endif %}
   </div>
-</div>
   <br />
   <div class="cafe-beans">
-  <div class="sub-title">Want to add more coffee beans?</div>
+    <div class="sub-title">Want to add more coffee beans?</div>
 
-  <form class="form form-control" method="post" action="{% url 'add_coffee_bean' cafe.id %}">
-    {% csrf_token %} {{ coffee_bean_form |crispy}}
-    <br/>
-    <input type="submit" value="Add Coffee Beans" class="btn" />
-  </form>
-</div>
+    <form
+      class="form form-control"
+      method="post"
+      action="{% url 'add_coffee_bean' cafe.id %}"
+    >
+      {% csrf_token %} {{ coffee_bean_form |crispy}}
+      <br />
+      <input type="submit" value="Add Coffee Beans" class="btn" />
+    </form>
+  </div>
 </div>
 <script>
   let dateEl = document.getElementById("id_date_harvested");
@@ -52,5 +61,5 @@
   let varietyEl = document.getElementById("id_variety");
   M.FormSelect.init(varietyEl);
 </script>
-
 {% endblock %}
+

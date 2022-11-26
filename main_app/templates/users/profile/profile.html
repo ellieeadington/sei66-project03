@@ -1,111 +1,115 @@
-{% extends 'base.html' %} {% block content %}
-{% load static %}
+{% extends 'base.html' %} 
+{% block content %} 
+{% load static %} 
 
-{% if cafe != "" %}
+{% if cafe != ""%}
 <div class="container">
-<div class="title">Hi {{cafe.cafe_name}}</div>
-<br/>
-<img src="{% static 'uploads/'%}{{cafe.cafe_image}}" alt="My image" height="100">
-<br/>
-<br/>
-<p>{{cafe.cafe_bio}}</p>
-<br/>
-<div class="container-flex">  
-    <div class="profile-links  btn">
-        <a href="{% url 'user_update' user.id%}">
-            <span>Edit User Details</span>
-        </a>
+  <div class="title">Hi {{cafe.cafe_name}}</div>
+  <br />
+  <img
+    src="{% static 'uploads/'%}{{cafe.cafe_image}}"
+    alt="My image"
+    height="100"
+  />
+  <br />
+  <br />
+  <p>{{cafe.cafe_bio}}</p>
+  <br />
+  <div class="container-flex">
+    <div class="profile-links btn">
+      <a href="{% url 'user_update' user.id%}">
+        <span>Edit User Details</span>
+      </a>
     </div>
 
-  <div class="profile-links  btn">
-    <a href="{% url 'cafes_update' cafe.id%}">
-      <span>Edit Cafe Details</span>
-    </a>
-  </div>
+    <div class="profile-links btn">
+      <a href="{% url 'cafes_update' cafe.id%}">
+        <span>Edit Cafe Details</span>
+      </a>
+    </div>
 
-  <div class="profile-links  btn">
-    <a href="{% url 'coffee_bean_edit' cafe.id%}">
-      <span>Edit Coffee Beans</span>
-    </a>
-  </div>
+    <div class="profile-links btn">
+      <a href="{% url 'coffee_bean_edit' cafe.id%}">
+        <span>Edit Coffee Beans</span>
+      </a>
+    </div>
 
-  <div class="profile-links  btn">
-    <a href="{% url 'event_edit' cafe.id%}">
-      <span>Edit Events</span>
-    </a>
-  </div>
+    <div class="profile-links btn">
+      <a href="{% url 'event_edit' cafe.id%}">
+        <span>Edit Events</span>
+      </a>
+    </div>
 
-  <div class="profile-links  btn">
-    <a href="{% url 'brewing_method_edit' cafe.id%}">
-      <span>Edit Brewing Methods</span>
-    </a>
-  </div>
+    <div class="profile-links btn">
+      <a href="{% url 'brewing_method_edit' cafe.id%}">
+        <span>Edit Brewing Methods</span>
+      </a>
+    </div>
 
-  <div class="profile-links  btn">
-    <a href="{% url 'cafes_delete' cafe.id%}">
-      <span>Delete Cafe from the Site</span>
-    </a>
+    <div class="profile-links btn">
+      <a href="{% url 'cafes_delete' cafe.id%}">
+        <span>Delete Cafe from the Site</span>
+      </a>
+    </div>
   </div>
-</div>
-<br/>
-<div class="sub-title">Your Cafe's Reviews</div>
-<br/>
-{% if cafe.review_set.count %}
-<div class="review-table">
-  <table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">Date</th>
-        <th scope="col">Stars</th>
-        <th scope="col">Title</th>
-        <th scope="col">Review</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for review in cafe.review_set.all %}
-      <tr>
-        <td>{{ review.datetime }}</td>
-        <td>{{ review.get_stars_display }}</td>
-        <td>{{ review.review_title }}</td>
-        <td>{{ review.review_body }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
   <br />
-      {% else %}
-      <p><em>No Reviews.</em></p>
-      {% endif %}
+  <div class="sub-title">Your Cafe's Reviews</div>
+  <br />
+  {% if cafe.review_set.count %}
+  <div class="review-table">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Stars</th>
+          <th scope="col">Title</th>
+          <th scope="col">Review</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for review in cafe.review_set.all %}
+        <tr>
+          <td>{{ review.datetime }}</td>
+          <td>{{ review.get_stars_display }}</td>
+          <td>{{ review.review_title }}</td>
+          <td>{{ review.review_body }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <br />
+    {% else %}
+    <p><em>No Reviews.</em></p>
+    {% endif %}
+  </div>
 </div>
-</div>
-
 
 {% else %}
 <div class="container">
-<div class="title">Hi {{user.username}}</div>
-<br/>
-<div class="container-flex">  
-    <div class="profile-links  btn">
-        <a href="{% url 'user_update' user.id%}">
-            <span>Edit User Details</span>
-        </a>
+  <div class="title">Hi {{user.username}}</div>
+  <br />
+  <div class="container-flex">
+    <div class="profile-links btn">
+      <a href="{% url 'user_update' user.id%}">
+        <span>Edit User Details</span>
+      </a>
     </div>
 
-    <div class="profile-links  btn">
-        <a href="">
-            <span>Update your Password</span>
-        </a>
+    <div class="profile-links btn">
+      <a href="">
+        <span>Update your Password</span>
+      </a>
     </div>
 
-  <div class="profile-links  btn">
-    <a href="">
-      <span>Delete Account</span>
-    </a>
+    <div class="profile-links btn">
+      <a href="">
+        <span>Delete Account</span>
+      </a>
+    </div>
   </div>
-  </div>
-<br/>
-<div class="sub-title">Your Reviews</div>
-<br/>
+  <br />
+  <div class="sub-title">Your Reviews</div>
+  <br />
   <table class="table">
     <thead class="thead-dark">
       <tr>
@@ -128,6 +132,5 @@
   </table>
 </div>
 
-{% endif %}
+{% endif %} 
 {% endblock %}
-
