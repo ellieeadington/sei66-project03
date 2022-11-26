@@ -365,10 +365,6 @@ li {
   color: lightgray !important;
 }
 
-.cafe_form {
-  display: none !important;  
-}
-
 
 @media (min-width: 768px) {
 .text-md-right {

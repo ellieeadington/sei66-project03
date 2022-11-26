@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 {% load static %}
 
-{% if cafe %}
+{% if cafe != "" %}
 <div class="container">
 <div class="title">Hi {{cafe.cafe_name}}</div>
 <br/>
@@ -42,7 +42,7 @@
   </div>
 
   <div class="profile-links  btn">
-    <a href="">
+    <a href="{% url 'cafes_delete' cafe.id%}">
       <span>Delete Cafe from the Site</span>
     </a>
   </div>
@@ -50,14 +50,15 @@
 <br/>
 <div class="sub-title">Your Cafe's Reviews</div>
 <br/>
+{% if cafe.review_set.count %}
 <div class="review-table">
-  <table class="striped">
-    <thead>
+  <table class="table">
+    <thead class="thead-dark">
       <tr>
-        <th>Date</th>
-        <th>Stars</th>
-        <th>Title</th>
-        <th>Review</th>
+        <th scope="col">Date</th>
+        <th scope="col">Stars</th>
+        <th scope="col">Title</th>
+        <th scope="col">Review</th>
       </tr>
     </thead>
     <tbody>
@@ -71,6 +72,10 @@
       {% endfor %}
     </tbody>
   </table>
+  <br />
+      {% else %}
+      <p><em>No Reviews.</em></p>
+      {% endif %}
 </div>
 </div>
 
@@ -81,7 +86,7 @@
 <br/>
 <div class="container-flex">  
     <div class="profile-links  btn">
-        <a href="">
+        <a href="{% url 'user_update' user.id%}">
             <span>Edit User Details</span>
         </a>
     </div>

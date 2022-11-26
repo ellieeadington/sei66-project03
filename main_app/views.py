@@ -4,8 +4,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import BrewingMethod, Cafe, CoffeeBean, Event
-from shapeshifter.views import MultiFormView
+from .models import BrewingMethod, Cafe, CoffeeBean, Event, Profile
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import BrewingMethodForm, CoffeeBeanForm, CafeForm,IsCafeOwnerForm, UserRegisterForm, UserUpdateForm, ReviewForm, EventForm
 from django import forms
@@ -159,46 +158,81 @@ def search(request):
     else:
         return render(request, 'cafes/search.html')     
       
-class SignUpFormsView(MultiFormView):
-    form_classes = (IsCafeOwnerForm, CafeForm, UserRegisterForm)
-    template_name = 'registration/signup.html'
-    success_url = '/cafes/'
 
-    def forms_valid(self):
-        forms = self.get_forms()
-        isCafeOwnerForm = forms['iscafeownerform']
-        userRegisterForm = forms['userregisterform']
-        cafeForm = forms['cafeform']
-        print("valid")
+def signup(request):
+    error_message = ""
+    if request.method == "POST":
+        form = UserRegisterForm(request.POST)
+
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('register_cafe')
+        else:
+            error_message = "Invalid signup - please try again later"
+
+    # GET
+    form = UserRegisterForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'registration/signup.html', context)
+
+def register_cafe(request):
+    error_message = ""
+    if request.method == "POST":
+        form = IsCafeOwnerForm(request.POST)
         
-        if  isCafeOwnerForm.is_valid():
-            isCafeOwnerForm.save(commit=False)         
-            isCafeOwnerForm.save() 
-            print("valid")  
-        if userRegisterForm.is_valid():
-            userRegisterForm.save(commit=False)
-            user = userRegisterForm.save()
-            print("valid") 
-        if cafeForm.is_valid():
-            cafeForm.save(commit=False) 
-            cafeForm.save()
-            print("valid")    
-        login(self.request, user)     
-        return super().forms_valid() 
-        
-        
+        if form.is_valid():
+          profile_form = form.save(commit=False)
+          profile = Profile.objects.get(user = request.user)
+          profile.is_cafe_owner = profile_form.is_cafe_owner
+          profile.save()      
+          if profile.is_cafe_owner == True:
+             return redirect('cafe_form')
+          else:
+             return redirect('index') 
+        else:
+            error_message = "Invalid signup - please try again later"
+
+    # GET
+    form = IsCafeOwnerForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'registration/register_cafe.html', context)
+
+def cafe_form(request):
+    error_message = ""
+    
+    if request.method == "POST":
+        print("request method is post")
+        form = CafeForm(request.POST)
+        if form.is_valid():
+            print("valid")
+            cafe = form.save(commit=False)
+            cafe.user = request.user
+            cafe.save()
+            return redirect('index')
+        else:
+            error_message = "Invalid signup - please try again later"
+
+    # GET
+    form = CafeForm()
+    print(form)
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'registration/cafe_form.html', context)
+
 
 @login_required
 def profile(request):
-  user = request.user
-  print(user)
+  error_message = ""
+  user = User.objects.get(username=request.user)
+  print("pass")
   cafe = ""
-  if Cafe.objects.filter(user_id=user.id).exists():
-    cafe = Cafe.objects.filter(user_id=user.id)[0]
-    return cafe
+  if Cafe.objects.filter(user=user).exists():
+    cafe = Cafe.objects.filter(user=user)[0]
+
   else:
-    pass 
-  return render(request, 'users/profile/profile.html',{'user': user, 'cafe': cafe})
+    error_message = "No cafe found for this user, please try again later" 
+
+  return render(request, 'users/profile/profile.html',{'user': user, 'cafe': cafe, 'error_message': error_message})
 
 class UserUpdate(LoginRequiredMixin, UpdateView):
   model = User

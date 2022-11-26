@@ -1,25 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
+{%load crispy_forms_tags %} 
 {% block content %}
-
+<div class="container">
+  <div class="title">Edit your Brewing Methods Menu</div>
+  <br/>
 <div class="container-cafe">
-<div class="review">
-  <form class="form" method="post" action="{% url 'add_brewing_method' cafe.id %}" enctype="multipart/form-data">
-    {% csrf_token %} 
-    {{ brewing_method_form.as_p }}
-    <input type="submit" value="Add Brewing Method" class="btn" />
-  </form>
-</div>
-
-<div class="review-table">
+<div class="cafe-beans-edit">
   <div class="sub-title">Brewing Methods at {{ cafe.cafe_name }}</div>
+  <br/>
 {% if cafe.brewingmethod_set.count %}
-<table class="striped">
-  <thead>
+<table class="table">
+  <thead class="thead-dark">
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+    <th scope="col"></th>
   </tr>
 </thead>
 <tbody>
@@ -33,7 +29,7 @@
     <td>{{ brewing_method.get_stars_display }}</td>
     <td>{{ brewing_method.get_method_name_display }}</td>
     <td>{{ brewing_method.method_bio }}</td>
-    <td><a href="{% url 'brewing_method_delete' brewing_method.id %}">Remove</a></td>
+    <td><a class="btn"  href="{% url 'brewing_method_delete' brewing_method.id %}">Remove</a></td>
   </tr>
   {% endfor %}
 </tbody>
@@ -42,6 +38,17 @@
 {% else %}
 <p><em>No Brewing Methods</em></p>
 {% endif %}
+</div>
+
+<div class="cafe-beans">
+  <div class="sub-title">Want to add another brewing method?</div>
+  <form class="form form-control" method="post" action="{% url 'add_brewing_method' cafe.id %}" enctype="multipart/form-data">
+    {% csrf_token %} 
+    {{ brewing_method_form |crispy}}
+    <br/>
+    <input type="submit" value="Add Brewing Method" class="btn" />
+  </form>
+</div>
 </div>
 </div>
 {% endblock %}

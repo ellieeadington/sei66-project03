@@ -4,7 +4,7 @@
 
 <div class="title"> Sign In </div>
 <br/>
-<form action="{% url 'login' %}" method="POST" class="form">
+<form action="{% url 'login' %}" method="POST" class="form form-control">
     {% csrf_token %}
     {{ form |crispy}}
     <br/>

@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %} {%load crispy_forms_tags %} {% block content %}
 
 <div class="title">Edit your Coffee Bean Menu</div>
 <br />
@@ -33,8 +33,9 @@
   <div class="cafe-beans">
   <div class="sub-title">Want to add more coffee beans?</div>
 
-  <form class="form" method="post" action="{% url 'add_coffee_bean' cafe.id %}">
-    {% csrf_token %} {{ coffee_bean_form.as_p}}
+  <form class="form form-control" method="post" action="{% url 'add_coffee_bean' cafe.id %}">
+    {% csrf_token %} {{ coffee_bean_form |crispy}}
+    <br/>
     <input type="submit" value="Add Coffee Beans" class="btn" />
   </form>
 </div>

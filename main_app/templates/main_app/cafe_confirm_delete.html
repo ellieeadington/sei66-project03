@@ -4,14 +4,14 @@
 
 <div class="title"> Delete Cafe </div>
 
-<div> Are you sure you want to delete 
-<span class="teal-text"> {{ object.name }} </span>?
+<div class="sub-title"> Are you sure you want to delete 
+<span class="teal-text"> {{ object.cafe_name}} </span>?
 </div> 
 <br/>
 <form action="" method="post">
     {% csrf_token %} 
     <input type="submit" value="Yes - Delete" class="btn">
-    <a href="{% url 'detail' cafe.id %}">No, Cancel</a>
+    <a class="btn" href="{% url 'detail' cafe.id %}">No, Cancel</a>
 </form>
 
 

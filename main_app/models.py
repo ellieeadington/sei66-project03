@@ -31,7 +31,7 @@ BREWINGMETHOD = (
 
 class Profile(models.Model):
      user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-     is_cafe_owner = models.BooleanField(default=False)
+     is_cafe_owner = models.BooleanField(default=False, null = True)
      
      def __str__(self):
         return f"is {self.user.username} a cafe owner? {self.user.profile.is_cafe_owner}"
@@ -80,7 +80,7 @@ class Cafe(models.Model):
     cafe_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     menu_image = models.ImageField(upload_to ='main_app/static/uploads', default="no image uploaded")
     cafe_website = models.CharField(max_length=1000)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     coffee_beans = models.ManyToManyField(CoffeeBean, blank=True)
     
     def get_absolute_url(self):

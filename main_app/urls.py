@@ -1,6 +1,8 @@
 from django import views
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -21,8 +23,7 @@ urlpatterns = [
     path('cafes/<int:cafe_id>/add_event/', views.add_event, name='add_event'),
     path('profile/cafe/<int:cafe_id>/events/', views.event_edit, name='event_edit'),
 
-    # ASHISH SECTION
-    # path('accounts/signup/', views.signup, name="signup"),
+    # ASHISH SECTIO
     # path('profile/update/', views.has_profile_submitted, name='has_profile_submitted'),
     
     path('accounts/password/reset',  
@@ -54,7 +55,9 @@ urlpatterns = [
     path('coffee_beans/', views.coffee_beans_index, name='coffee_beans_index'),
     path('coffee_beans/<int:coffee_beans_id>/', views.coffee_beans_detail, name='coffee_beans_detail'),
 
-    path('signup/', views.SignUpFormsView.as_view(), name='signup'),
+    path('signup/', views.signup, name="signup"),
+    path('signup/register-cafe/', views.register_cafe, name="register_cafe"),
+    path('signup/register-cafe/new-cafe', views.cafe_form, name="cafe_form"),
     path('profile/', views.profile, name='profile'),
     path('user/update/<int:pk>/', views.UserUpdate.as_view(), name='user_update'),
     

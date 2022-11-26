@@ -4,9 +4,9 @@
 
 {% block content %} 
 
-<div class="title"> Sign Up </div>
+<div class="title"> Would you like to register as a cafe owner today? </div>
 <br/>
-<form action="{% url 'signup' %}" method="post" class="form form-control">
+<form action="{% url 'register_cafe' %}" method="post" class="form form-control">
     {% csrf_token %}
     {{form.as_p}}
     <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
