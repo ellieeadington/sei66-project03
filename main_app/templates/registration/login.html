@@ -1,7 +1,7 @@
 {% extends 'base.html' %} 
 {% load crispy_forms_tags %} 
 {% block content %}
-
+<div class="contaienr">
 <div class="title">Sign In</div>
 <br />
 <form action="{% url 'login' %}" method="POST" class="form form-control">
@@ -9,5 +9,5 @@
   <br />
   <input type="submit" class="btn" value="Sign In" />
 </form>
-
+</div>
 {% endblock %}

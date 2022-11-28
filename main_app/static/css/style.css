@@ -372,9 +372,11 @@ li {
 }
 }
 
-@media only screen 
+/* @media only screen 
 and (min-device-width : 320px) 
-and (max-device-width : 480px) {
+and (max-device-width : 480px) { */
+
+  @media (max-width : 680px) {
 
   body {
     font-size: 12px;
@@ -397,7 +399,7 @@ and (max-device-width : 480px) {
     font-size: 14px;
   }
 .container {
-  margin-top: 60px;
+  margin-top: 40px;
   font-size: 10px;
 }
 
@@ -410,8 +412,7 @@ and (max-device-width : 480px) {
   flex-direction: column;
 }
 .card-img-top {
-  width: 100%;
-  max-height: 80px;
+  height: 80px;
   object-fit: cover;
   border: none;
   padding: 4px;
@@ -436,6 +437,67 @@ and (max-device-width : 480px) {
 
 .card-body {
   height: 80px;
+}
+
+.activities {
+  max-width: 100%;
+}
+
+.card-cafe {
+  display: block;
+}
+
+.cafe-image {
+  display: block;
+}
+.cafe {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-title {
+ margin: 0 auto;
+ text-align: center;
+ font-size: 40px;
+}
+
+.home-banner {
+  margin: 0 auto;
+  text-align: center;
+ }
+
+ h5 {
+  font-size: 14px;
+ }
+
+.title {
+  font-size: 20px;
+}
+
+.sub-title {
+  font-size: 16px;
+}
+.cb-image {
+  width: 80%;
+}
+
+.cafe-beans {
+  display: block;
+  width: 100%;
+}
+
+.container-cafe {
+  display: flex;
+  max-width: 100%;
+}
+
+
+.footer {
+  bottom: 0;
+}
+
+svg {
+  width: 20px;
 }
 
 }
