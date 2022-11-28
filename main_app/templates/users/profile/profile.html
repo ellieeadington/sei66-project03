@@ -1,7 +1,7 @@
 {% extends 'base.html' %} 
 {% block content %} 
 {% load static %} 
-
+<div class="container">
 {% if cafe != ""%}
 <div class="container">
   <div class="title">Hi {{cafe.cafe_name}}</div>
@@ -131,6 +131,6 @@
     </tbody>
   </table>
 </div>
-
+</div>
 {% endif %} 
 {% endblock %}
