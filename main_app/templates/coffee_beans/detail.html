@@ -2,11 +2,9 @@
 {% load static %} 
 {% block content %}
 <div class="container">
-<div class="container">
-  <div class="title">{{ coffee_bean.roastery }} - {{coffee_bean.name}}</div>
-  <br />
-  <div class="container-c">
-    <div class="coffee-bean-details">
+  <div class="container-c container-resp">
+    <div class="card-content">
+      <div class="title">{{ coffee_bean.roastery }} {{coffee_bean.name}}</div>
       <img
         src="{% static 'uploads/'%}{{coffee_bean.image}}"
         alt="My image"
@@ -20,12 +18,12 @@
         <p>{{ coffee_bean.location }}</p>
       </div>
     </div>
-    <div class="coffee-bean-cafes">
+    <div class="">
       <div class="sub-title">Cafes Serving this Coffee Bean</div>
       <br />
+      <div>
       {% if cafes.count %} {% for cafe in cafes.all %}
-      <div class="col s12 m6 l6 coffee-bean-detail-cafe">
-   
+      <div class="col s12 m6 l6 ">
                 <div class="card-image">
                     <img src="{% static 'uploads/'%}{{cafe.cafe_image}}" alt="My image" class="card-image"/>
                 </div>
@@ -41,18 +39,20 @@
                 </div> 
         </div>
 
-        {% endfor %} {% else %}
+        {% endfor %} 
+        </div>
+
+        {% else %}
+
         <br />
+
         <div class="card-content-c">
           <em>There are no cafe's serving this coffee bean</em>
           <br/>
           <a href="/coffee_beans" class="btn explore">back to coffee</a>
         </div>
         {% endif %}
-      </div>
-    </div>
   </div>
-</div>
   {% endblock %}
 
 

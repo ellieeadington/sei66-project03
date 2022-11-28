@@ -406,7 +406,7 @@ and (max-device-width : 480px) { */
 .btn {
   font-size: 10px;
 }
-.container-reviews {
+.container-resp {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -443,12 +443,12 @@ and (max-device-width : 480px) { */
   max-width: 100%;
 }
 
-.card-cafe {
-  display: block;
+.menu-image {
+  width: 60px;
 }
 
 .cafe-image {
-  display: block;
+  width: 60px;
 }
 .cafe {
   display: flex;
@@ -488,6 +488,7 @@ and (max-device-width : 480px) { */
 
 .container-cafe {
   display: flex;
+  clear:both;
   max-width: 100%;
 }
 

@@ -2,13 +2,11 @@
 {% load static %} 
 {%load crispy_forms_tags %} 
 {% block content %}
-<div class="container">
   <div class="container">
-      <div class="container-cafe">
-        <div class="card-cafe">
-          <div class="card-content cafe">
+      <div class="container-cafe container-resp">
+          <div class="card-content">
             <div class="title">{{ cafe.cafe_name }}</div>
-            <div class="img-container cafe-image">
+            <div>
               <img
                 src="{% static  'uploads/'%}{{cafe.cafe_image}}"
                 alt="My image"
@@ -26,9 +24,9 @@
           <div class="card-action">
             <a href="{{cafe.cafe_website }}">Website</a>
           </div>
-        </div>
 
-        <div class="img-container cafe-image">
+
+        <div>
           <img
             src="{% static  'uploads/'%}{{cafe.menu_image}}"
             alt="My image"
@@ -39,8 +37,8 @@
 
       <hr />
 
-      <div class="container-cafe">
-        <div class="cafe-beans">
+      <div class="container-cafe  container-resp">
+        <div>
           <div class="sub-title">Coffee Beans Served</div>
           {% if cafe.coffee_beans.count %} {% for coffee_bean in cafe.coffee_beans.all %}
           <div class="cafe-coffeebean-card">
@@ -61,7 +59,7 @@
           {% endif %}
         </div>
 
-        <div class="cafe-brew">
+        <div>
           <div class="sub-title">Brewing Methods</div>
           <div>
             <table class="table">
@@ -91,8 +89,10 @@
           </div>
         </div>
       </div>
+
       <hr />
-      <div class="activities">
+
+      <div class="container">
         <div class="sub-title">Events</div>
         <div>
           {% if cafe.event_set.count %}
@@ -133,7 +133,7 @@
       </div>
 
       <hr />
-      <div class="container-cafe container-reviews">
+      <div class="container-cafe container-resp">
         <div class="review">
           <div class="sub-title">Leave a Review</div>
           <form
@@ -178,7 +178,7 @@
         </div>
       </div>
 </div>
-</div>
+
   {% endblock %} {% block scripts %}
   <script>
     let starsEl = document.getElementById("id_stars");
