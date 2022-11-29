@@ -81,25 +81,25 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': '',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'PORT': '',
-    }
-}
-
 # DATABASES = {
-#      'default': {
-#          'ENGINE': 'django.db.backends.postgresql',
-#          'NAME': os.getenv('DATABASENAME'),
-#          'USER': os.getenv('DATABASEUSER'),
-#          'PASSWORD': os.getenv('DATABASEPASSWORD'),
-#          'PORT': os.getenv('PORT'),
-#      }
-#  }
+#     'default': {
+#         'ENGINE': '',
+#         'NAME': '',
+#         'USER': '',
+#         'PASSWORD': '',
+#         'PORT': '',
+#     }
+# }
+
+DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': os.getenv('DATABASENAME'),
+         'USER': os.getenv('DATABASEUSER'),
+         'PASSWORD': os.getenv('DATABASEPASSWORD'),
+         'PORT': os.getenv('PORT'),
+     }
+ }
 
 
 # Password validation
@@ -137,6 +137,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = '/cafes'
 LOGOUT_REDIRECT_URL = '/'

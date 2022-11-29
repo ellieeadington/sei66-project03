@@ -6,11 +6,18 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.views.generic import TemplateView
 from .models import BrewingMethod, Cafe, CoffeeBean, Event, Profile
 from .forms import BrewingMethodForm, CoffeeBeanForm, CafeForm, IsCafeOwnerForm, UserRegisterForm, UserUpdateForm, ReviewForm, EventForm
 from django import forms
 from .forms import BrewingMethodForm, CoffeeBeanForm, ReviewForm, EventForm
 from .filters import CoffeeBeanFilter, CafeFilter
+import pandas as pd
+from geopy.geocoders import Nominatim
+import folium
+import os
+from dotenv import load_dotenv
+load_dotenv()
 # from django.contrib.auth.views import PasswordChangeView, PasswordResetDoneView
 
 # cafe update
@@ -208,17 +215,23 @@ def register_cafe(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/register_cafe.html', context)
 
+# creating geolocator object
+geolocator = Nominatim(timeout=10, user_agent="PDS")
+
 # cafe add
 def cafe_create(request):
     error_message = ""
-
     if request.method == "POST":
         print("request method is post")
-        form = CafeForm(request.POST)
+        form = CafeForm(request.POST, request.FILES)
         if form.is_valid():
             print("valid")
             cafe = form.save(commit=False)
             cafe.user = request.user
+            postcode = cafe.address_postcode
+            geo = geolocator.geocode(postcode)
+            cafe.latitude = geo.latitude
+            cafe.longitude = geo.longitude
             cafe.save()
             return redirect('index')
         else:
@@ -259,3 +272,24 @@ class BrewingMethodDelete(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('profile')
+
+# cafe map
+class FoliumView(TemplateView):
+    template_name = "cafes/map.html"
+
+    def get_context_data(self, **kwargs):
+        figure = folium.Figure()
+        feature_group = folium.FeatureGroup("Locations")
+        m = folium.Map(
+            location=[51.5000, 0.1167],
+            zoom_start=7,
+            tiles='OpenStreetMap'
+        )
+        m.add_to(figure)
+
+        cafes = Cafe.objects.all()
+        for cafe in cafes:
+          feature_group.add_child(folium.Marker(location=[cafe.latitude,cafe.longitude],popup=f"<a href=http://127.0.0.1:8000/cafes/{cafe.id}>{cafe.cafe_name}</a>"))
+        m.add_child(feature_group)
+        figure.render()
+        return {"map": figure}    

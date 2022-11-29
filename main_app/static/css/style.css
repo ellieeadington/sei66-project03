@@ -118,7 +118,15 @@ h4 {
     padding: 10px;
   }
 
-
+  .coffeebean-container {
+    width: 70%;
+  }
+  .cafes-serving-container {
+    width: 30%;
+  }
+  .coffee-detail-cafe-card {
+    height: 200px;
+  }
 .cafe-form {
   width: 700px;
   margin: 0 auto;
@@ -218,6 +226,7 @@ h4 {
   border-top-left-radius:0.5em; 
   border-bottom-left-radius:0.5em;
   border: 1px solid lightgray;
+  border-right: none;
 }
 
 .border {
@@ -232,6 +241,7 @@ h4 {
   border-bottom-right-radius:0.5em;
   border-top-left-radius:0; 
   border-bottom-left-radius:0;
+  border-left: none;
   border: 1px solid lightgray;
 }
 
@@ -239,6 +249,20 @@ h4 {
   padding: 10px;
 }
 
+.folium-map {
+  width:600px !important;
+  height:600px !important;
+  margin: 0 auto !important;
+}
+
+.folium-map > a:hover {
+  color: black;
+}
+
+.back-to-home {
+  width: 140px;
+  margin: 20px auto;
+}
 
 .card-title {
   padding-top: 5px;
@@ -274,11 +298,14 @@ h4 {
   bottom: 0;
 }
 
-.navbar {
+.navbar,.nav-item,.navbar-brand,.footer {
   color: lightgray;
+  font-size: 16px !important;
 }
 
-
+.nav-item {
+  margin: 0 10px !important;
+}
 
 
 footer {
@@ -351,6 +378,10 @@ li {
 }
 .about {
   font-size: 18px;
+}
+
+.leaflet-popup-content a:hover {
+  color: #212529;
 }
 
 .btn {
@@ -502,3 +533,5 @@ svg {
 }
 
 }
+
+

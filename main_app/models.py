@@ -78,6 +78,8 @@ class Cafe(models.Model):
     cafe_website = models.CharField(max_length=1000)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     coffee_beans = models.ManyToManyField(CoffeeBean, null=True)
+    longitude = models.DecimalField(decimal_places=25, max_digits=250, null=True)
+    latitude = models.DecimalField(decimal_places=25, max_digits=250, null=True)
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'cafe_id': self.id})
