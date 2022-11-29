@@ -1,14 +1,15 @@
 {% extends 'base.html' %} 
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags %} 
+{% block content %}
 
-
-{% block content %} 
-
-<div class="title"> Would you like to register as a cafe owner today? </div>
-<br/>
-<form action="{% url 'register_cafe' %}" method="post" class="form form-control">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
-<form>    
+<div class="title">Would you like to register as a cafe owner today?</div>
+<br />
+<form
+  action="{% url 'register_cafe' %}"
+  method="post"
+  class="form form-control"
+>
+  {% csrf_token %} {{form.as_p}}
+  <button type="submit" class="btn btn-dark btn-lg">Continue</button>
+</form>
 {% endblock content %}

@@ -1,35 +1,27 @@
-from xml.dom import UserDataHandler
 from django import forms
 from django.forms import ModelForm, EmailField
 from .models import BrewingMethod, CoffeeBean, Profile, Event, Review, Cafe
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
-
 class BrewingMethodForm(ModelForm):
     class Meta:
         model = BrewingMethod
-        fields = ['method_name', 'method_bio']
-
-        
+        fields = ['method_name', 'method_bio']       
 class CoffeeBeanForm(ModelForm):
     class Meta:
         model = CoffeeBean
         fields = ['name', 'variety', 'description', 'roastery', 'date_harvested', 'image', 'location']        
-
-
 class IsCafeOwnerForm(forms.ModelForm):  
     is_cafe_owner = forms.BooleanField(required=False,label="Please check if you are signing up as a cafe owner today", widget=forms.CheckboxInput())
     class Meta:
         model = Profile
         fields = ['is_cafe_owner']
-  
-
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    password1 = forms.CharField(label="Password", widget=forms.TextInput(attrs={'class': 'form-control'}))
-    password2 = forms.CharField(label="Confirm Password", widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password1 = forms.CharField(label="Password", widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password2 = forms.CharField(label="Confirm Password", widget=forms.PasswordInput(attrs={'class': 'form-control'}))
   
     
     def clean_username(self):
@@ -62,11 +54,8 @@ class UserRegisterForm(UserCreationForm):
             self.cleaned_data['password1']
         )
         return user
-    
 
-
-class CafeForm(forms.ModelForm):
-    
+class CafeForm(forms.ModelForm):   
     cafe_name = forms.CharField(required=False)
     cafe_bio = forms.CharField(required=False)
     date_founded = forms.DateField(required=False)
@@ -84,7 +73,6 @@ class CafeForm(forms.ModelForm):
         model = Cafe
         fields = ['cafe_name', 'cafe_bio', 'date_founded', 'address_line_1', 'address_line_2', 'address_city', 'address_county', 'address_country', 'address_postcode', 'cafe_image', 'menu_image', 'cafe_website']
 
-
 class UserUpdateForm(UserCreationForm):
     email = EmailField()
     class Meta:
@@ -93,14 +81,12 @@ class UserUpdateForm(UserCreationForm):
 
     def clean_password(self):
         return super().clean_password2()
-
-
 class EventForm(ModelForm):
     class Meta:
         model = Event
         fields = ['event_name', 'event_description', 'event_type', 'event_date', 'event_time_from', 'event_time_to']
 
-class ReviewForm(ModelForm):
+class ReviewForm(ModelForm):    
     class Meta:
         model = Review
         fields = ['review_title', 'review_body', 'stars']

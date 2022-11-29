@@ -1,0 +1,17 @@
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %} 
+{% block content %}
+
+<div class="title">Add your Cafe Details</div>
+<br />
+<form
+  action="{% url 'cafe_create' %}"
+  class="form"
+  method="post"
+  enctype="multipart/form-data"
+>
+  {% csrf_token %} {{form |crispy}}
+  <br />
+  <button type="submit" class="btn">Complete Cafe Registration</button>
+  <form>{% endblock content %}</form>
+</form>

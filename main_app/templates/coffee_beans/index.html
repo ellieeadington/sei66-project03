@@ -1,43 +1,48 @@
-{% extends 'base.html'%}
-{% load crispy_forms_tags %}
+{% extends 'base.html'%} 
+{% load crispy_forms_tags %} 
 {% block content %}
 <div class="container">
-<div class="title">Find Cafes by Bean</div>
-<br/>
-<div class="filter">
+  <div class="title">Find Cafes by Bean</div>
+  <br />
+  <div class="filter">
     <form method="get" action="">
-        {{coffee_bean_filter.form |crispy}}
-        <br/>
-        <button class="btn" type="submit">Filter</button>
+      {{coffee_bean_filter.form |crispy}}
+      <br />
+      <button class="btn" type="submit">Filter</button>
     </form>
+  </div>
 </div>
-</div>
-    <div class="container-fluid">
-        <div class="grid">
-            {% for coffee_bean in coffee_beans %}
-                <div class="card">
-                    {% load static %} 
-                    <div class="card-img-top-container">
-                    <img class="card-img-top" src="{% static 'uploads/'%}{{coffee_bean.image}}" alt="coffee_bean_image">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ coffee_bean.name }}</h5>
-                      <p class="card-text">{{ coffee_bean.roastery }}<p>
-                      </div>
-                      <a href="{% url 'coffee_beans_detail' coffee_bean.id %}" class="btn explore">details</a>
-                  </div>
-        {% endfor %}
-        </div>
+<div class="container-fluid">
+  <div class="grid">
+    {% for coffee_bean in coffee_beans %}
+    <div class="card">
+      {% load static %}
+      <div class="card-img-top-container">
+        <img
+          class="card-img-top"
+          src="/media/{{coffee_bean.image}}"
+          alt="coffee_bean_image"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ coffee_bean.name }}</h5>
+        <p class="card-text">{{ coffee_bean.roastery }}</p>
+      </div>
+      <a
+        href="{% url 'coffee_beans_detail' coffee_bean.id %}"
+        class="btn explore"
+        >details</a
+      >
     </div>
-
-
+    {% endfor %}
+  </div>
+</div>
 
 <script>
+  let varietyEl = document.getElementById("id_variety");
+  M.FormSelect.init(varietyEl);
 
-    let varietyEl = document.getElementById('id_variety');
-    M.FormSelect.init(varietyEl);
-
-    let roasteryEl = document.getElementById('id_roastery');
-    M.FormSelect.init(roasteryEl);
+  let roasteryEl = document.getElementById("id_roastery");
+  M.FormSelect.init(roasteryEl);
 </script>
 {% endblock %}

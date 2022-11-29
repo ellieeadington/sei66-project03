@@ -1,18 +1,17 @@
-{% extends 'base.html' %}
-
+{% extends 'base.html' %} 
 {% block content %}
 
-<div class="title"> Remove Brewing Method from Menu</div>
+<div class="title">Remove Brewing Method from Menu</div>
 
-<div> Are you sure you want to delete 
-<span class="teal-text"> {{ object.name }} </span>?
-</div> 
-<br/>
+<div>
+  Are you sure you want to delete
+  <span class="teal-text"> {{ object.name }} </span>?
+</div>
+<br />
 <form action="" method="post">
-    {% csrf_token %} 
-    <input type="submit" value="Yes - Delete" class="btn">
-    <a href="{% url 'brewing_method_edit' object.id %}">No, Cancel</a>
+  {% csrf_token %}
+  <input type="submit" value="Yes - Delete" class="btn" />
+  <a href="{% url 'brewing_method_edit' object.id %}">No, Cancel</a>
 </form>
-
 
 {% endblock %}

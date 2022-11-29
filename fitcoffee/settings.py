@@ -9,10 +9,9 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
-from pathlib import Path
 import os
-from telnetlib import LOGOUT
+from pathlib import Path
+import django_heroku
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -54,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    #'login_required.middleware.LoginRequiredMiddleware',
+    # 'login_required.middleware.LoginRequiredMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -82,25 +81,25 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': '',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'PORT': '',
-    }
-}
-
 # DATABASES = {
-#      'default': {
-#          'ENGINE': 'django.db.backends.postgresql',
-#          'NAME': os.getenv('DATABASENAME'),
-#          'USER': os.getenv('DATABASEUSER'),
-#          'PASSWORD': os.getenv('DATABASEPASSWORD'),
-#          'PORT': os.getenv('PORT'),
-#      }
-#  }
+#     'default': {
+#         'ENGINE': '',
+#         'NAME': '',
+#         'USER': '',
+#         'PASSWORD': '',
+#         'PORT': '',
+#     }
+# }
+
+DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': os.getenv('DATABASENAME'),
+         'USER': os.getenv('DATABASEUSER'),
+         'PASSWORD': os.getenv('DATABASEPASSWORD'),
+         'PORT': os.getenv('PORT'),
+     }
+ }
 
 
 # Password validation
@@ -138,6 +137,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = '/cafes'
 LOGOUT_REDIRECT_URL = '/'
@@ -150,6 +151,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = (
     ('django.contrib.auth.backends.ModelBackend'),
 )
-import django_heroku
-django_heroku.settings(locals())
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# django_heroku.settings(locals())
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

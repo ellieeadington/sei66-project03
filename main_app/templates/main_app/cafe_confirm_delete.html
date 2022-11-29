@@ -1,18 +1,17 @@
-{% extends 'base.html' %}
-
+{% extends 'base.html' %} 
 {% block content %}
 
-<div class="title"> Delete Cafe </div>
+<div class="title">Delete Cafe</div>
 
-<div class="sub-title"> Are you sure you want to delete 
-<span class="teal-text"> {{ object.cafe_name}} </span>?
-</div> 
-<br/>
+<div class="sub-title">
+  Are you sure you want to delete
+  <span class="teal-text"> {{ object.cafe_name}} </span>?
+</div>
+<br />
 <form action="" method="post">
-    {% csrf_token %} 
-    <input type="submit" value="Yes - Delete" class="btn">
-    <a class="btn" href="{% url 'detail' cafe.id %}">No, Cancel</a>
+  {% csrf_token %}
+  <input type="submit" value="Yes - Delete" class="btn" />
+  <a class="btn" href="{% url 'detail' cafe.id %}">No, Cancel</a>
 </form>
-
 
 {% endblock %}
