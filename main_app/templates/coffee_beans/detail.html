@@ -1,12 +1,15 @@
 {% extends 'base.html' %} 
 {% load static %} 
 {% block content %}
-
 <div class="container">
   <div class="container-c container-resp">
-    <div class="card-content coffeebean-container">
+    <div class="card-content">
       <div class="title">{{ coffee_bean.roastery }} {{coffee_bean.name}}</div>
-      <img src="/media/{{coffee_bean.image}}" alt="My image" class="cb-image" />
+      <img
+        src="{% static 'uploads/'%}{{coffee_bean.image}}"
+        alt="My image"
+        class="cb-image"
+      />
       <div class="card-content">
         <p>{{ coffee_bean.description }}</p>
         <hr />
@@ -15,39 +18,41 @@
         <p>{{ coffee_bean.location }}</p>
       </div>
     </div>
-    <div class="cafes-serving-container container-fluid">
+    <div class="">
       <div class="sub-title">Cafes Serving this Coffee Bean</div>
-        <div>
-        {% if cafes.count %} 
-          <div class="grid">
-          {% for cafe in cafes.all %}
-            <div class="card">
-              <div class="card-img-top-container">
-                <img
-                  src="/media/{{cafe.cafe_image}}"
-                  alt="My image"
-                  class="card-img-top"
-                />
-              </div>
+      <br />
+      <div>
+      {% if cafes.count %} {% for cafe in cafes.all %}
+      <div class="col s12 m6 l6 ">
+                <div class="card-image">
+                    <img src="{% static 'uploads/'%}{{cafe.cafe_image}}" alt="My image" class="card-image"/>
+                </div>
 
-              <div class="card-body">
-                <h5 class="card-title">{{ cafe.cafe_name }}</h5>
-                <small class="card-text">{{ cafe.address_line_1 }}, {{ cafe.address_city }}, {{cafe.address_postcode }}</small>
-              </div>
-              <a href="/cafes/{{ cafe.id }}" class="btn  explore">details</a>
-            </div>
-          {% endfor %}
-          </div>
+                <div class="card-stacked">
+                    <h2 class="header">{{ cafe.cafe_name }}</h2>
+                    <div >
+                        <small>{{ cafe.address_line_1 }}, {{ cafe.address_city }}, {{ cafe.address_postcode }}</small>
+                    </div>
+                    <div class="card-action">
+                        <a href="/cafes/{{ cafe.id }}" class="btn"><small>Details</small></a>
+                    </div>
+                </div> 
+        </div>
+
+        {% endfor %} 
+        </div>
+
         {% else %}
 
-      <br />
-      <div class="card-content-c">
-        <em>There are no cafe's serving this coffee bean</em>
         <br />
-        <a href="/coffee_beans" class="btn explore">back to coffee</a>
-      </div>
-      {% endif %}
-    </div>
+
+        <div class="card-content-c">
+          <em>There are no cafe's serving this coffee bean</em>
+          <br/>
+          <a href="/coffee_beans" class="btn explore">back to coffee</a>
+        </div>
+        {% endif %}
   </div>
-</div>
-{% endblock %}
+  {% endblock %}
+
+

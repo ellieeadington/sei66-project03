@@ -25,7 +25,7 @@
 
 ## fitCoffee
 
-<img src="main_app\static\uploads\fitcoffee.PNG"/>
+<img src="media/main_app/static/uploads/fitcoffee.PNG"/>
 
 >This was my third project for this Software Engineering Immersive course; to build a full-stack Python application built with a team of 3. fitCoffee is an app for coffee enthusiasts, where you can discover cafes that serve your favourite coffee beans, and promote your cafe as a business owner.
 
@@ -49,18 +49,18 @@ Deployed version: https://fitcoffee.herokuapp.com/
 
 ### ERD
 
-<img src="main_app\static\uploads\erd-fitcoffee.PNG"/>
+<img src="media/main_app/static/uploads/erd-fitcoffee.PNG"/>
 
 ### Wireframes
 
 >Rob did an excellent job at creating the wireframes for the core pages in our site. Once these had been designed, I then went in and added the additional pages that represented the individual views.
-<img src="main_app\static\uploads\wireframe-fitcoffee.PNG"/>
+<img src="media/main_app/static/uploads/wireframe-fitcoffee.PNG"/>
 
 
 ### Trello
 
 Next, Rob created a Trello board, where we each populated it with tasks that we were assigning to ourselves. Once we had a solid idea of exactly which tasks we would each be working on, we then decided which tasks we would each work on first, ensuring that this made logical sense, and kept in communication over zoom and our slack channel to ensure that we were able to provide real-time updates to each other.
-<img src="main_app\static\uploads\trelloe.PNG"/>
+<img src="media/main_app/static/uploads/trelloe.PNG"/>
 
 ### Build/Code Process
 
@@ -215,7 +215,7 @@ def add_review(request, cafe_id):
 
 >Myself and Rob worked on the layout and look of the app towards the end of the project, using Materialize cards and grids. Upon completion, I was not happy with the layout, and decided to go back in and tidy things up. Example of the cafe detail page below:
 
-<img src="main_app\static\uploads\kaffinepage.PNG"/>
+<img src="media/main_app/static/uploads/kaffinepage.PNG"/>
 
 ### Search
 
@@ -346,7 +346,7 @@ def profile(request):
 
 >Example cafe owner dashboard below:
 
-<img src="main_app\static\uploads\capture.PNG"/>
+<img src="media/main_app/static/uploads/capture.PNG"/>
 
 ## Wins
 

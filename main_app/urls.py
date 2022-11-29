@@ -17,7 +17,6 @@ urlpatterns = [
     path('cafes/<int:cafe_id>/add_brewing_method/', views.add_brewing_method, name='add_brewing_method'),
     path('cafes/<int:cafe_id>/add_event/', views.add_event, name='add_event'),
     path('cafes/<int:pk>/event_update/', views.EventUpdate.as_view(), name='event_update'),
-    path('cafes/map', views.FoliumView.as_view(), name='map'),
     # coffee beans
     path('coffee_beans/', views.coffee_beans_index, name='coffee_beans_index'),
     path('coffee_beans/<int:coffee_beans_id>/', views.coffee_beans_detail, name='coffee_beans_detail'),

@@ -8,7 +8,7 @@
             <div class="title">{{ cafe.cafe_name }}</div>
             <div>
               <img
-                src="/media/{{cafe.cafe_image}}"
+                src="{% static  'uploads/'%}{{cafe.cafe_image}}"
                 alt="My image"
                 height="100"
               />
@@ -28,7 +28,7 @@
 
         <div>
           <img
-            src="/media/{{cafe.menu_image}}"
+            src="{% static  'uploads/'%}{{cafe.menu_image}}"
             alt="My image"
             width="320"
           />
@@ -44,7 +44,7 @@
           <div class="cafe-coffeebean-card">
             <div>
               <img
-                src="/media/{{coffee_bean.image}}"
+                src="{% static 'uploads/'%}{{coffee_bean.image}}"
                 alt="My image"
                 width="100"
                 class="cafe-coffee-bean-image"

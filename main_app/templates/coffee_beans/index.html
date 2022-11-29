@@ -20,14 +20,16 @@
       <div class="card-img-top-container">
         <img
           class="card-img-top"
-          src="/media/{{coffee_bean.image}}"
+          src="{% static 'uploads/'%}{{coffee_bean.image}}"
           alt="coffee_bean_image"
         />
       </div>
       <div class="card-body">
         <h5 class="card-title">{{ coffee_bean.name }}</h5>
         <p class="card-text">{{ coffee_bean.roastery }}</p>
+        <p></p>
       </div>
+
       <a
         href="{% url 'coffee_beans_detail' coffee_bean.id %}"
         class="btn explore"
