@@ -214,7 +214,7 @@ def cafe_create(request):
 
     if request.method == "POST":
         print("request method is post")
-        form = CafeForm(request.POST)
+        form = CafeForm(request.POST, request.FILES)
         if form.is_valid():
             print("valid")
             cafe = form.save(commit=False)
