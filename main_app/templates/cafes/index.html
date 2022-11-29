@@ -1,4 +1,5 @@
 {% extends 'base.html' %} 
+{% load static %}
 {% load crispy_forms_tags %} 
 {% block content %}
 <div class="container">
@@ -31,11 +32,18 @@
   <div class="grid">
     {% for cafe in cafes %}
     <div class="card">
+<<<<<<< HEAD
+      <div class="card-img-top-container">
+        <img
+          class="card-img-top"
+          src="/media/{{cafe.cafe_image}}"
+=======
       {% load static %}
       <div class="card-img-top-container">
         <img
           class="card-img-top"
           src="{% static 'uploads/'%}{{cafe.cafe_image}}"
+>>>>>>> d077c66ab554ef85f0a1e4b331ea33f96496d15e
           alt="Card image cap"
         />
       </div>
