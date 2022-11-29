@@ -532,4 +532,66 @@ svg {
 width: 20px;
 }
 
+.activities {
+  max-width: 100%;
+}
+
+.menu-image {
+  width: 60px;
+}
+
+.cafe-image {
+  width: 60px;
+}
+.cafe {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-title {
+ margin: 0 auto;
+ text-align: center;
+ font-size: 40px;
+}
+
+.home-banner {
+  margin: 0 auto;
+  text-align: center;
+ }
+
+ h5 {
+  font-size: 14px;
+ }
+
+.title {
+  font-size: 20px;
+}
+
+.sub-title {
+  font-size: 16px;
+}
+.cb-image {
+  width: 80%;
+}
+
+.cafe-beans {
+  display: block;
+  width: 100%;
+}
+
+.container-cafe {
+  display: flex;
+  clear:both;
+  max-width: 100%;
+}
+
+
+.footer {
+  bottom: 0;
+}
+
+svg {
+  width: 20px;
+}
+
 }

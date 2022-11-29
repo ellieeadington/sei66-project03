@@ -41,6 +41,7 @@
         {% else %}
 
       <br />
+<<<<<<< HEAD
       <div class="card-content-c">
         <em>There are no cafe's serving this coffee bean</em>
         <br />
@@ -51,3 +52,40 @@
   </div>
 </div>
 {% endblock %}
+=======
+      <div>
+      {% if cafes.count %} {% for cafe in cafes.all %}
+      <div class="col s12 m6 l6 ">
+                <div class="card-image">
+                    <img src="{% static 'uploads/'%}{{cafe.cafe_image}}" alt="My image" class="card-image"/>
+                </div>
+
+                <div class="card-stacked">
+                    <h2 class="header">{{ cafe.cafe_name }}</h2>
+                    <div >
+                        <small>{{ cafe.address_line_1 }}, {{ cafe.address_city }}, {{ cafe.address_postcode }}</small>
+                    </div>
+                    <div class="card-action">
+                        <a href="/cafes/{{ cafe.id }}" class="btn"><small>Details</small></a>
+                    </div>
+                </div> 
+        </div>
+
+        {% endfor %} 
+        </div>
+
+        {% else %}
+
+        <br />
+
+        <div class="card-content-c">
+          <em>There are no cafe's serving this coffee bean</em>
+          <br/>
+          <a href="/coffee_beans" class="btn explore">back to coffee</a>
+        </div>
+        {% endif %}
+  </div>
+  {% endblock %}
+
+
+>>>>>>> d077c66ab554ef85f0a1e4b331ea33f96496d15e
